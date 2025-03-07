@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #8a4fff;
+  --secondary: #ff6b6b;
+  --accent-yellow: #ffd166;
+  --accent-green: #06d6a0;
+  --accent-blue: #118ab2;
+  --background: #fffdf0;
+  --card-pink: #ffafd7;
+  --card-blue: #a7d8ff;
+  --card-green: #b4f0d3;
+  --card-yellow: #ffe9a7;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-gray-900;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bubblegum;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-md;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary/90 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105 shadow-md;
+  }
+
+  .card {
+    @apply rounded-2xl p-5 shadow-lg transition-transform hover:scale-105 cursor-pointer;
+  }
+
+  .nav-link {
+    @apply font-medium hover:text-primary transition-colors;
+  }
+
+  .nav-link.active {
+    @apply text-primary font-bold;
+  }
+
+  .feature-card {
+    @apply card flex flex-col items-center text-center gap-2 p-6;
+  }
+}
+
+/* Animations */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce 3s infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s infinite;
+}
+
+/* Confetti Animation */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-yellow);
+  animation: confetti-fall 4s ease-out forwards;
+}
+
