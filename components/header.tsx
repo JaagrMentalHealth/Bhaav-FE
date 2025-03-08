@@ -11,9 +11,8 @@ const Header = () => {
   const pathname = usePathname()
 
   const navLinks = [
-    { name: "Face Museum", href: "/face-museum" },
+    { name: "Museum of Faces", href: "/face-museum" },
     { name: "Levels", href: "/levels" },
-    { name: "Storyboard", href: "/storyboard" },
     { name: "Badges", href: "/badges" },
   ]
 

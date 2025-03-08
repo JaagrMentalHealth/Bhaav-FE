@@ -31,6 +31,7 @@ interface PowerUp {
   description: string
   icon: React.ReactNode
   color: string
+  borderColor: string
 }
 
 interface Level {
@@ -57,21 +58,24 @@ const powerUps: PowerUp[] = [
     name: "Color Bomb",
     description: "Clears all candies of one color",
     icon: <Zap size={20} className="text-white" />,
-    color: "bg-primary",
+    color: "bg-gradient-to-br from-purple-500 to-fuchsia-600",
+    borderColor: "border-fuchsia-400/50",
   },
   {
     id: 2,
     name: "Striped Candy",
     description: "Clears an entire row or column",
     icon: <Target size={20} className="text-white" />,
-    color: "bg-secondary",
+    color: "bg-gradient-to-br from-pink-500 to-rose-600",
+    borderColor: "border-rose-400/50",
   },
   {
     id: 3,
     name: "Extra Moves",
     description: "+5 extra moves",
     icon: <Award size={20} className="text-white" />,
-    color: "bg-accent",
+    color: "bg-gradient-to-br from-blue-500 to-indigo-600",
+    borderColor: "border-blue-400/50",
   },
 ]
 
@@ -85,7 +89,7 @@ const levels: Level[] = [
     completed: true,
     stars: 3,
     color: "from-pink-400 to-pink-600",
-    shadowColor: "shadow-pink-500/30",
+    shadowColor: "shadow-glow-pink",
     gridSize: { rows: 6, cols: 6 },
     moves: 15,
     objectives: [
@@ -111,7 +115,7 @@ const levels: Level[] = [
     completed: false,
     stars: 0,
     color: "from-purple-400 to-purple-600",
-    shadowColor: "shadow-purple-500/30",
+    shadowColor: "shadow-glow-purple",
     gridSize: { rows: 7, cols: 7 },
     moves: 20,
     objectives: [
@@ -145,7 +149,7 @@ const levels: Level[] = [
     completed: false,
     stars: 0,
     color: "from-blue-400 to-blue-600",
-    shadowColor: "shadow-blue-500/30",
+    shadowColor: "shadow-glow-blue",
     gridSize: { rows: 7, cols: 8 },
     moves: 25,
     objectives: [
@@ -179,7 +183,7 @@ const levels: Level[] = [
     completed: false,
     stars: 0,
     color: "from-green-400 to-green-600",
-    shadowColor: "shadow-green-500/30",
+    shadowColor: "shadow-glow-green",
     gridSize: { rows: 8, cols: 8 },
     moves: 30,
     objectives: [
@@ -213,7 +217,7 @@ const levels: Level[] = [
     completed: false,
     stars: 0,
     color: "from-yellow-400 to-yellow-600",
-    shadowColor: "shadow-yellow-500/30",
+    shadowColor: "shadow-glow-yellow",
     gridSize: { rows: 8, cols: 9 },
     moves: 35,
     objectives: [
@@ -255,7 +259,7 @@ const levels: Level[] = [
     completed: false,
     stars: 0,
     color: "from-red-400 to-red-600",
-    shadowColor: "shadow-red-500/30",
+    shadowColor: "shadow-glow-red",
     gridSize: { rows: 9, cols: 9 },
     moves: 40,
     objectives: [
@@ -393,7 +397,7 @@ export default function Levels() {
         particleCount: 150,
         spread: 100,
         origin: { y: 0.6 },
-        colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"],
+        colors: ["#8b5cf6", "#ec4899", "#3b82f6", "#eab308", "#ef4444", "#06b6d4"],
       })
 
       // Update level status
@@ -455,13 +459,22 @@ export default function Levels() {
   }
 
   const renderGamePiece = (type: string, size = 40) => {
-    const colors = ["bg-red-400", "bg-primary/80", "bg-accent/80", "bg-yellow-400", "bg-secondary/80", "bg-pink-400"]
+    const colors = [
+      "bg-gradient-to-br from-red-400 to-red-600 border-2 border-red-300/50", 
+      "bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-purple-300/50", 
+      "bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-blue-300/50", 
+      "bg-gradient-to-br from-yellow-400 to-yellow-600 border-2 border-yellow-300/50", 
+      "bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-pink-300/50", 
+      "bg-gradient-to-br from-green-400 to-green-600 border-2 border-green-300/50"
+    ]
 
     const randomColor = colors[Math.floor(Math.random() * colors.length)]
+    const shadowColors = ["shadow-glow-small", "shadow-glow-red", "shadow-glow-purple", "shadow-glow-blue", "shadow-glow-yellow", "shadow-glow-pink", "shadow-glow-green"]
+    const randomShadow = shadowColors[Math.floor(Math.random() * shadowColors.length)]
 
     return (
       <div
-        className={`${randomColor} rounded-full flex items-center justify-center`}
+        className={`${randomColor} rounded-full flex items-center justify-center ${randomShadow}`}
         style={{ width: `${size}px`, height: `${size}px` }}
       >
         {type === "special" && <div className="absolute inset-0 bg-white/30 rounded-full animate-pulse"></div>}
@@ -479,12 +492,18 @@ export default function Levels() {
     const { rows, cols } = level.gridSize
 
     return (
-      <div className="bg-gradient-to-b from-primary/5 to-secondary/5 p-4 rounded-xl">
-        {/* Game info */}
-        <div className="flex justify-between items-center mb-4">
-          <div className="flex items-center gap-2 bg-card px-3 py-1 rounded-full shadow-sm">
-            <div className="text-primary font-bold">Moves:</div>
-            <div className="text-foreground font-bold">{currentMoves}</div>
+      <div className="bg-gradient-to-b from-indigo-800/30 to-fuchsia-800/30 p-4 rounded-xl border-2 border-indigo-700/30">
+        {/* Game header */}
+        <div className="flex justify-between items-center mb-4 px-2">
+          <div className="flex items-center gap-4">
+            <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
+              <Star className="h-4 w-4 text-yellow-400" fill="currentColor" />
+              </div>
+            
+            <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
+              <Clock className="h-4 w-4 text-indigo-300" />
+              <span className="text-sm font-bold text-white">Moves: {currentMoves}</span>
+            </div>
           </div>
 
           <div className="flex gap-2">
@@ -493,7 +512,7 @@ export default function Levels() {
                 key={powerUp.id}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className={`${powerUp.color} w-10 h-10 rounded-full flex items-center justify-center cursor-pointer shadow-md`}
+                className={`${powerUp.color} w-10 h-10 rounded-lg flex items-center justify-center cursor-pointer shadow-glow-small border-2 ${powerUp.borderColor}`}
               >
                 {powerUp.icon}
               </motion.div>
@@ -506,18 +525,18 @@ export default function Levels() {
           {objectives.map((objective, idx) => {
             const progress = Math.min(objective.current / objective.target, 1)
             return (
-              <div key={idx} className="bg-card rounded-lg p-2 flex-shrink-0 shadow-sm">
+              <div key={idx} className="bg-indigo-900/80 rounded-lg p-2 flex-shrink-0 shadow-glow-small border-2 border-indigo-700/30">
                 <div className="flex items-center gap-2 mb-1">
                   <div className={`${objective.color} w-6 h-6 rounded-full flex items-center justify-center`}>
                     {objective.icon}
                   </div>
-                  <div className="text-xs font-medium">{objective.label}</div>
+                  <div className="text-xs font-medium text-white">{objective.label}</div>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="text-xs font-bold">
-                    {objective.current}{' / '}{objective.target}
+                  <div className="text-xs font-bold text-indigo-200">
+                    {objective.current}/{objective.target}
                   </div>
-                  <div className="w-16 h-2 bg-muted rounded-full overflow-hidden">
+                  <div className="w-16 h-2 bg-indigo-950 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full bg-gradient-to-r from-green-400 to-green-600"
                       initial={{ width: 0 }}
@@ -533,7 +552,7 @@ export default function Levels() {
 
         {/* Game grid */}
         <div
-          className="grid gap-1 bg-card/80 p-2 rounded-lg border-2 border-primary/20"
+          className="grid gap-1 bg-indigo-900/80 p-2 rounded-lg border-2 border-indigo-700/30 shadow-inner"
           style={{
             gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
             gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
@@ -544,7 +563,7 @@ export default function Levels() {
             return (
               <motion.div
                 key={idx}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1, zIndex: 10 }}
                 whileTap={{ scale: 0.9 }}
                 className="flex items-center justify-center cursor-pointer"
                 onClick={handleMakeMove}
@@ -560,7 +579,7 @@ export default function Levels() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 py-2 bg-gradient-to-r from-secondary to-primary text-white font-bold rounded-full shadow-lg"
+            className="px-6 py-2 border-2 border-indigo-600/50 font-bold rounded-xl bg-indigo-900/50 text-white"
             onClick={() => setShowGameBoard(false)}
           >
             Exit Level
@@ -594,18 +613,18 @@ export default function Levels() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-indigo-950 text-white overflow-hidden">
       {/* Header with decorative elements */}
-      <div className="relative overflow-hidden bg-gradient-to-b from-primary/10 to-background pt-16 pb-24">
+      <div className="relative overflow-hidden bg-gradient-to-b from-indigo-800 to-indigo-950 pt-16 pb-24">
         {/* Decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-72 h-72 bg-secondary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-primary/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 left-1/4 w-72 h-72 bg-fuchsia-600/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"></div>
         </div>
 
         <div className="container relative z-10 mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
-            <Link href="/" className="flex items-center text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="/" className="flex items-center text-indigo-200 hover:text-white transition-colors">
               <ArrowLeft className="mr-2 h-4 w-4" />
               <span>Back to Home</span>
             </Link>
@@ -619,33 +638,33 @@ export default function Levels() {
           >
             <div className="inline-block mb-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-primary/20 blur-md rounded-full"></div>
-                <div className="relative bg-primary/10 px-6 py-2 rounded-full border border-primary/20">
-                  <span className="text-primary font-medium">Fun Challenges</span>
+                <div className="absolute inset-0 bg-fuchsia-500/20 blur-md rounded-full"></div>
+                <div className="relative bg-indigo-800/50 px-6 py-2 rounded-xl border-2 border-fuchsia-400/50 shadow-glow-purple">
+                  <span className="text-fuchsia-300 font-bold">Fun Challenges</span>
                 </div>
               </div>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-              <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">
+              <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
                 Emotion Adventure
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl max-w-2xl mx-auto text-muted-foreground leading-relaxed">
+            <p className="text-lg md:text-xl max-w-2xl mx-auto text-indigo-200 leading-relaxed">
               Complete exciting challenges and earn sweet rewards as you master emotional intelligence!
             </p>
 
             {/* Overall progress bar */}
-            <div className="max-w-md mx-auto mt-8 bg-muted rounded-full h-4 overflow-hidden">
+            <div className="max-w-md mx-auto mt-8 bg-indigo-900/50 rounded-full h-4 overflow-hidden border border-indigo-700/50">
               <motion.div
-                className="h-full bg-gradient-to-r from-primary to-secondary"
+                className="h-full bg-gradient-to-r from-fuchsia-500 to-purple-500"
                 initial={{ width: 0 }}
                 animate={{ width: `${gameProgress}%` }}
                 transition={{ duration: 1 }}
               />
             </div>
-            <p className="text-sm text-muted-foreground font-medium mt-2">Overall Progress: {gameProgress}%</p>
+            <p className="text-sm text-indigo-300 font-medium mt-2">Overall Progress: {gameProgress}%</p>
           </motion.div>
         </div>
       </div>
@@ -658,35 +677,35 @@ export default function Levels() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="max-w-4xl mx-auto mb-12 relative"
         >
-          <div className="relative w-full h-[450px] bg-card rounded-3xl border border-border overflow-hidden shadow-xl">
+          <div className="relative w-full h-[450px] bg-indigo-900/60 rounded-3xl overflow-hidden border-2 border-indigo-700/50 shadow-glow-indigo">
             {/* Decorative elements */}
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-secondary/5"></div>
-            <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-200 rounded-full opacity-20"></div>
-            <div className="absolute bottom-20 right-20 w-16 h-16 bg-pink-200 rounded-full opacity-20"></div>
-            <div className="absolute top-1/2 left-1/3 w-12 h-12 bg-blue-200 rounded-full opacity-20"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-indigo-800/20 to-fuchsia-800/20"></div>
+            <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400/20 rounded-full blur-md"></div>
+            <div className="absolute bottom-20 right-20 w-16 h-16 bg-pink-400/20 rounded-full blur-md"></div>
+            <div className="absolute top-1/2 left-1/3 w-12 h-12 bg-blue-400/20 rounded-full blur-md"></div>
 
             {/* Clouds */}
             <div className="absolute top-5 left-1/4 flex space-x-1">
-              <div className="w-10 h-6 bg-white rounded-full opacity-50"></div>
-              <div className="w-14 h-8 bg-white rounded-full opacity-50"></div>
-              <div className="w-10 h-6 bg-white rounded-full opacity-50"></div>
+              <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-14 h-8 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
             </div>
 
             <div className="absolute bottom-10 right-1/4 flex space-x-1">
-              <div className="w-8 h-5 bg-white rounded-full opacity-50"></div>
-              <div className="w-12 h-7 bg-white rounded-full opacity-50"></div>
-              <div className="w-8 h-5 bg-white rounded-full opacity-50"></div>
+              <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-12 h-7 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
             </div>
 
             {/* Trees and decorations */}
             <div className="absolute top-1/4 left-10">
-              <div className="w-12 h-12 bg-accent/50 rounded-full"></div>
-              <div className="w-3 h-6 bg-amber-700/50 mx-auto -mt-1"></div>
+              <div className="w-12 h-12 bg-fuchsia-500/30 rounded-full"></div>
+              <div className="w-3 h-6 bg-fuchsia-700/30 mx-auto -mt-1"></div>
             </div>
 
             <div className="absolute bottom-1/4 right-10">
-              <div className="w-10 h-10 bg-accent/50 rounded-full"></div>
-              <div className="w-2 h-5 bg-amber-700/50 mx-auto -mt-1"></div>
+              <div className="w-10 h-10 bg-fuchsia-500/30 rounded-full"></div>
+              <div className="w-2 h-5 bg-fuchsia-700/30 mx-auto -mt-1"></div>
             </div>
 
             {/* Path */}
@@ -741,7 +760,7 @@ export default function Levels() {
                     {/* Outer glow for active level */}
                     {level.unlocked && !level.completed && (
                       <motion.div
-                        className="absolute inset-0 rounded-full bg-primary/30"
+                        className="absolute inset-0 rounded-full bg-fuchsia-500/30 shadow-glow-purple"
                         animate={{ scale: [1, 1.2, 1] }}
                         transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
                         style={{ zIndex: -1 }}
@@ -752,10 +771,10 @@ export default function Levels() {
                     <div
                       className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
                         isLocked
-                          ? "bg-muted"
+                          ? "bg-indigo-900/80 border-indigo-700/50"
                           : isCompleted
-                            ? "bg-gradient-to-br from-accent to-accent/80"
-                            : "bg-gradient-to-br from-primary to-secondary"
+                            ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
+                            : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
                       }`}
                     >
                       {isLocked ? (
@@ -789,39 +808,39 @@ export default function Levels() {
         {/* Level guide */}
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-card rounded-2xl p-6 border border-border shadow-sm">
+            <div className="bg-indigo-900/60 rounded-2xl p-6 border-2 border-indigo-700/50 shadow-glow-small">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   1
                 </div>
-                <h3 className="font-semibold text-lg">Select a Level</h3>
+                <h3 className="font-semibold text-lg text-white">Select a Level</h3>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-indigo-200">
                 Choose an unlocked level from the adventure map to begin your emotional journey.
               </p>
             </div>
 
-            <div className="bg-card rounded-2xl p-6 border border-border shadow-sm">
+            <div className="bg-indigo-900/60 rounded-2xl p-6 border-2 border-indigo-700/50 shadow-glow-small">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   2
                 </div>
-                <h3 className="font-semibold text-lg">Complete Objectives</h3>
+                <h3 className="font-semibold text-lg text-white">Complete Objectives</h3>
               </div>
-              <p className="text-muted-foreground">
+              <p className="text-indigo-200">
                 Match emotions and complete the level objectives before you run out of moves.
               </p>
             </div>
 
-            <div className="bg-card rounded-2xl p-6 border border-border shadow-sm">
+            <div className="bg-indigo-900/60 rounded-2xl p-6 border-2 border-indigo-700/50 shadow-glow-small">
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   3
                 </div>
-                <h3 className="font-semibold text-lg">Earn Rewards</h3>
+                <h3 className="font-semibold text-lg text-white">Earn Rewards</h3>
               </div>
-              <p className="text-muted-foreground">
-                Earn stars and unlock new levels as you progress through your emotional learning adventure.
+              <p className="text-indigo-200">
+                Earn stars, XP, and unlock new levels as you progress through your emotional learning adventure.
               </p>
             </div>
           </div>
@@ -843,7 +862,7 @@ export default function Levels() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-card rounded-3xl p-6 max-w-md w-full shadow-2xl border border-border"
+              className="bg-indigo-900/90 rounded-3xl p-6 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
@@ -854,18 +873,17 @@ export default function Levels() {
                   <>
                     <div className="flex items-center justify-between mb-4">
                       <button
-                        onClick={() => setShowLevelModal(false)}
-                        className="p-2 rounded-full hover:bg-muted transition-colors"
+                        onClick={() => setSelectedLevel(null)}
+                        className="p-2 rounded-full hover:bg-indigo-800/50 transition-colors"
                       >
-                        <ChevronLeft size={24} className="text-muted-foreground" />
+                        <ChevronLeft size={24} className="text-indigo-300" />
                       </button>
-                      <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+                      <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-purple-400">
                         Level {level.id}
                       </h2>
                       <button
                         onClick={() => setShowLevelModal(false)}
-                        className="p-2 rounded-full hover:bg-muted transition-colors"
-                      >
+                        className="p-2 rounded-full hover:bg-indigo-800/50 transition-colors"                      >
                         <X size={20} className="text-muted-foreground" />
                       </button>
                     </div>
@@ -894,44 +912,44 @@ export default function Levels() {
                     </div>
 
                     {/* Level details */}
-                    <div className="bg-muted rounded-xl p-4 mb-6">
-                      <h3 className="font-bold text-foreground mb-2">Level Details</h3>
+                    <div className="bg-indigo-800/50 rounded-xl p-4 mb-6 border-2 border-indigo-700/30">
+                      <h3 className="font-bold text-white mb-2">Level Details</h3>
 
                       <div className="grid grid-cols-2 gap-3 text-sm">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                            <div className="w-6 h-6 bg-primary/40 rounded-lg"></div>
+                          <div className="w-8 h-8 bg-fuchsia-500/20 rounded-lg flex items-center justify-center border border-fuchsia-400/30">
+                            <div className="w-6 h-6 bg-fuchsia-500/40 rounded-lg"></div>
                           </div>
                           <div>
-                            <div className="text-muted-foreground">Grid Size</div>
-                            <div className="font-medium">
+                            <div className="text-indigo-300">Grid Size</div>
+                            <div className="font-medium text-white">
                               {level.gridSize.rows}×{level.gridSize.cols}
                             </div>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center">
-                            <Clock size={20} className="text-secondary/70" />
+                          <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center border border-purple-400/30">
+                            <Clock size={20} className="text-purple-400" />
                           </div>
                           <div>
-                            <div className="text-muted-foreground">Moves</div>
-                            <div className="font-medium">{level.moves}</div>
+                            <div className="text-indigo-300">Moves</div>
+                            <div className="font-medium text-white">{level.moves}</div>
                           </div>
                         </div>
                       </div>
 
                       {/* Objectives */}
-                      <h3 className="font-bold text-foreground mt-4 mb-2">Objectives</h3>
+                      <h3 className="font-bold text-white mt-4 mb-2">Objectives</h3>
                       <div className="space-y-2">
                         {level.objectives.map((obj, idx) => (
-                          <div key={idx} className="flex items-center gap-2 bg-card p-2 rounded-lg">
-                            <div className={`${obj.color} w-8 h-8 rounded-full flex items-center justify-center`}>
+                          <div key={idx} className="flex items-center gap-2 bg-indigo-900/60 p-2 rounded-lg border border-indigo-700/50">
+                            <div className={`${obj.color} w-8 h-8 rounded-full flex items-center justify-center shadow-glow-small`}>
                               {obj.icon}
                             </div>
                             <div>
-                              <div className="text-xs text-muted-foreground">{obj.label}</div>
-                              <div className="font-medium">{obj.target}</div>
+                              <div className="text-xs text-indigo-300">{obj.label}</div>
+                              <div className="font-medium text-white">{obj.target}</div>
                             </div>
                           </div>
                         ))}
@@ -940,16 +958,16 @@ export default function Levels() {
                       {/* Power-ups */}
                       {level.powerUps.length > 0 && (
                         <>
-                          <h3 className="font-bold text-foreground mt-4 mb-2">Available Power-ups</h3>
+                          <h3 className="font-bold text-white mt-4 mb-2">Available Power-ups</h3>
                           <div className="flex gap-2 flex-wrap">
                             {level.powerUps.map((powerUp) => (
-                              <div key={powerUp.id} className="bg-card p-2 rounded-lg flex items-center gap-2">
+                              <div key={powerUp.id} className="bg-indigo-900/60 p-2 rounded-lg flex items-center gap-2 border border-indigo-700/50">
                                 <div
                                   className={`${powerUp.color} w-8 h-8 rounded-full flex items-center justify-center`}
                                 >
                                   {powerUp.icon}
                                 </div>
-                                <div className="text-xs">{powerUp.name}</div>
+                                <div className="text-xs text-white">{powerUp.name}</div>
                               </div>
                             ))}
                           </div>
@@ -961,7 +979,7 @@ export default function Levels() {
                       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                         <button
                           onClick={handleStartLevel}
-                          className="px-8 py-3 text-lg font-bold text-white rounded-full bg-gradient-to-r from-primary to-secondary shadow-lg shadow-primary/20"
+                          className="relative bg-gradient-to-br from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-fuchsia-400/30"
                         >
                           Start Level
                         </button>
@@ -1017,7 +1035,7 @@ export default function Levels() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-card rounded-3xl p-4 max-w-md w-full shadow-2xl border border-border"
+              className="bg-indigo-900/90 rounded-3xl p-4 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
               onClick={(e) => e.stopPropagation()}
             >
               {renderGameBoard()}
@@ -1045,7 +1063,7 @@ export default function Levels() {
               }}
               exit={{ scale: 0.5, opacity: 0 }}
               transition={{ duration: 1 }}
-              className="bg-gradient-to-br from-primary to-secondary p-8 rounded-3xl shadow-2xl flex flex-col items-center"
+              className="bg-gradient-to-br from-fuchsia-600 to-purple-600 p-8 rounded-3xl shadow-2xl flex flex-col items-center border-2 border-fuchsia-400/30 shadow-glow-purple"
             >
               <Trophy size={80} className="text-primary-foreground mb-4" />
               <h2 className="text-4xl font-extrabold text-white mb-2">Level Complete!</h2>

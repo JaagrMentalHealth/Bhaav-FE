@@ -1,0 +1,43 @@
+/* Custom styles for the carousel */
+.carousel .control-arrow {
+    opacity: 0;
+    transition: all 0.25s ease-in;
+  }
+  
+  .carousel:hover .control-arrow {
+    opacity: 1;
+  }
+  
+  .carousel .carousel-status {
+    display: none;
+  }
+  
+  .carousel .slide {
+    background: transparent;
+  }
+  
+  /* Add a subtle animation to the carousel transition */
+  .carousel .slide {
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  /* Custom scrollbar for the page */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgba(var(--primary), 0.3);
+    border-radius: 10px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--primary), 0.5);
+  }
+  
+  

@@ -325,7 +325,7 @@ export default function EmotionGame({
     if (!currentEmotion) return null;
 
     return (
-      <div className="flex flex-col items-center overflow-y-scroll">
+      <div className="flex flex-col items-center">
         <div className="relative w-64 h-64 mb-6">
           <Image
             src={
@@ -346,7 +346,7 @@ export default function EmotionGame({
               variant={
                 gameState.selectedAnswer === option ? "default" : "outline"
               }
-              className={`p-4 h-auto text-lg ${
+              className={`p-4 h-auto text-lg bg-indigo-600 text-white hover:bg-indigo-700  ${
                 quizResult === "correct" && option === currentEmotion.name
                   ? "bg-green-500 hover:bg-green-600"
                   : quizResult === "incorrect" &&
@@ -422,7 +422,7 @@ export default function EmotionGame({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="bg-card p-6 rounded-lg shadow-lg w-full max-w-2xl"
+              className="bg-indigo-400 p-6 rounded-lg shadow-lg w-full max-w-2xl"
             >
               <h3 className="text-xl font-bold mb-4">
                 {currentQuizQuestion.question}
@@ -436,7 +436,7 @@ export default function EmotionGame({
                         ? "default"
                         : "outline"
                     }
-                    className={`p-4 h-auto text-left justify-start ${
+                    className={`p-4 h-auto text-left bg-indigo-600 text-white hover:bg-indigo-700 justify-start ${
                       quizResult === "correct" &&
                       option === currentQuizQuestion.correctAnswer
                         ? "bg-green-500 hover:bg-green-600"
@@ -510,9 +510,13 @@ export default function EmotionGame({
   };
 
   return (
-    <div className="bg-card rounded-xl p-6 shadow-md">
+    <div className="bg-indigo-800 w-full rounded-xl p-6 shadow-md">
       <div className="flex justify-between items-center mb-6">
-        <Button variant="ghost" onClick={onExit}>
+        <Button
+          variant="ghost"
+          className="bg-indigo-600 text-white hover:bg-indigo-700"
+          onClick={onExit}
+        >
           Exit Game
         </Button>
         <div className="text-lg font-semibold">

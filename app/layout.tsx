@@ -2,8 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Bubblegum_Sans } from "next/font/google"
 import "./globals.css"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const bubblegum = Bubblegum_Sans({
@@ -31,9 +29,9 @@ export default function RootLayout({
         <meta name="theme-color" content="#8A4FFF" />
       </head>
       <body className={`${inter.variable} ${bubblegum.variable} font-sans min-h-screen flex flex-col`}>
-        <Header />
+        
         <main className="flex-grow">{children}</main>
-        <Footer />
+        
       </body>
     </html>
   )
