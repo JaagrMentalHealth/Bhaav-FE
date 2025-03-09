@@ -1007,30 +1007,6 @@ export default function Levels() {
                 </div>
               </div>
             </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-              <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
-                Emotion Adventure
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl max-w-2xl mx-auto text-indigo-200 leading-relaxed">
-              Complete exciting challenges and earn sweet rewards as you master
-              emotional intelligence!
-            </p>
-
-            {/* Overall progress bar */}
-            <div className="max-w-md mx-auto mt-8 bg-indigo-900/50 rounded-full h-4 overflow-hidden border border-indigo-700/50">
-              <motion.div
-                className="h-full bg-gradient-to-r from-fuchsia-500 to-purple-500"
-                initial={{ width: 0 }}
-                animate={{ width: `${gameProgress}%` }}
-                transition={{ duration: 1 }}
-              />
-            </div>
-            <p className="text-sm text-indigo-300 font-medium mt-2">
-              Overall Progress: {gameProgress}%
-            </p>
           </motion.div>
         </div>
       </div>
