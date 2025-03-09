@@ -169,7 +169,7 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Link href="/levels">
+              <Link href="/face-museum">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -183,27 +183,18 @@ export default function Home() {
                     className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-indigo-400/30"
                   >
                     <Gamepad2 className="mr-2 h-6 w-6" />
-                    Start Playing
-                    {hoverButton === 'play' && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="absolute -top-1 -right-1 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-0.5 rounded-full"
-                      >
-                        +10 XP
-                      </motion.div>
-                    )}
+                    Start your Journey
                   </Button>
                 </motion.div>
               </Link>
               
-              <motion.div
+              {/* <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="relative"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-900 to-violet-900 rounded-xl blur opacity-50 group-hover:opacity-100 transition duration-200"></div>
-                <Link href = "face-museum">
+                <Link href = "Hall of faces">
                 <Button 
                   size="lg" 
                   variant="outline" 
@@ -215,10 +206,10 @@ export default function Home() {
                   >
                     <Sparkles className="mr-2 h-6 w-6 text-fuchsia-300" />
                   </motion.span>
-                  Museum of faces
+                  Hall of faces
                 </Button>
                 </Link>
-              </motion.div>
+              </motion.div> */}
             </div>
           </motion.div>
 
@@ -375,7 +366,7 @@ export default function Home() {
           >
             {[
               {
-                title: "Face Museum",
+                title: "Hall of faces",
                 description: "Explore different emotions and learn what they mean through interactive exhibits!",
                 icon: <Smile className="text-yellow-400" size={28} />,
                 href: "/face-museum",

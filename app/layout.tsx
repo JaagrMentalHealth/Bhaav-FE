@@ -11,7 +11,11 @@ const bubblegum = Bubblegum_Sans({
 })
 
 export const metadata: Metadata = {
+<<<<<<< HEAD
+  title: "Bhaav - Learn Emotions Through Play!",
+=======
   title: "Bhaav",
+>>>>>>> 4c69eb3e05d073a35516c28c48e771d23080d505
   description: "A fun adventure to understand feelings and make new friends!",
   manifest: "/manifest.json",
     generator: 'v0.dev'
