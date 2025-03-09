@@ -21,12 +21,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoverButton, setHoverButton] = useState<string | null>(null);
   const [showDialog, setShowDialog] = useState(false);
-
+  const router = useRouter();
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -196,8 +197,10 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
                 <Button
                   size="lg"
-                  className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-indigo-400/30"
-                  onClick={() => setShowDialog(true)}
+                  className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white  border-2 border-indigo-400/30"
+                  onClick={() => {
+                    router.push("/face-museum");
+                  }}
                 >
                   <Gamepad2 className="mr-2 h-6 w-6" />
                   Start your Journey
