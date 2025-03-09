@@ -1,55 +1,69 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { databases } from "@/lib/appwriteConfig"
-import type { Emotion } from "@/types/game-types"
-import EmotionGame from "@/components/emotion-game"
-import { motion, AnimatePresence } from "framer-motion"
-import { Star, Lock, Trophy, Gift, Heart, Clock, Target, Zap, Award, ChevronLeft, X, ArrowLeft, Sparkles } from 'lucide-react'
-import Image from "next/image"
-import Link from "next/link"
-import confetti from "canvas-confetti"
+import { useState, useEffect } from "react";
+import { databases } from "@/lib/appwriteConfig";
+import type { Emotion } from "@/types/game-types";
+import EmotionGame from "@/components/emotion-game";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Star,
+  Lock,
+  Trophy,
+  Gift,
+  Heart,
+  Clock,
+  Target,
+  Zap,
+  Award,
+  ChevronLeft,
+  X,
+  ArrowLeft,
+  Sparkles,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import confetti from "canvas-confetti";
 
 // Import your existing types and data from the attachment
 // Level objectives types
-type ObjectiveType = "score" | "collect" | "clear" | "time"
+type ObjectiveType = "score" | "collect" | "clear" | "time";
 
 interface Objective {
-  type: ObjectiveType
-  target: number
-  current: number
-  icon: React.ReactNode
-  label: string
-  color: string
+  type: ObjectiveType;
+  target: number;
+  current: number;
+  icon: React.ReactNode;
+  label: string;
+  color: string;
 }
 
 interface PowerUp {
-  id: number
-  name: string
-  description: string
-  icon: React.ReactNode
-  color: string
-  borderColor: string
+  id: number;
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+  borderColor: string;
 }
 
 interface Level {
-  id: number
-  name: string
-  description: string
-  image: string
-  unlocked: boolean
-  completed: boolean
-  stars: number
-  color: string
-  shadowColor: string
-  gridSize: { rows: number; cols: number }
-  moves: number
-  objectives: Objective[]
-  powerUps: PowerUp[]
-  difficulty: 1 | 2 | 3 | 4 | 5
-  position: { x: number; y: number }
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  unlocked: boolean;
+  completed: boolean;
+  stars: number;
+  color: string;
+  shadowColor: string;
+  gridSize: { rows: number; cols: number };
+  moves: number;
+  objectives: Objective[];
+  powerUps: PowerUp[];
+  difficulty: 1 | 2 | 3 | 4 | 5;
+  position: { x: number; y: number };
 }
 
 const powerUps: PowerUp[] = [
@@ -77,7 +91,7 @@ const powerUps: PowerUp[] = [
     color: "bg-gradient-to-br from-blue-500 to-indigo-600",
     borderColor: "border-blue-400/50",
   },
-]
+];
 
 const levels: Level[] = [
   {
@@ -300,7 +314,7 @@ const levels: Level[] = [
     difficulty: 5,
     position: { x: 95, y: 35 },
   },
-]
+];
 
 // Path points for the winding path
 const pathPoints = [
@@ -310,108 +324,120 @@ const pathPoints = [
   { x: 65, y: 35 },
   { x: 80, y: 20 },
   { x: 95, y: 35 },
-]
+];
 
 export default function Levels() {
-  const [selectedLevel, setSelectedLevel] = useState<number | null>(null)
-  const [userLevels, setUserLevels] = useState(levels)
-  const [showSplash, setShowSplash] = useState(false)
-  const [gameProgress, setGameProgress] = useState(0)
-  const [showGameBoard, setShowGameBoard] = useState(false)
-  const [currentMoves, setCurrentMoves] = useState(0)
-  const [objectives, setObjectives] = useState<Objective[]>([])
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [emotions, setEmotions] = useState<Emotion[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [showLevelModal, setShowLevelModal] = useState(false)
-  const [showEmotionGame, setShowEmotionGame] = useState(false)
+  const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
+  const [userLevels, setUserLevels] = useState(levels);
+  const [showSplash, setShowSplash] = useState(false);
+  const [gameProgress, setGameProgress] = useState(0);
+  const [showGameBoard, setShowGameBoard] = useState(false);
+  const [currentMoves, setCurrentMoves] = useState(0);
+  const [objectives, setObjectives] = useState<Objective[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [emotions, setEmotions] = useState<Emotion[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showLevelModal, setShowLevelModal] = useState(false);
+  const [showEmotionGame, setShowEmotionGame] = useState(false);
 
   // Fetch emotions from Appwrite
   useEffect(() => {
-    let isMounted = true
+    let isMounted = true;
     const fetchEmotions = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const response = await databases.listDocuments("67c98cc3002b3e3dc1a5", "67c98ce00023c7585f67")
+        const response = await databases.listDocuments(
+          "67c98cc3002b3e3dc1a5",
+          "67c98ce00023c7585f67"
+        );
 
         const emotionsData = response.documents.map((doc) => ({
           id: doc.$id,
           name: doc.name,
           image: doc.image || "/placeholder.svg?height=300&width=300", // Using database image URL
           description: doc.description,
-        }))
+        }));
 
-        console.log("Fetched emotions:", emotionsData) // Debug log
+        console.log("Fetched emotions:", emotionsData); // Debug log
         if (isMounted) {
-          setEmotions(emotionsData)
+          setEmotions(emotionsData);
         }
       } catch (error) {
-        console.error("Error fetching emotions:", error)
+        console.error("Error fetching emotions:", error);
       } finally {
         if (isMounted) {
-          setIsLoading(false)
+          setIsLoading(false);
         }
       }
-    }
+    };
 
-    fetchEmotions()
+    fetchEmotions();
 
     return () => {
-      isMounted = false
-    }
-  }, [])
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
-    setIsLoaded(true)
+    setIsLoaded(true);
     // Calculate overall game progress
-    const completedLevels = userLevels.filter((level) => level.completed).length
-    const totalLevels = userLevels.length
-    setGameProgress(Math.round((completedLevels / totalLevels) * 100))
-  }, [userLevels])
+    const completedLevels = userLevels.filter(
+      (level) => level.completed
+    ).length;
+    const totalLevels = userLevels.length;
+    setGameProgress(Math.round((completedLevels / totalLevels) * 100));
+  }, [userLevels]);
 
   const handleLevelClick = (id: number) => {
-    const level = userLevels.find((l) => l.id === id)
+    const level = userLevels.find((l) => l.id === id);
     if (level && level.unlocked) {
-      setSelectedLevel(id)
-      setShowLevelModal(true)
+      setSelectedLevel(id);
+      setShowLevelModal(true);
     }
-  }
+  };
 
   const handleStartLevel = () => {
     if (selectedLevel) {
-      setShowLevelModal(false)
-      setShowEmotionGame(true)
+      setShowLevelModal(false);
+      setShowEmotionGame(true);
     }
-  }
+  };
 
   const handleCompleteLevel = (stars: number) => {
     if (selectedLevel) {
       // Hide game board
-      setShowEmotionGame(false)
+      setShowEmotionGame(false);
 
       // Show splash screen
-      setShowSplash(true)
+      setShowSplash(true);
 
       // Trigger confetti effect
       confetti({
         particleCount: 150,
         spread: 100,
         origin: { y: 0.6 },
-        colors: ["#8b5cf6", "#ec4899", "#3b82f6", "#eab308", "#ef4444", "#06b6d4"],
-      })
+        colors: [
+          "#8b5cf6",
+          "#ec4899",
+          "#3b82f6",
+          "#eab308",
+          "#ef4444",
+          "#06b6d4",
+        ],
+      });
 
       // Update level status
       setUserLevels((prev) =>
         prev.map((level) => {
           if (level.id === selectedLevel) {
-            return { ...level, completed: true, stars }
+            return { ...level, completed: true, stars };
           }
           if (level.id === selectedLevel + 1) {
-            return { ...level, unlocked: true }
+            return { ...level, unlocked: true };
           }
-          return level
-        }),
-      )
+          return level;
+        })
+      );
 
       // Save progress to localStorage
       localStorage.setItem(
@@ -419,77 +445,91 @@ export default function Levels() {
         JSON.stringify(
           userLevels.map((level) => {
             if (level.id === selectedLevel) {
-              return { ...level, completed: true, stars }
+              return { ...level, completed: true, stars };
             }
             if (level.id === selectedLevel + 1) {
-              return { ...level, unlocked: true }
+              return { ...level, unlocked: true };
             }
-            return level
-          }),
-        ),
-      )
+            return level;
+          })
+        )
+      );
 
       // Close level modal and splash after a delay
       setTimeout(() => {
-        setShowSplash(false)
-        setSelectedLevel(null)
-      }, 3000)
+        setShowSplash(false);
+        setSelectedLevel(null);
+      }, 3000);
     }
-  }
+  };
 
   const handleMakeMove = () => {
     if (currentMoves > 0) {
       // Decrease moves
-      setCurrentMoves((prev) => prev - 1)
+      setCurrentMoves((prev) => prev - 1);
 
       // Update objectives (simulating progress)
       setObjectives((prev) =>
         prev.map((obj) => ({
           ...obj,
-          current: Math.min(obj.current + Math.floor(Math.random() * 3) + 1, obj.target),
-        })),
-      )
+          current: Math.min(
+            obj.current + Math.floor(Math.random() * 3) + 1,
+            obj.target
+          ),
+        }))
+      );
     }
 
     // Check if all objectives are complete
-    const allComplete = objectives.every((obj) => obj.current >= obj.target)
+    const allComplete = objectives.every((obj) => obj.current >= obj.target);
     if (allComplete || currentMoves === 1) {
-      handleCompleteLevel(3)
+      handleCompleteLevel(3);
     }
-  }
+  };
 
   const renderGamePiece = (type: string, size = 40) => {
     const colors = [
-      "bg-gradient-to-br from-red-400 to-red-600 border-2 border-red-300/50", 
-      "bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-purple-300/50", 
-      "bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-blue-300/50", 
-      "bg-gradient-to-br from-yellow-400 to-yellow-600 border-2 border-yellow-300/50", 
-      "bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-pink-300/50", 
-      "bg-gradient-to-br from-green-400 to-green-600 border-2 border-green-300/50"
-    ]
+      "bg-gradient-to-br from-red-400 to-red-600 border-2 border-red-300/50",
+      "bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-purple-300/50",
+      "bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-blue-300/50",
+      "bg-gradient-to-br from-yellow-400 to-yellow-600 border-2 border-yellow-300/50",
+      "bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-pink-300/50",
+      "bg-gradient-to-br from-green-400 to-green-600 border-2 border-green-300/50",
+    ];
 
-    const randomColor = colors[Math.floor(Math.random() * colors.length)]
-    const shadowColors = ["shadow-glow-small", "shadow-glow-red", "shadow-glow-purple", "shadow-glow-blue", "shadow-glow-yellow", "shadow-glow-pink", "shadow-glow-green"]
-    const randomShadow = shadowColors[Math.floor(Math.random() * shadowColors.length)]
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const shadowColors = [
+      "shadow-glow-small",
+      "shadow-glow-red",
+      "shadow-glow-purple",
+      "shadow-glow-blue",
+      "shadow-glow-yellow",
+      "shadow-glow-pink",
+      "shadow-glow-green",
+    ];
+    const randomShadow =
+      shadowColors[Math.floor(Math.random() * shadowColors.length)];
 
     return (
       <div
         className={`${randomColor} rounded-full flex items-center justify-center ${randomShadow}`}
         style={{ width: `${size}px`, height: `${size}px` }}
       >
-        {type === "special" && <div className="absolute inset-0 bg-white/30 rounded-full animate-pulse"></div>}
+        {type === "special" && (
+          <div className="absolute inset-0 bg-white/30 rounded-full animate-pulse"></div>
+        )}
         {type === "special" && <Sparkles size={16} className="text-white" />}
       </div>
-    )
-  }
+    );
+  };
 
   const renderGameBoard = () => {
-    if (!selectedLevel) return null
+    if (!selectedLevel) return null;
 
-    const level = userLevels.find((l) => l.id === selectedLevel)
-    if (!level) return null
+    const level = userLevels.find((l) => l.id === selectedLevel);
+    if (!level) return null;
 
-    const { rows, cols } = level.gridSize
+    const { rows, cols } = level.gridSize;
 
     return (
       <div className="bg-gradient-to-b from-indigo-800/30 to-fuchsia-800/30 p-4 rounded-xl border-2 border-indigo-700/30">
@@ -498,11 +538,13 @@ export default function Levels() {
           <div className="flex items-center gap-4">
             <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
               <Star className="h-4 w-4 text-yellow-400" fill="currentColor" />
-              </div>
-            
+            </div>
+
             <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
               <Clock className="h-4 w-4 text-indigo-300" />
-              <span className="text-sm font-bold text-white">Moves: {currentMoves}</span>
+              <span className="text-sm font-bold text-white">
+                Moves: {currentMoves}
+              </span>
             </div>
           </div>
 
@@ -523,14 +565,21 @@ export default function Levels() {
         {/* Objectives */}
         <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
           {objectives.map((objective, idx) => {
-            const progress = Math.min(objective.current / objective.target, 1)
+            const progress = Math.min(objective.current / objective.target, 1);
             return (
-              <div key={idx} className="bg-indigo-900/80 rounded-lg p-2 flex-shrink-0 shadow-glow-small border-2 border-indigo-700/30">
+              <div
+                key={idx}
+                className="bg-indigo-900/80 rounded-lg p-2 flex-shrink-0 shadow-glow-small border-2 border-indigo-700/30"
+              >
                 <div className="flex items-center gap-2 mb-1">
-                  <div className={`${objective.color} w-6 h-6 rounded-full flex items-center justify-center`}>
+                  <div
+                    className={`${objective.color} w-6 h-6 rounded-full flex items-center justify-center`}
+                  >
                     {objective.icon}
                   </div>
-                  <div className="text-xs font-medium text-white">{objective.label}</div>
+                  <div className="text-xs font-medium text-white">
+                    {objective.label}
+                  </div>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="text-xs font-bold text-indigo-200">
@@ -546,7 +595,7 @@ export default function Levels() {
                   </div>
                 </div>
               </div>
-            )
+            );
           })}
         </div>
 
@@ -559,7 +608,7 @@ export default function Levels() {
           }}
         >
           {Array.from({ length: rows * cols }).map((_, idx) => {
-            const isSpecial = Math.random() > 0.85
+            const isSpecial = Math.random() > 0.85;
             return (
               <motion.div
                 key={idx}
@@ -570,7 +619,7 @@ export default function Levels() {
               >
                 {renderGamePiece(isSpecial ? "special" : "regular", 36)}
               </motion.div>
-            )
+            );
           })}
         </div>
 
@@ -586,31 +635,35 @@ export default function Levels() {
           </motion.button>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   // Generate SVG path for the winding road
   const generatePath = () => {
-    if (pathPoints.length < 2) return ""
+    if (pathPoints.length < 2) return "";
 
-    let path = `M ${pathPoints[0].x} ${pathPoints[0].y}`
+    let path = `M ${pathPoints[0].x} ${pathPoints[0].y}`;
 
     for (let i = 1; i < pathPoints.length; i++) {
-      const prev = pathPoints[i - 1]
-      const current = pathPoints[i]
+      const prev = pathPoints[i - 1];
+      const current = pathPoints[i];
 
       // For a curved path
       if (i % 2 === 1) {
         // Path curves down
-        path += ` Q ${(prev.x + current.x) / 2} ${prev.y + 15} ${current.x} ${current.y}`
+        path += ` Q ${(prev.x + current.x) / 2} ${prev.y + 15} ${current.x} ${
+          current.y
+        }`;
       } else {
         // Path curves up
-        path += ` Q ${(prev.x + current.x) / 2} ${prev.y - 15} ${current.x} ${current.y}`
+        path += ` Q ${(prev.x + current.x) / 2} ${prev.y - 15} ${current.x} ${
+          current.y
+        }`;
       }
     }
 
-    return path
-  }
+    return path;
+  };
 
   return (
     <div className="min-h-screen bg-indigo-950 text-white overflow-hidden">
@@ -624,7 +677,10 @@ export default function Levels() {
 
         <div className="container relative z-10 mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
-            <Link href="/" className="flex items-center text-indigo-200 hover:text-white transition-colors">
+            <Link
+              href="/"
+              className="flex items-center text-indigo-200 hover:text-white transition-colors"
+            >
               <ArrowLeft className="mr-2 h-4 w-4" />
               <span>Back to Home</span>
             </Link>
@@ -640,7 +696,9 @@ export default function Levels() {
               <div className="relative">
                 <div className="absolute inset-0 bg-fuchsia-500/20 blur-md rounded-full"></div>
                 <div className="relative bg-indigo-800/50 px-6 py-2 rounded-xl border-2 border-fuchsia-400/50 shadow-glow-purple">
-                  <span className="text-fuchsia-300 font-bold">Fun Challenges</span>
+                  <span className="text-fuchsia-300 font-bold">
+                    Fun Challenges
+                  </span>
                 </div>
               </div>
             </div>
@@ -652,7 +710,8 @@ export default function Levels() {
             </h1>
 
             <p className="text-lg md:text-xl max-w-2xl mx-auto text-indigo-200 leading-relaxed">
-              Complete exciting challenges and earn sweet rewards as you master emotional intelligence!
+              Complete exciting challenges and earn sweet rewards as you master
+              emotional intelligence!
             </p>
 
             {/* Overall progress bar */}
@@ -664,7 +723,9 @@ export default function Levels() {
                 transition={{ duration: 1 }}
               />
             </div>
-            <p className="text-sm text-indigo-300 font-medium mt-2">Overall Progress: {gameProgress}%</p>
+            <p className="text-sm text-indigo-300 font-medium mt-2">
+              Overall Progress: {gameProgress}%
+            </p>
           </motion.div>
         </div>
       </div>
@@ -709,7 +770,11 @@ export default function Levels() {
             </div>
 
             {/* Path */}
-            <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
               {/* Dotted path background */}
               <path
                 d={generatePath()}
@@ -735,8 +800,8 @@ export default function Levels() {
 
             {/* Level bubbles */}
             {userLevels.map((level, index) => {
-              const isCompleted = level.completed
-              const isLocked = !level.unlocked
+              const isCompleted = level.completed;
+              const isLocked = !level.unlocked;
 
               return (
                 <motion.div
@@ -755,14 +820,19 @@ export default function Levels() {
                     whileHover={level.unlocked ? { scale: 1.1 } : {}}
                     whileTap={level.unlocked ? { scale: 0.95 } : {}}
                     onClick={() => handleLevelClick(level.id)}
-                    className={`relative flex items-center justify-center cursor-pointer ${isLocked ? "opacity-80" : ""}`}
+                    className={`relative flex items-center justify-center cursor-pointer ${
+                      isLocked ? "opacity-80" : ""
+                    }`}
                   >
                     {/* Outer glow for active level */}
                     {level.unlocked && !level.completed && (
                       <motion.div
                         className="absolute inset-0 rounded-full bg-fuchsia-500/30 shadow-glow-purple"
                         animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
+                        transition={{
+                          duration: 2,
+                          repeat: Number.POSITIVE_INFINITY,
+                        }}
                         style={{ zIndex: -1 }}
                       />
                     )}
@@ -773,14 +843,16 @@ export default function Levels() {
                         isLocked
                           ? "bg-indigo-900/80 border-indigo-700/50"
                           : isCompleted
-                            ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
-                            : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
+                          ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
+                          : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
                       }`}
                     >
                       {isLocked ? (
                         <Lock size={24} className="text-muted-foreground" />
                       ) : (
-                        <span className="text-xl font-bold text-white">{level.id}</span>
+                        <span className="text-xl font-bold text-white">
+                          {level.id}
+                        </span>
                       )}
                     </div>
 
@@ -792,7 +864,9 @@ export default function Levels() {
                             key={i}
                             size={12}
                             className={
-                              i < level.stars ? "text-yellow-400 fill-yellow-400 -mx-0.5" : "text-muted -mx-0.5"
+                              i < level.stars
+                                ? "text-yellow-400 fill-yellow-400 -mx-0.5"
+                                : "text-muted -mx-0.5"
                             }
                           />
                         ))}
@@ -800,7 +874,7 @@ export default function Levels() {
                     )}
                   </motion.div>
                 </motion.div>
-              )
+              );
             })}
           </div>
         </motion.div>
@@ -813,10 +887,13 @@ export default function Levels() {
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   1
                 </div>
-                <h3 className="font-semibold text-lg text-white">Select a Level</h3>
+                <h3 className="font-semibold text-lg text-white">
+                  Select a Level
+                </h3>
               </div>
               <p className="text-indigo-200">
-                Choose an unlocked level from the adventure map to begin your emotional journey.
+                Choose an unlocked level from the adventure map to begin your
+                emotional journey.
               </p>
             </div>
 
@@ -825,10 +902,13 @@ export default function Levels() {
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   2
                 </div>
-                <h3 className="font-semibold text-lg text-white">Complete Objectives</h3>
+                <h3 className="font-semibold text-lg text-white">
+                  Complete Objectives
+                </h3>
               </div>
               <p className="text-indigo-200">
-                Match emotions and complete the level objectives before you run out of moves.
+                Match emotions and complete the level objectives before you run
+                out of moves.
               </p>
             </div>
 
@@ -837,10 +917,13 @@ export default function Levels() {
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   3
                 </div>
-                <h3 className="font-semibold text-lg text-white">Earn Rewards</h3>
+                <h3 className="font-semibold text-lg text-white">
+                  Earn Rewards
+                </h3>
               </div>
               <p className="text-indigo-200">
-                Earn stars, XP, and unlock new levels as you progress through your emotional learning adventure.
+                Earn stars, XP, and unlock new levels as you progress through
+                your emotional learning adventure.
               </p>
             </div>
           </div>
@@ -862,12 +945,12 @@ export default function Levels() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-indigo-900/90 rounded-3xl p-6 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
+              className="bg-indigo-900/90 sm:max-h-[70vh] md:max-h-[95vh]  overflow-y-auto scrollbar-hide rounded-3xl p-6 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
-                const level = userLevels.find((l) => l.id === selectedLevel)
-                if (!level) return null
+                const level = userLevels.find((l) => l.id === selectedLevel);
+                if (!level) return null;
 
                 return (
                   <>
@@ -883,14 +966,19 @@ export default function Levels() {
                       </h2>
                       <button
                         onClick={() => setShowLevelModal(false)}
-                        className="p-2 rounded-full hover:bg-indigo-800/50 transition-colors"                      >
+                        className="p-2 rounded-full hover:bg-indigo-800/50 transition-colors"
+                      >
                         <X size={20} className="text-muted-foreground" />
                       </button>
                     </div>
 
                     <div className="text-center mb-4">
-                      <h3 className="text-xl font-bold text-foreground">{level.name}</h3>
-                      <p className="text-muted-foreground">{level.description}</p>
+                      <h3 className="text-xl font-bold text-foreground">
+                        {level.name}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {level.description}
+                      </p>
                     </div>
 
                     <div className="relative h-40 bg-gradient-to-b from-primary/10 to-secondary/10 rounded-xl mb-6 flex items-center justify-center">
@@ -899,10 +987,16 @@ export default function Levels() {
                           rotate: [0, 5, 0, -5, 0],
                           scale: [1, 1.05, 1, 1.05, 1],
                         }}
-                        transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY }}
+                        transition={{
+                          duration: 5,
+                          repeat: Number.POSITIVE_INFINITY,
+                        }}
                       >
                         <Image
-                          src={level.image || "/placeholder.svg?height=150&width=150"}
+                          src={
+                            level.image ||
+                            "/placeholder.svg?height=150&width=150"
+                          }
                           alt={level.name}
                           width={120}
                           height={120}
@@ -913,7 +1007,9 @@ export default function Levels() {
 
                     {/* Level details */}
                     <div className="bg-indigo-800/50 rounded-xl p-4 mb-6 border-2 border-indigo-700/30">
-                      <h3 className="font-bold text-white mb-2">Level Details</h3>
+                      <h3 className="font-bold text-white mb-2">
+                        Level Details
+                      </h3>
 
                       <div className="grid grid-cols-2 gap-3 text-sm">
                         <div className="flex items-center gap-2">
@@ -934,22 +1030,35 @@ export default function Levels() {
                           </div>
                           <div>
                             <div className="text-indigo-300">Moves</div>
-                            <div className="font-medium text-white">{level.moves}</div>
+                            <div className="font-medium text-white">
+                              {level.moves}
+                            </div>
                           </div>
                         </div>
                       </div>
 
                       {/* Objectives */}
-                      <h3 className="font-bold text-white mt-4 mb-2">Objectives</h3>
+                      <h3 className="font-bold text-white mt-4 mb-2">
+                        Objectives
+                      </h3>
                       <div className="space-y-2">
                         {level.objectives.map((obj, idx) => (
-                          <div key={idx} className="flex items-center gap-2 bg-indigo-900/60 p-2 rounded-lg border border-indigo-700/50">
-                            <div className={`${obj.color} w-8 h-8 rounded-full flex items-center justify-center shadow-glow-small`}>
+                          <div
+                            key={idx}
+                            className="flex items-center gap-2 bg-indigo-900/60 p-2 rounded-lg border border-indigo-700/50"
+                          >
+                            <div
+                              className={`${obj.color} w-8 h-8 rounded-full flex items-center justify-center shadow-glow-small`}
+                            >
                               {obj.icon}
                             </div>
                             <div>
-                              <div className="text-xs text-indigo-300">{obj.label}</div>
-                              <div className="font-medium text-white">{obj.target}</div>
+                              <div className="text-xs text-indigo-300">
+                                {obj.label}
+                              </div>
+                              <div className="font-medium text-white">
+                                {obj.target}
+                              </div>
                             </div>
                           </div>
                         ))}
@@ -958,16 +1067,23 @@ export default function Levels() {
                       {/* Power-ups */}
                       {level.powerUps.length > 0 && (
                         <>
-                          <h3 className="font-bold text-white mt-4 mb-2">Available Power-ups</h3>
+                          <h3 className="font-bold text-white mt-4 mb-2">
+                            Available Power-ups
+                          </h3>
                           <div className="flex gap-2 flex-wrap">
                             {level.powerUps.map((powerUp) => (
-                              <div key={powerUp.id} className="bg-indigo-900/60 p-2 rounded-lg flex items-center gap-2 border border-indigo-700/50">
+                              <div
+                                key={powerUp.id}
+                                className="bg-indigo-900/60 p-2 rounded-lg flex items-center gap-2 border border-indigo-700/50"
+                              >
                                 <div
                                   className={`${powerUp.color} w-8 h-8 rounded-full flex items-center justify-center`}
                                 >
                                   {powerUp.icon}
                                 </div>
-                                <div className="text-xs text-white">{powerUp.name}</div>
+                                <div className="text-xs text-white">
+                                  {powerUp.name}
+                                </div>
                               </div>
                             ))}
                           </div>
@@ -976,7 +1092,10 @@ export default function Levels() {
                     </div>
 
                     <div className="flex justify-center">
-                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
                         <button
                           onClick={handleStartLevel}
                           className="relative bg-gradient-to-br from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-fuchsia-400/30"
@@ -986,7 +1105,7 @@ export default function Levels() {
                       </motion.div>
                     </div>
                   </>
-                )
+                );
               })()}
             </motion.div>
           </motion.div>
@@ -1000,14 +1119,14 @@ export default function Levels() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            className="fixed inset-0  bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-card rounded-3xl p-4 max-w-4xl w-full shadow-2xl border border-border"
+              className="bg-card rounded-3xl max-h-[80vh]  overflow-y-auto scrollbar-hide p-4 max-w-4xl w-full shadow-2xl border border-border"
               onClick={(e) => e.stopPropagation()}
             >
               <EmotionGame
@@ -1028,14 +1147,14 @@ export default function Levels() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 h-[80vh] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-indigo-900/90 rounded-3xl p-4 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
+              className="bg-indigo-900/90 overflow-y-auto scrollbar-hide rounded-3xl p-4 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
               onClick={(e) => e.stopPropagation()}
             >
               {renderGameBoard()}
@@ -1046,9 +1165,8 @@ export default function Levels() {
 
       {/* Victory Splash Screen */}
       <AnimatePresence>
-        {showSplash &&
-          (
-            <motion.div
+        {showSplash && (
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -1063,10 +1181,12 @@ export default function Levels() {
               }}
               exit={{ scale: 0.5, opacity: 0 }}
               transition={{ duration: 1 }}
-              className="bg-gradient-to-br from-fuchsia-600 to-purple-600 p-8 rounded-3xl shadow-2xl flex flex-col items-center border-2 border-fuchsia-400/30 shadow-glow-purple"
+              className="bg-gradient-to-br from-fuchsia-600 to-purple-600 p-8 rounded-3xl shadow-2xl flex flex-col items-center border-2 border-fuchsia-400/30 shadow-glow-purple overflow-y-auto scrollbar-hide"
             >
               <Trophy size={80} className="text-primary-foreground mb-4" />
-              <h2 className="text-4xl font-extrabold text-white mb-2">Level Complete!</h2>
+              <h2 className="text-4xl font-extrabold text-white mb-2">
+                Level Complete!
+              </h2>
               <div className="flex gap-2 my-3">
                 {[...Array(3)].map((_, i) => (
                   <motion.div
@@ -1075,21 +1195,28 @@ export default function Levels() {
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.3 + i * 0.2, type: "spring" }}
                   >
-                    <Star size={40} className="text-yellow-300 fill-yellow-300" />
+                    <Star
+                      size={40}
+                      className="text-yellow-300 fill-yellow-300"
+                    />
                   </motion.div>
                 ))}
               </div>
               <motion.div
                 animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, repeatDelay: 0.5 }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Number.POSITIVE_INFINITY,
+                  repeatDelay: 0.5,
+                }}
                 className="mt-4"
               >
                 <Gift size={32} className="text-white" />
               </motion.div>
             </motion.div>
           </motion.div>
-          )}
+        )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
