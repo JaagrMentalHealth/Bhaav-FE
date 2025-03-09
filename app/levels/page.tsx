@@ -55,43 +55,9 @@ interface Level {
   image: string;
   unlocked: boolean;
   completed: boolean;
-  stars: number;
-  color: string;
-  shadowColor: string;
-  gridSize: { rows: number; cols: number };
-  moves: number;
-  objectives: Objective[];
-  powerUps: PowerUp[];
-  difficulty: 1 | 2 | 3 | 4 | 5;
-  position: { x: number; y: number };
 }
 
-const powerUps: PowerUp[] = [
-  {
-    id: 1,
-    name: "Color Bomb",
-    description: "Clears all candies of one color",
-    icon: <Zap size={20} className="text-white" />,
-    color: "bg-gradient-to-br from-purple-500 to-fuchsia-600",
-    borderColor: "border-fuchsia-400/50",
-  },
-  {
-    id: 2,
-    name: "Striped Candy",
-    description: "Clears an entire row or column",
-    icon: <Target size={20} className="text-white" />,
-    color: "bg-gradient-to-br from-pink-500 to-rose-600",
-    borderColor: "border-rose-400/50",
-  },
-  {
-    id: 3,
-    name: "Extra Moves",
-    description: "+5 extra moves",
-    icon: <Award size={20} className="text-white" />,
-    color: "bg-gradient-to-br from-blue-500 to-indigo-600",
-    borderColor: "border-blue-400/50",
-  },
-];
+
 
 const levels: Level[] = [
   {
@@ -101,59 +67,15 @@ const levels: Level[] = [
     image:
       "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cd6d2b0014022526ef/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
-    completed: true,
-    stars: 3,
-    color: "from-pink-400 to-pink-600",
-    shadowColor: "shadow-glow-pink",
-    gridSize: { rows: 6, cols: 6 },
-    moves: 15,
-    objectives: [
-      {
-        type: "score",
-        target: 1000,
-        current: 1000,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-    ],
-    powerUps: [powerUps[0]],
-    difficulty: 1,
-    position: { x: 20, y: 20 },
+    completed: false,  
   },
   {
     id: 2,
     name: "Emotion Match",
     description: "Match emotions with situations",
     image: "/placeholder.svg?height=150&width=150",
-    unlocked: true,
+    unlocked: false,
     completed: false,
-    stars: 0,
-    color: "from-purple-400 to-purple-600",
-    shadowColor: "shadow-glow-purple",
-    gridSize: { rows: 7, cols: 7 },
-    moves: 20,
-    objectives: [
-      {
-        type: "score",
-        target: 2000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 10,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1]],
-    difficulty: 2,
-    position: { x: 35, y: 35 },
   },
   {
     id: 3,
@@ -162,32 +84,6 @@ const levels: Level[] = [
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    stars: 0,
-    color: "from-blue-400 to-blue-600",
-    shadowColor: "shadow-glow-blue",
-    gridSize: { rows: 7, cols: 8 },
-    moves: 25,
-    objectives: [
-      {
-        type: "score",
-        target: 3000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "clear",
-        target: 15,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 3,
-    position: { x: 50, y: 20 },
   },
   {
     id: 4,
@@ -196,32 +92,7 @@ const levels: Level[] = [
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    stars: 0,
-    color: "from-green-400 to-green-600",
-    shadowColor: "shadow-glow-green",
-    gridSize: { rows: 8, cols: 8 },
-    moves: 30,
-    objectives: [
-      {
-        type: "score",
-        target: 4000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "time",
-        target: 60,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1]],
-    difficulty: 4,
-    position: { x: 65, y: 35 },
+    
   },
   {
     id: 5,
@@ -230,40 +101,6 @@ const levels: Level[] = [
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    stars: 0,
-    color: "from-yellow-400 to-yellow-600",
-    shadowColor: "shadow-glow-yellow",
-    gridSize: { rows: 8, cols: 9 },
-    moves: 35,
-    objectives: [
-      {
-        type: "score",
-        target: 5000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 20,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 10,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 80, y: 20 },
   },
   {
     id: 6,
@@ -272,48 +109,43 @@ const levels: Level[] = [
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
+    
+  },
+  {
+    id: 7,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    
+  },
+  {
+    id: 8,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    
+  },
+  {
+    id: 9,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    
+  },
+  {
+    id: 10,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    
   },
   {
     id: 6,
@@ -322,48 +154,7 @@ const levels: Level[] = [
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
+    
   },
   {
     id: 6,
@@ -372,248 +163,7 @@ const levels: Level[] = [
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
-  },
-  {
-    id: 6,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
-  },
-  {
-    id: 6,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
-  },
-  {
-    id: 6,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
-  },
-  {
-    id: 6,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
+  
   },
   
 ];
@@ -853,18 +403,6 @@ export default function Levels() {
             </div>
           </div>
 
-          <div className="flex gap-2">
-            {level.powerUps.map((powerUp) => (
-              <motion.div
-                key={powerUp.id}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className={`${powerUp.color} w-10 h-10 rounded-lg flex items-center justify-center cursor-pointer shadow-glow-small border-2 ${powerUp.borderColor}`}
-              >
-                {powerUp.icon}
-              </motion.div>
-            ))}
-          </div>
         </div>
 
         {/* Objectives */}
@@ -1116,11 +654,7 @@ export default function Levels() {
                         <Star
                           key={i}
                           size={12}
-                          className={
-                            i < level.stars
-                              ? "text-yellow-400 fill-yellow-400 -mx-0.5"
-                              : "text-muted -mx-0.5"
-                          }
+                          
                         />
                       ))}
                     </div>
@@ -1268,93 +802,6 @@ export default function Levels() {
                         />
                       </motion.div>
                     </div>
-
-                    {/* Level details */}
-                    <div className="bg-indigo-800/50 rounded-xl p-4 mb-6 border-2 border-indigo-700/30">
-                      {/* <h3 className="font-bold text-white mb-2">
-                        Level Details
-                      </h3> */}
-
-                      {/* <div className="grid grid-cols-2 gap-3 text-sm">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-fuchsia-500/20 rounded-lg flex items-center justify-center border border-fuchsia-400/30">
-                            <div className="w-6 h-6 bg-fuchsia-500/40 rounded-lg"></div>
-                          </div>
-                          <div>
-                            <div className="text-indigo-300">Grid Size</div>
-                            <div className="font-medium text-white">
-                              {level.gridSize.rows}×{level.gridSize.cols}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-purple-500/20 rounded-lg flex items-center justify-center border border-purple-400/30">
-                            <Clock size={20} className="text-purple-400" />
-                          </div>
-                          <div>
-                            <div className="text-indigo-300">Moves</div>
-                            <div className="font-medium text-white">
-                              {level.moves}
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
-
-                      {/* Objectives */}
-                      <h3 className="font-bold text-white mt-4 mb-2">
-                        Objectives
-                      </h3>
-                      <div className="space-y-2">
-                        {level.objectives.map((obj, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center gap-2 bg-indigo-900/60 p-2 rounded-lg border border-indigo-700/50"
-                          >
-                            <div
-                              className={`${obj.color} w-8 h-8 rounded-full flex items-center justify-center shadow-glow-small`}
-                            >
-                              {obj.icon}
-                            </div>
-                            <div>
-                              <div className="text-xs text-indigo-300">
-                                {obj.label}
-                              </div>
-                              <div className="font-medium text-white">
-                                {obj.target}
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-
-                      {/* Power-ups */}
-                      {level.powerUps.length > 0 && (
-                        <>
-                          <h3 className="font-bold text-white mt-4 mb-2">
-                            Available Power-ups
-                          </h3>
-                          <div className="flex gap-2 flex-wrap">
-                            {level.powerUps.map((powerUp) => (
-                              <div
-                                key={powerUp.id}
-                                className="bg-indigo-900/60 p-2 rounded-lg flex items-center gap-2 border border-indigo-700/50"
-                              >
-                                <div
-                                  className={`${powerUp.color} w-8 h-8 rounded-full flex items-center justify-center`}
-                                >
-                                  {powerUp.icon}
-                                </div>
-                                <div className="text-xs text-white">
-                                  {powerUp.name}
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </>
-                      )}
-                    </div>
-
                     <div className="flex justify-center">
                       <motion.div
                         whileHover={{ scale: 1.05 }}
