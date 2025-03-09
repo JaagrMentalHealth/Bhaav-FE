@@ -31,6 +31,8 @@ export default function FaceMuseum() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
 
   useEffect(() => {
     let isMounted = true;
@@ -102,6 +104,16 @@ export default function FaceMuseum() {
       <ChevronLeft className="h-6 w-6 text-primary" />
     </div>
   );
+
+  const nextImage = () => {
+    if (!selectedEmotionData || !selectedEmotionData.image.length) return
+    setCurrentImageIndex((prev) => (prev + 1) % selectedEmotionData.image.length)
+  }
+
+  const prevImage = () => {
+    if (!selectedEmotionData || !selectedEmotionData.image.length) return
+    setCurrentImageIndex((prev) => (prev - 1 + selectedEmotionData.image.length) % selectedEmotionData.image.length)
+  }
 
   const renderArrowNext = (clickHandler: () => void) => (
     <div
@@ -307,7 +319,7 @@ export default function FaceMuseum() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25 }}
-              className={`bg-indigo-800/90 max-w-lg w-full rounded-3xl p-6 shadow-2xl border-2 `}
+              className={`bg-indigo-800/90 max-w-4xl w-full rounded-3xl p-6 shadow-2xl border-2 `}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-6">
@@ -323,13 +335,58 @@ export default function FaceMuseum() {
               </div>
 
               <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="relative w-32 h-32 flex-shrink-0 bg-primary/10 rounded-2xl p-2">
+                <div className="relative w-96 h-96 flex-shrink-0 bg-primary/10 rounded-2xl p-2">
                   <Image
                     src={selectedEmotionData.image[0] || "/placeholder.svg"}
                     alt={selectedEmotionData.name}
                     fill
-                    className="object-contain"
+                    className="object-contain rounded-2xl"
                   />
+                  {selectedEmotionData.image.length > 0 && (
+                    <>
+                      <Image
+                        src={
+                          selectedEmotionData.image[currentImageIndex] ||
+                          "/placeholder.svg?height=300&width=300"
+                        }
+                        alt="Emotion"
+                        fill
+                        className="object-cover rounded-lg"
+                      />
+                      {selectedEmotionData.image.length > 1 && (
+                        <>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 -ml-4"
+                            onClick={prevImage}
+                          >
+                            <ChevronLeft className="h-6 w-6" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 -mr-4"
+                            onClick={nextImage}
+                          >
+                            <ChevronRight className="h-6 w-6" />
+                          </Button>
+                          <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1">
+                            {selectedEmotionData.image.map((_, index) => (
+                              <div
+                                key={index}
+                                className={`h-2 w-2 rounded-full ${
+                                  index === currentImageIndex
+                                    ? "bg-white"
+                                    : "bg-white/50"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
                 </div>
                 <div>
                   <p className="text-indigo-200 mb-6">
