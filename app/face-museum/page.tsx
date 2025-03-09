@@ -126,7 +126,7 @@ export default function FaceMuseum() {
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
               <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
-                Museum of Faces
+                Hall of Faces
               </span>
             </h1>
 
@@ -138,7 +138,7 @@ export default function FaceMuseum() {
       </div>
 
       <div className="container mx-auto px-4 -mt-16 relative z-20">
-        {isLoading ? (
+        {/* {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 "></div>
           </div>
@@ -193,13 +193,9 @@ export default function FaceMuseum() {
             </div>
             </div>
           </motion.div>
-        ) : null}
+        ) : null} */}
 
         <div className="mb-16">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">Emotion Gallery</h2>
-            <p className="text-indigo-200 mt-2">Collect all emotions to unlock special powers!</p>
-          </div>
 
           <motion.div
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto"
@@ -249,7 +245,7 @@ export default function FaceMuseum() {
       {/* Museum-like footer */}
       <div className="bg-indigo-900/80 py-12 border-t-2 border-indigo-700/50">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-xl font-semibold mb-4 text-white">About Our Emotion Museum</h3>
+          <h3 className="text-xl font-semibold mb-4 text-white">About Hall of faces</h3>
           <p className="text-indigo-200 max-w-2xl mx-auto">
             Our interactive museum helps children understand and identify different emotions. By exploring these
             exhibits, kids develop emotional intelligence and empathy.

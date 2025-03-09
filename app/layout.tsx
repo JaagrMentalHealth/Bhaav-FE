@@ -11,7 +11,7 @@ const bubblegum = Bubblegum_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "EmotiPlay - Learn Emotions Through Play!",
+  title: "Bhaav - Learn Emotions Through Play!",
   description: "A fun adventure to understand feelings and make new friends!",
   manifest: "/manifest.json",
     generator: 'v0.dev'
