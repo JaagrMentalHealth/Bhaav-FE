@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress"
 import type { Emotion, GameState, QuizQuestion } from "@/types/game-types"
 import confetti from "canvas-confetti"
 
+
 // Import local data
 import gameData from "@/data/data.json"
 
@@ -259,9 +260,10 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
             src={videoUrl}
             className="w-full h-full object-cover"
             onEnded={handleVideoEnd}
+            
             autoPlay
           />
-          {!videoPlaying && !showQuiz && (
+          {/* {!videoPlaying && !showQuiz && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/50">
               <Button
                 size="lg"
@@ -276,7 +278,7 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
                 <Play className="h-8 w-8" />
               </Button>
             </div>
-          )}
+          )} */}
         </div>
 
         <div className="w-full max-w-2xl mb-6">
