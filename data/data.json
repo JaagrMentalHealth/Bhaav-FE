@@ -7,7 +7,7 @@
         "question": "What do you think Dev is feeling at this moment?",
         "options": ["Happy", "Sad", "Angry", "Disgusted"],
         "correctOption": "Sad",
-        "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67c9901700041c153624/view?project=67c98b5e0035bedcf913&mode=admin"
+        "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cde752003485058868/view?project=67c98b5e0035bedcf913&mode=admin"
       },
       {
         "id": "q2",

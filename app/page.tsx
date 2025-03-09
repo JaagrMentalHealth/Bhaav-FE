@@ -62,7 +62,7 @@ export default function Home() {
 
         {/* Planets */}
         <motion.div
-          className="absolute top-1/4 md:-right-20 w-40 h-40 rounded-full bg-gradient-to-br from-purple-500 to-purple-800 opacity-40 blur-md"
+          className="absolute top-1/4 hidden w-40 h-40 rounded-full bg-gradient-to-br from-purple-500 to-purple-800 opacity-40 blur-md"
           animate={{
             y: [0, -10, 0],
             rotate: 360,
