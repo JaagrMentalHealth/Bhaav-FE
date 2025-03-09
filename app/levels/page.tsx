@@ -57,50 +57,197 @@ interface Level {
   completed: boolean;
 }
 
-
-
-const levels: Level[] = [
+const powerUps: PowerUp[] = [
   {
     id: 1,
-    name: "Harvest of Happiness",
-    description: "Match 3 emotions to begin your journey",
+    name: "Color Bomb",
+    description: "Clears all candies of one color",
+    icon: <Zap size={20} className="text-white" />,
+    color: "bg-gradient-to-br from-purple-500 to-fuchsia-600",
+    borderColor: "border-fuchsia-400/50",
+  },
+  {
+    id: 2,
+    name: "Striped Candy",
+    description: "Clears an entire row or column",
+    icon: <Target size={20} className="text-white" />,
+    color: "bg-gradient-to-br from-pink-500 to-rose-600",
+    borderColor: "border-rose-400/50",
+  },
+  {
+    id: 3,
+    name: "Extra Moves",
+    description: "+5 extra moves",
+    icon: <Award size={20} className="text-white" />,
+    color: "bg-gradient-to-br from-blue-500 to-indigo-600",
+    borderColor: "border-blue-400/50",
+  },
+];
+
+
+const levels = [
+  {
+    id: 1, // Added missing ID
     image:
       "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cd6d2b0014022526ef/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
-    completed: false,  
+    completed: true,
+    stars: 3,
+    color: "from-pink-400 to-pink-600",
+    shadowColor: "shadow-glow-pink",
+    gridSize: { rows: 6, cols: 6 },
+    moves: 15,
+    objectives: [
+      {
+        type: "score",
+        target: 1000,
+        current: 1000,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+    ],
+    powerUps: [powerUps[0]], // Ensure `powerUps` is defined elsewhere
+    difficulty: 1,
+    position: { x: 20, y: 20 },
   },
   {
     id: 2,
     name: "Emotion Match",
     description: "Match emotions with situations",
     image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
+    unlocked: true,
     completed: false,
+    stars: 0,
+    color: "from-purple-400 to-purple-600",
+    shadowColor: "shadow-glow-purple",
+    gridSize: { rows: 7, cols: 7 },
+    moves: 20,
+    objectives: [
+      {
+        type: "score",
+        target: 2000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 10,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1]],
+    difficulty: 2,
+    position: { x: 35, y: 35 },
   },
   {
     id: 3,
-    name: "Emotion Stories",
-    description: "Create stories with emotions",
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
+    stars: 0,
+    color: "from-blue-400 to-blue-600",
+    shadowColor: "shadow-glow-blue",
+    gridSize: { rows: 7, cols: 8 },
+    moves: 25,
+    objectives: [
+      {
+        type: "score",
+        target: 3000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "clear",
+        target: 15,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 3,
+    position: { x: 50, y: 20 },
   },
   {
     id: 4,
-    name: "Emotion Detective",
-    description: "Find hidden emotions in scenes",
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    
+    stars: 0,
+    color: "from-green-400 to-green-600",
+    shadowColor: "shadow-glow-green",
+    gridSize: { rows: 8, cols: 8 },
+    moves: 30,
+    objectives: [
+      {
+        type: "score",
+        target: 4000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "time",
+        target: 60,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1]],
+    difficulty: 4,
+    position: { x: 65, y: 35 },
   },
   {
     id: 5,
-    name: "Emotion Charades",
-    description: "Act out and guess emotions",
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
+    stars: 0,
+    color: "from-yellow-400 to-yellow-600",
+    shadowColor: "shadow-glow-yellow",
+    gridSize: { rows: 8, cols: 9 },
+    moves: 35,
+    objectives: [
+      {
+        type: "score",
+        target: 5000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 20,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 10,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 80, y: 20 },
   },
   {
     id: 6,
@@ -109,63 +256,49 @@ const levels: Level[] = [
     image: "/placeholder.svg?height=150&width=150",
     unlocked: false,
     completed: false,
-    
+    stars: 0,
+    color: "from-red-400 to-red-600",
+    shadowColor: "shadow-glow-red",
+    gridSize: { rows: 9, cols: 9 },
+    moves: 40,
+    objectives: [
+      {
+        type: "score",
+        target: 6000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 25,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 20,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+      {
+        type: "time",
+        target: 90,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 95, y: 35 },
   },
-  {
-    id: 7,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    
-  },
-  {
-    id: 8,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    
-  },
-  {
-    id: 9,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    
-  },
-  {
-    id: 10,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    
-  },
-  {
-    id: 6,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    
-  },
-  {
-    id: 6,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-  
-  },
-  
 ];
 
 // Path points for the winding path
@@ -795,7 +928,7 @@ export default function Levels() {
                             level.image ||
                             "/placeholder.svg?height=150&width=150"
                           }
-                          alt={level.name}
+                          alt={level.name || "Image Not Available"}
                           width={120}
                           height={120}
                           className="object-contain drop-shadow-lg"

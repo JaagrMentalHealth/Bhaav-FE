@@ -1,28 +1,42 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { Smile, Trophy, Star, Sparkles, Gamepad2, Heart, Zap } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import {
+  Smile,
+  Trophy,
+  Star,
+  Sparkles,
+  Gamepad2,
+  Heart,
+  Zap,
+} from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function Home() {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [hoverButton, setHoverButton] = useState<string | null>(null)
-  const [showDialog, setShowDialog] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hoverButton, setHoverButton] = useState<string | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
-    setIsLoaded(true)
-  }, [])
+    setIsLoaded(true);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-indigo-950 text-white overflow-hidden">
       {/* Game world background */}
       <div className="absolute inset-0 -z-10">
         {/* Stars */}
-        <div className="absolute inset-0">
+        <div className="absolute hidden md:block inset-0 ">
           {[...Array(50)].map((_, i) => (
             <motion.div
               key={i}
@@ -47,7 +61,7 @@ export default function Home() {
 
         {/* Planets */}
         <motion.div
-          className="absolute top-1/4 -right-20 w-40 h-40 rounded-full bg-gradient-to-br from-purple-500 to-purple-800 opacity-40 blur-md"
+          className="absolute top-1/4 md:-right-20 w-40 h-40 rounded-full bg-gradient-to-br from-purple-500 to-purple-800 opacity-40 blur-md"
           animate={{
             y: [0, -10, 0],
             rotate: 360,
@@ -88,7 +102,7 @@ export default function Home() {
 
         {/* Floating game elements */}
         <motion.div
-          className="absolute top-20 right-[10%] h-16 w-16 rounded-full bg-yellow-300 opacity-80 shadow-glow-yellow"
+          className="absolute  top-20 right-[10%] h-16 w-16 rounded-full bg-yellow-300 opacity-80 shadow-glow-yellow"
           animate={{
             y: [0, -15, 0],
             scale: [1, 1.1, 1],
@@ -166,8 +180,9 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg text-indigo-100 mb-8 max-w-lg">
-              Join our magical adventure to understand feelings, make new friends, and develop emotional intelligence
-              through interactive games and stories!
+              Join our magical adventure to understand feelings, make new
+              friends, and develop emotional intelligence through interactive
+              games and stories!
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -220,12 +235,16 @@ export default function Home() {
             animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           >
-            <div className="relative w-full aspect-square max-w-[500px] mx-auto">
+            <div className="relative hidden md:block w-full aspect-square max-w-[500px] mx-auto">
               {/* Animated spinning ring with particle effects */}
               <motion.div
                 className="absolute inset-0 rounded-full"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                transition={{
+                  duration: 20,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                }}
               >
                 {[...Array(20)].map((_, i) => (
                   <motion.div
@@ -273,7 +292,11 @@ export default function Home() {
               <motion.div
                 className="absolute bottom-10 -left-6 h-16 w-16 rounded-full bg-indigo-800 p-2 shadow-glow-indigo"
                 animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, delay: 1 }}
+                transition={{
+                  duration: 4,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: 1,
+                }}
               >
                 <div className="h-full w-full rounded-full bg-blue-100 flex items-center justify-center border-2 border-blue-300">
                   <Star className="h-8 w-8 text-blue-500" />
@@ -284,7 +307,11 @@ export default function Home() {
               <motion.div
                 className="absolute top-1/2 -right-8 h-14 w-14 rounded-full bg-indigo-800 p-2 shadow-glow-indigo"
                 animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 3.5, repeat: Number.POSITIVE_INFINITY, delay: 0.5 }}
+                transition={{
+                  duration: 3.5,
+                  repeat: Number.POSITIVE_INFINITY,
+                  delay: 0.5,
+                }}
               >
                 <div className="h-full w-full rounded-full bg-pink-100 flex items-center justify-center border-2 border-pink-300">
                   <Trophy className="h-7 w-7 text-pink-500" />
@@ -348,8 +375,8 @@ export default function Home() {
                 Discover the Magic
               </h2>
               <p className="text-indigo-200 max-w-2xl mx-auto">
-                Our app is filled with exciting features designed to make emotional learning fun and engaging for
-                children of all ages.
+                Our app is filled with exciting features designed to make
+                emotional learning fun and engaging for children of all ages.
               </p>
             </motion.div>
           </div>
@@ -370,7 +397,8 @@ export default function Home() {
             {[
               {
                 title: "Hall of faces",
-                description: "Explore different emotions and learn what they mean through interactive exhibits!",
+                description:
+                  "Explore different emotions and learn what they mean through interactive exhibits!",
                 icon: <Smile className="text-yellow-400" size={28} />,
                 href: "/face-museum",
                 color: "bg-yellow-400/20",
@@ -380,7 +408,8 @@ export default function Home() {
               },
               {
                 title: "Fun Levels",
-                description: "Complete exciting challenges and earn rewards as you master emotional intelligence!",
+                description:
+                  "Complete exciting challenges and earn rewards as you master emotional intelligence!",
                 icon: <Trophy className="text-pink-400" size={28} />,
                 href: "/levels",
                 color: "bg-pink-400/20",
@@ -390,7 +419,8 @@ export default function Home() {
               },
               {
                 title: "Cool Badges",
-                description: "Collect awesome badges as you learn and grow your emotional vocabulary!",
+                description:
+                  "Collect awesome badges as you learn and grow your emotional vocabulary!",
                 icon: <Star className="text-purple-400" size={28} />,
                 href: "/badges",
                 color: "bg-purple-400/20",
@@ -419,7 +449,9 @@ export default function Home() {
                         {feature.icon}
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold mb-2 text-white">{feature.title}</h3>
+                    <h3 className="text-xl font-bold mb-2 text-white">
+                      {feature.title}
+                    </h3>
                     <p className="text-indigo-200">{feature.description}</p>
 
                     <div className="mt-4 flex justify-end">
@@ -483,10 +515,13 @@ export default function Home() {
                     ))}
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2 text-white">Meet Your Emotion Friends!</h3>
+                    <h3 className="text-xl font-bold mb-2 text-white">
+                      Meet Your Emotion Friends!
+                    </h3>
                     <p className="text-indigo-200">
-                      These friendly characters will guide you through your emotional learning journey. Each one
-                      represents a different feeling to help you understand emotions better!
+                      These friendly characters will guide you through your
+                      emotional learning journey. Each one represents a
+                      different feeling to help you understand emotions better!
                     </p>
                   </div>
                 </div>
@@ -509,9 +544,12 @@ export default function Home() {
           </DialogHeader>
           <div className="grid grid-cols-1 gap-4 py-4">
             <Link href="/face-museum" onClick={() => setShowDialog(false)}>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full"
+              >
                 <Button
-                
                   className="w-full bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-white font-bold py-6 text-lg"
                   size="lg"
                 >
@@ -522,7 +560,11 @@ export default function Home() {
             </Link>
 
             <Link href="/levels" onClick={() => setShowDialog(false)}>
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full">
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                className="w-full"
+              >
                 <Button
                   className="w-full bg-gradient-to-br from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 text-white font-bold py-6 text-lg"
                   size="lg"
@@ -541,8 +583,16 @@ export default function Home() {
                   border: "border-yellow-300",
                   icon: <Smile className="h-6 w-6 text-yellow-500" />,
                 },
-                { color: "bg-pink-100", border: "border-pink-300", icon: <Heart className="h-6 w-6 text-pink-500" /> },
-                { color: "bg-blue-100", border: "border-blue-300", icon: <Star className="h-6 w-6 text-blue-500" /> },
+                {
+                  color: "bg-pink-100",
+                  border: "border-pink-300",
+                  icon: <Heart className="h-6 w-6 text-pink-500" />,
+                },
+                {
+                  color: "bg-blue-100",
+                  border: "border-blue-300",
+                  icon: <Star className="h-6 w-6 text-blue-500" />,
+                },
               ].map((item, i) => (
                 <motion.div
                   key={i}
@@ -563,6 +613,5 @@ export default function Home() {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
-
