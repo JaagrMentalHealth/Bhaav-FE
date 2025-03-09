@@ -354,8 +354,9 @@ export default function Levels() {
         const emotionsData = response.documents.map((doc) => ({
           id: doc.$id,
           name: doc.name,
-          image: doc.image || "/placeholder.svg?height=300&width=300", // Using database image URL
+          image: doc.image.split(",") || "/placeholder.svg?height=300&width=300", // Using database image URL
           description: doc.description,
+          video: doc.video,
         }));
 
         console.log("Fetched emotions:", emotionsData); // Debug log

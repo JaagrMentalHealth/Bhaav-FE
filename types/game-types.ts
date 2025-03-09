@@ -1,9 +1,9 @@
 export interface Emotion {
     id: string
     name: string
-    image: string
+    image: string[]
     description: string
-    videoUrl?: string
+    video?: string
   }
   
   export interface QuizQuestion {
@@ -33,5 +33,14 @@ export interface Emotion {
     emotion: string
     questions: QuizQuestion[]
   }
+
+  // export interface QuizQuestion {
+  //   emotion: string
+  //   time: number
+  //   question: string
+  //   options: string[]
+  //   correctAnswer: string
+  // }
+  
   
   

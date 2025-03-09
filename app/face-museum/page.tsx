@@ -12,7 +12,7 @@ import Link from "next/link"
 interface Emotion {
   id: string
   name: string
-  image: string
+  image: string[]
   description: string
 }
 
@@ -32,7 +32,7 @@ export default function FaceMuseum() {
         const emotionsData = response.documents.map((doc) => ({
           id: doc.$id,
           name: doc.name,
-          image: doc.image || "/placeholder.svg", // Using database image URL
+          image: doc.image.split(",") || "/placeholder.svg", // Using database image URL
           description: doc.description,
         }))
 
@@ -169,7 +169,7 @@ export default function FaceMuseum() {
                       <div className="absolute inset-4 rounded-full border-2 border-dashed border-primary/30 animate-spin-slow"></div>
                       <div className="absolute inset-8 bg-indigo-900 rounded-full shadow-inner flex items-center justify-center border-2 border-indigo-700/50">
                       <Image
-                      src={emotion.image || "/placeholder.svg"}
+                      src={emotion.image[0] || "/placeholder.svg"}
                       alt={emotion.name}
                       fill
                             className="object-cover rounded-full p-2"
@@ -231,7 +231,7 @@ export default function FaceMuseum() {
               >
                 <div className="relative w-full aspect-square overflow-hidden bg-primary/5">
                   <Image
-                    src={emotion.image || "/placeholder.svg"}
+                    src={emotion.image[0] || "/placeholder.svg"}
                     alt={emotion.name}
                     fill
                     className="object-contain p-4"
@@ -288,7 +288,7 @@ export default function FaceMuseum() {
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="relative w-32 h-32 flex-shrink-0 bg-primary/10 rounded-2xl p-2">
                   <Image
-                    src={selectedEmotionData.image || "/placeholder.svg"}
+                    src={selectedEmotionData.image[0] || "/placeholder.svg"}
                     alt={selectedEmotionData.name}
                     fill
                     className="object-contain"

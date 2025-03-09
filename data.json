@@ -1,0 +1,13 @@
+{
+    "video": "URl",
+    "questions": [
+        {
+            "time": "<number denoting time stamp>",
+            "questionText": "<Text>",
+            "options": [
+                "array of options"
+            ],
+            "correctOption": "correctOption"
+        }
+    ]
+}
