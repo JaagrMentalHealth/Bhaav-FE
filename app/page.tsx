@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Smile, Trophy, Book, Star, Sparkles, Gamepad2, Heart, Zap } from 'lucide-react'
+import { Smile, Trophy, Star, Sparkles, Gamepad2, Heart, Zap } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hoverButton, setHoverButton] = useState<string | null>(null)
+  const [showDialog, setShowDialog] = useState(false)
 
   useEffect(() => {
     setIsLoaded(true)
@@ -36,51 +38,51 @@ export default function Home() {
               }}
               transition={{
                 duration: Math.random() * 3 + 2,
-                repeat: Infinity,
+                repeat: Number.POSITIVE_INFINITY,
                 delay: Math.random() * 5,
               }}
             />
           ))}
         </div>
-        
+
         {/* Planets */}
         <motion.div
           className="absolute top-1/4 -right-20 w-40 h-40 rounded-full bg-gradient-to-br from-purple-500 to-purple-800 opacity-40 blur-md"
-          animate={{ 
+          animate={{
             y: [0, -10, 0],
             rotate: 360,
           }}
-          transition={{ 
+          transition={{
             y: {
               duration: 10,
-              repeat: Infinity,
-              repeatType: "reverse"
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
             },
             rotate: {
               duration: 200,
-              repeat: Infinity,
-              ease: "linear"
-            }
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+            },
           }}
         />
 
         <motion.div
           className="absolute bottom-1/4 -left-10 w-32 h-32 rounded-full bg-gradient-to-br from-pink-500 to-pink-800 opacity-30 blur-md"
-          animate={{ 
+          animate={{
             y: [0, 15, 0],
             rotate: 360,
           }}
-          transition={{ 
+          transition={{
             y: {
               duration: 12,
-              repeat: Infinity,
-              repeatType: "reverse"
+              repeat: Number.POSITIVE_INFINITY,
+              repeatType: "reverse",
             },
             rotate: {
               duration: 240,
-              repeat: Infinity,
-              ease: "linear"
-            }
+              repeat: Number.POSITIVE_INFINITY,
+              ease: "linear",
+            },
           }}
         />
 
@@ -169,25 +171,24 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Link href="/face-museum">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onHoverStart={() => setHoverButton('play')}
-                  onHoverEnd={() => setHoverButton(null)}
-                  className="relative"
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onHoverStart={() => setHoverButton("play")}
+                onHoverEnd={() => setHoverButton(null)}
+                className="relative"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
+                <Button
+                  size="lg"
+                  className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-indigo-400/30"
+                  onClick={() => setShowDialog(true)}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
-                  <Button 
-                    size="lg" 
-                    className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-indigo-400/30"
-                  >
-                    <Gamepad2 className="mr-2 h-6 w-6" />
-                    Start your Journey
-                  </Button>
-                </motion.div>
-              </Link>
-              
+                  <Gamepad2 className="mr-2 h-6 w-6" />
+                  Start your Journey
+                </Button>
+              </motion.div>
+
               {/* <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -221,18 +222,18 @@ export default function Home() {
           >
             <div className="relative w-full aspect-square max-w-[500px] mx-auto">
               {/* Animated spinning ring with particle effects */}
-              <motion.div 
+              <motion.div
                 className="absolute inset-0 rounded-full"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
               >
                 {[...Array(20)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="absolute w-3 h-3 bg-fuchsia-500 rounded-full shadow-glow-pink"
                     style={{
-                      top: `${50 + 46 * Math.cos(2 * Math.PI * i / 20)}%`,
-                      left: `${50 + 46 * Math.sin(2 * Math.PI * i / 20)}%`,
+                      top: `${50 + 46 * Math.cos((2 * Math.PI * i) / 20)}%`,
+                      left: `${50 + 46 * Math.sin((2 * Math.PI * i) / 20)}%`,
                     }}
                     animate={{
                       scale: [1, 1.3, 1],
@@ -240,7 +241,7 @@ export default function Home() {
                     }}
                     transition={{
                       duration: 2,
-                      repeat: Infinity,
+                      repeat: Number.POSITIVE_INFINITY,
                       delay: i * 0.1,
                     }}
                   />
@@ -278,7 +279,7 @@ export default function Home() {
                   <Star className="h-8 w-8 text-blue-500" />
                 </div>
               </motion.div>
-              
+
               {/* New floating elements */}
               <motion.div
                 className="absolute top-1/2 -right-8 h-14 w-14 rounded-full bg-indigo-800 p-2 shadow-glow-indigo"
@@ -289,17 +290,17 @@ export default function Home() {
                   <Trophy className="h-7 w-7 text-pink-500" />
                 </div>
               </motion.div>
-              
+
               {/* Floating powerup */}
               <motion.div
                 className="absolute bottom-28 right-0 h-10 w-10 shadow-glow-small"
-                animate={{ 
+                animate={{
                   y: [0, -10, 0],
-                  rotate: [0, 10, 0, -10, 0]
+                  rotate: [0, 10, 0, -10, 0],
                 }}
-                transition={{ 
-                  y: { duration: 2, repeat: Infinity },
-                  rotate: { duration: 3, repeat: Infinity }
+                transition={{
+                  y: { duration: 2, repeat: Number.POSITIVE_INFINITY },
+                  rotate: { duration: 3, repeat: Number.POSITIVE_INFINITY },
                 }}
               >
                 <div className="h-full w-full rounded-lg bg-indigo-800 flex items-center justify-center border-2 border-indigo-400">
@@ -343,7 +344,9 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">Discover the Magic</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
+                Discover the Magic
+              </h2>
               <p className="text-indigo-200 max-w-2xl mx-auto">
                 Our app is filled with exciting features designed to make emotional learning fun and engaging for
                 children of all ages.
@@ -406,17 +409,21 @@ export default function Home() {
                 whileHover={{ y: -8, scale: 1.03 }}
               >
                 <Link href={feature.href} className="block h-full">
-                  <div className={`h-full rounded-2xl p-6 ${feature.bgColor} border-2 ${feature.border} transition-all duration-300 ${feature.glow}`}>
+                  <div
+                    className={`h-full rounded-2xl p-6 ${feature.bgColor} border-2 ${feature.border} transition-all duration-300 ${feature.glow}`}
+                  >
                     <div className="mb-4">
-                      <div className={`w-16 h-16 rounded-2xl ${feature.color} flex items-center justify-center border-2 ${feature.border}`}>
+                      <div
+                        className={`w-16 h-16 rounded-2xl ${feature.color} flex items-center justify-center border-2 ${feature.border}`}
+                      >
                         {feature.icon}
                       </div>
                     </div>
                     <h3 className="text-xl font-bold mb-2 text-white">{feature.title}</h3>
                     <p className="text-indigo-200">{feature.description}</p>
-                    
+
                     <div className="mt-4 flex justify-end">
-                      <motion.div 
+                      <motion.div
                         className={`w-10 h-10 rounded-lg ${feature.color} flex items-center justify-center border ${feature.border}`}
                         whileHover={{ scale: 1.2, rotate: 10 }}
                       >
@@ -428,10 +435,10 @@ export default function Home() {
               </motion.div>
             ))}
           </motion.div>
-          
+
           {/* Game characters */}
           <div className="mt-20 flex justify-center">
-            <motion.div 
+            <motion.div
               className="relative"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -444,19 +451,31 @@ export default function Home() {
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <div className="flex -space-x-4">
                     {[
-                      { color: "bg-yellow-100", border: "border-yellow-300", icon: <Smile className="h-8 w-8 text-yellow-500" /> },
-                      { color: "bg-pink-100", border: "border-pink-300", icon: <Heart className="h-8 w-8 text-pink-500" /> },
-                      { color: "bg-blue-100", border: "border-blue-300", icon: <Star className="h-8 w-8 text-blue-500" /> },
+                      {
+                        color: "bg-yellow-100",
+                        border: "border-yellow-300",
+                        icon: <Smile className="h-8 w-8 text-yellow-500" />,
+                      },
+                      {
+                        color: "bg-pink-100",
+                        border: "border-pink-300",
+                        icon: <Heart className="h-8 w-8 text-pink-500" />,
+                      },
+                      {
+                        color: "bg-blue-100",
+                        border: "border-blue-300",
+                        icon: <Star className="h-8 w-8 text-blue-500" />,
+                      },
                     ].map((item, i) => (
                       <motion.div
                         key={i}
                         className={`w-16 h-16 rounded-full ${item.color} flex items-center justify-center border-2 ${item.border} shadow-glow-small`}
                         animate={{ y: [0, -5, 0] }}
-                        transition={{ 
-                          duration: 2, 
-                          repeat: Infinity, 
+                        transition={{
+                          duration: 2,
+                          repeat: Number.POSITIVE_INFINITY,
                           repeatType: "reverse",
-                          delay: i * 0.3
+                          delay: i * 0.3,
                         }}
                       >
                         {item.icon}
@@ -466,8 +485,8 @@ export default function Home() {
                   <div>
                     <h3 className="text-xl font-bold mb-2 text-white">Meet Your Emotion Friends!</h3>
                     <p className="text-indigo-200">
-                      These friendly characters will guide you through your emotional learning journey. 
-                      Each one represents a different feeling to help you understand emotions better!
+                      These friendly characters will guide you through your emotional learning journey. Each one
+                      represents a different feeling to help you understand emotions better!
                     </p>
                   </div>
                 </div>
@@ -476,6 +495,74 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Dialog for choosing between museum and levels */}
+      <Dialog open={showDialog} onOpenChange={setShowDialog}>
+        <DialogContent className="bg-indigo-900 border-2 border-fuchsia-400/50 text-white max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-center bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
+              Choose Your Adventure!
+            </DialogTitle>
+            <DialogDescription className="text-indigo-200 text-center text-base">
+              Would you like to visit the Museum of Faces or continue to play?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 gap-4 py-4">
+            <Link href="/face-museum" onClick={() => setShowDialog(false)}>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full">
+                <Button
+                
+                  className="w-full bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-white font-bold py-6 text-lg"
+                  size="lg"
+                >
+                  <Smile className="mr-2 h-5 w-5" />
+                  Hall of Faces
+                </Button>
+              </motion.div>
+            </Link>
+
+            <Link href="/levels" onClick={() => setShowDialog(false)}>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full">
+                <Button
+                  className="w-full bg-gradient-to-br from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 text-white font-bold py-6 text-lg"
+                  size="lg"
+                >
+                  <Gamepad2 className="mr-2 h-5 w-5" />
+                  Continue to Play
+                </Button>
+              </motion.div>
+            </Link>
+          </div>
+          <div className="flex justify-center">
+            <div className="flex -space-x-2">
+              {[
+                {
+                  color: "bg-yellow-100",
+                  border: "border-yellow-300",
+                  icon: <Smile className="h-6 w-6 text-yellow-500" />,
+                },
+                { color: "bg-pink-100", border: "border-pink-300", icon: <Heart className="h-6 w-6 text-pink-500" /> },
+                { color: "bg-blue-100", border: "border-blue-300", icon: <Star className="h-6 w-6 text-blue-500" /> },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  className={`w-12 h-12 rounded-full ${item.color} flex items-center justify-center border-2 ${item.border}`}
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatType: "reverse",
+                    delay: i * 0.3,
+                  }}
+                >
+                  {item.icon}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
+

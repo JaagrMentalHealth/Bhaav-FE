@@ -3,12 +3,14 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { Star, CheckCircle, XCircle, Play, ChevronLeft, ChevronRight } from "lucide-react"
+import { Star, CheckCircle, XCircle, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import type { Emotion, GameState, QuizQuestion } from "@/types/game-types"
 import confetti from "canvas-confetti"
-import { Client, Databases, Query } from "appwrite"
+
+// Import local data
+import gameData from "@/data/data.json"
 
 interface EmotionGameProps {
   levelId: number
@@ -17,14 +19,9 @@ interface EmotionGameProps {
   emotions: Emotion[]
 }
 
-// Initialize Appwrite
-const client = new Client().setEndpoint("https://cloud.appwrite.io/v1").setProject("67c98b5e0035bedcf913") // Replace with your project ID if different
-
-const databases = new Databases(client)
-
 export default function EmotionGame({ levelId, onComplete, onExit, emotions }: EmotionGameProps) {
   const [gameState, setGameState] = useState<GameState>({
-    stage: "emotion-recognition",
+    stage: "preparation", // Changed initial stage to preparation
     currentQuestion: 0,
     selectedAnswer: null,
     correctAnswers: 0,
@@ -39,60 +36,70 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
   const [quizResult, setQuizResult] = useState<"correct" | "incorrect" | null>(null)
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([])
   const [videoUrl, setVideoUrl] = useState<string>("")
-  // Add a state to track the current image index
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
-  // Fetch questions from Appwrite for the current emotion
-  const fetchQuestions = async (emotionName: string) => {
-    try {
-      const response = await databases.listDocuments(
-        "YOUR_DATABASE_ID", // Replace with your database ID
-        "questions", // Collection ID for questions
-        [Query.equal("emotion", emotionName)],
-      )
+  // New state for preparation timer
+  const [prepTime, setPrepTime] = useState(10)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
 
-      if (response.documents.length > 0) {
-        const fetchedQuestions = response.documents.map((doc) => ({
-          id: doc.$id,
+  // Load questions from local data instead of Appwrite
+  const loadQuestions = (emotionName: string) => {
+    try {
+      // Find questions for the current emotion from the local data
+      const questions = gameData.questions.filter((q) => q.emotion === emotionName)
+
+      if (questions.length > 0) {
+        const formattedQuestions = questions.map((doc) => ({
+          id: doc.id,
           timestamp: doc.time,
           question: doc.question,
           options: doc.options,
           correctAnswer: doc.correctOption,
+          image: doc.image || null, // Support optional image
         }))
 
-        setQuizQuestions(fetchedQuestions)
+        setQuizQuestions(formattedQuestions)
       }
     } catch (error) {
-      console.error("Error fetching questions:", error)
+      console.error("Error loading questions:", error)
     }
   }
 
   // Initialize the game with the current level's emotion
   useEffect(() => {
-    // For demo purposes, we'll select an emotion based on the level ID
-    // In a real app, you'd map this to your level data
+    // Select an emotion based on the level ID
     const emotionIndex = (levelId - 1) % emotions.length
     const selectedEmotion = emotions[emotionIndex]
 
     if (selectedEmotion) {
       setCurrentEmotion(selectedEmotion)
-      // Update the setVideoUrl line in the useEffect to use the correct property name
       setVideoUrl(selectedEmotion.video || "")
 
-      // Generate emotion options (1 correct + 3 random)
-      const otherEmotions = emotions
-        .filter((e) => e.id !== selectedEmotion.id)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3)
-        .map((e) => e.name)
-
-      const allOptions = [selectedEmotion.name, ...otherEmotions].sort(() => Math.random() - 0.5)
-      setOptions(allOptions)
-
-      // Fetch questions for this emotion from Appwrite
-      fetchQuestions(selectedEmotion.name)
+      // Load questions for this emotion from local data
+      loadQuestions(selectedEmotion.name)
     }
   }, [levelId, emotions])
+
+  // Handle preparation timer
+  useEffect(() => {
+    if (gameState.stage === "preparation" && prepTime > 0) {
+      timerRef.current = setTimeout(() => {
+        setPrepTime((prev) => prev - 1)
+      }, 1000)
+    } else if (gameState.stage === "preparation" && prepTime === 0) {
+      // Move to video stage when timer completes
+      setGameState((prev) => ({
+        ...prev,
+        stage: "video-quiz",
+      }))
+    }
+
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
+      }
+    }
+  }, [gameState.stage, prepTime])
 
   // Handle video timeupdate to check for quiz timestamps
   useEffect(() => {
@@ -119,7 +126,7 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
           setCurrentQuizQuestion(questionAtTimestamp)
           setShowQuiz(true)
 
-          // Use the options from the database
+          // Use the options from the data
           setOptions([...questionAtTimestamp.options])
         }
       }
@@ -133,37 +140,6 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
       }
     }
   }, [gameState.stage, gameState.currentQuestion, quizQuestions, showQuiz])
-
-  // Handle emotion selection in the first stage
-  const handleEmotionSelect = (emotion: string) => {
-    setGameState((prev) => ({ ...prev, selectedAnswer: emotion }))
-
-    if (!currentEmotion) return
-
-    // Check if the selected emotion is correct
-    if (emotion === currentEmotion.name) {
-      setQuizResult("correct")
-
-      // Move to video stage after a short delay
-      setTimeout(() => {
-        setGameState((prev) => ({
-          ...prev,
-          stage: "video-quiz",
-          selectedAnswer: null,
-          correctAnswers: prev.correctAnswers + 1,
-        }))
-        setQuizResult(null)
-      }, 1500)
-    } else {
-      setQuizResult("incorrect")
-
-      // Clear incorrect answer after a short delay
-      setTimeout(() => {
-        setQuizResult(null)
-        setGameState((prev) => ({ ...prev, selectedAnswer: null }))
-      }, 1500)
-    }
-  }
 
   // Handle quiz answer selection
   const handleQuizAnswer = (answer: string) => {
@@ -206,8 +182,8 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
   // Handle video end
   const handleVideoEnd = () => {
     // Calculate stars based on correct answers
-    const totalQuestions = quizQuestions.length + 1 // +1 for the emotion recognition
-    const correctPercentage = (gameState.correctAnswers / totalQuestions) * 100
+    const totalQuestions = quizQuestions.length
+    const correctPercentage = totalQuestions > 0 ? (gameState.correctAnswers / totalQuestions) * 100 : 0
 
     let stars = 1
     if (correctPercentage >= 50) stars = 2
@@ -230,87 +206,43 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
     }, 3000)
   }
 
-  // Add functions to handle image navigation
-  const nextImage = () => {
-    if (!currentEmotion || !currentEmotion.image.length) return
-    setCurrentImageIndex((prev) => (prev + 1) % currentEmotion.image.length)
-  }
-
-  const prevImage = () => {
-    if (!currentEmotion || !currentEmotion.image.length) return
-    setCurrentImageIndex((prev) => (prev - 1 + currentEmotion.image.length) % currentEmotion.image.length)
-  }
-
-  // Replace the renderEmotionRecognition function with this updated version
-  const renderEmotionRecognition = () => {
-    if (!currentEmotion) return null
+  // Render preparation screen with circular timer
+  const renderPreparationScreen = () => {
+    const circumference = 2 * Math.PI * 40 // Circle radius is 40
+    const strokeDashoffset = circumference * (1 - prepTime / 10)
 
     return (
-      <div className="flex flex-col items-center">
-        <div className="relative w-64 h-64 mb-6">
-          {currentEmotion.image.length > 0 && (
-            <>
-              <Image
-                src={currentEmotion.image[currentImageIndex] || "/placeholder.svg?height=300&width=300"}
-                alt="Emotion"
-                fill
-                className="object-cover rounded-lg"
-              />
-              {currentEmotion.image.length > 1 && (
-                <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 -ml-4"
-                    onClick={prevImage}
-                  >
-                    <ChevronLeft className="h-6 w-6" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 -mr-4"
-                    onClick={nextImage}
-                  >
-                    <ChevronRight className="h-6 w-6" />
-                  </Button>
-                  <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1">
-                    {currentEmotion.image.map((_, index) => (
-                      <div
-                        key={index}
-                        className={`h-2 w-2 rounded-full ${index === currentImageIndex ? "bg-white" : "bg-white/50"}`}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
-            </>
-          )}
+      <div className="flex flex-col items-center justify-center text-center">
+        <h2 className="text-2xl font-bold mb-6">Get Ready!</h2>
+        <p className="text-lg mb-8">Focus on the upcoming video for your assessment</p>
+
+        <div className="relative w-32 h-32 mb-6">
+          {/* Circular progress bar */}
+          <svg className="w-full h-full" viewBox="0 0 100 100">
+            {/* Background circle */}
+            <circle cx="50" cy="50" r="40" fill="transparent" stroke="#e2e8f0" strokeWidth="8" />
+            {/* Progress circle */}
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              fill="transparent"
+              stroke="#4f46e5"
+              strokeWidth="8"
+              strokeDasharray={circumference}
+              strokeDashoffset={strokeDashoffset}
+              strokeLinecap="round"
+              transform="rotate(-90 50 50)"
+              className="transition-all duration-1000 ease-linear"
+            />
+          </svg>
+          {/* Timer text */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-3xl font-bold">{prepTime}</span>
+          </div>
         </div>
-        <h2 className="text-xl font-bold mb-6">What emotion is shown in this image?</h2>
-        <div className="grid grid-cols-2 gap-4 w-full max-w-md">
-          {options.map((option, index) => (
-            <Button
-              key={index}
-              variant={gameState.selectedAnswer === option ? "default" : "outline"}
-              className={`p-4 h-auto text-lg bg-indigo-600 text-white hover:bg-indigo-700  ${
-                quizResult === "correct" && option === currentEmotion.name
-                  ? "bg-green-500 hover:bg-green-600"
-                  : quizResult === "incorrect" && gameState.selectedAnswer === option
-                    ? "bg-red-500 hover:bg-red-600"
-                    : ""
-              }`}
-              onClick={() => handleEmotionSelect(option)}
-              disabled={gameState.selectedAnswer !== null}
-            >
-              {option}
-              {quizResult === "correct" && option === currentEmotion.name && <CheckCircle className="ml-2 h-5 w-5" />}
-              {quizResult === "incorrect" && gameState.selectedAnswer === option && (
-                <XCircle className="ml-2 h-5 w-5" />
-              )}
-            </Button>
-          ))}
-        </div>
+
+        <p className="text-lg">{currentEmotion ? `Learning about ${currentEmotion.name}` : "Preparing your lesson"}</p>
       </div>
     )
   }
@@ -360,6 +292,19 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
               className="bg-indigo-400 p-6 rounded-lg shadow-lg w-full max-w-2xl"
             >
               <h3 className="text-xl font-bold mb-4">{currentQuizQuestion.question}</h3>
+
+              {/* Conditionally render question image if it exists */}
+              {currentQuizQuestion.image && (
+                <div className="mb-4 relative w-full aspect-video rounded-lg overflow-hidden">
+                  <Image
+                    src={currentQuizQuestion.image || "/placeholder.svg"}
+                    alt="Question image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              )}
+
               <div className="grid grid-cols-1 gap-3">
                 {options.map((option, index) => (
                   <Button
@@ -395,8 +340,8 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
   // Render completion screen
   const renderCompletionScreen = () => {
     // Calculate stars based on correct answers
-    const totalQuestions = quizQuestions.length + 1 // +1 for the emotion recognition
-    const correctPercentage = (gameState.correctAnswers / totalQuestions) * 100
+    const totalQuestions = quizQuestions.length
+    const correctPercentage = totalQuestions > 0 ? (gameState.correctAnswers / totalQuestions) * 100 : 0
 
     let stars = 1
     if (correctPercentage >= 50) stars = 2
@@ -434,14 +379,14 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
         <Button variant="ghost" className="bg-indigo-600 text-white hover:bg-indigo-700" onClick={onExit}>
           Exit Game
         </Button>
-        <div className="text-lg font-semibold">
-          Level {levelId}: {currentEmotion?.name || "Emotion Learning"}
+        <div className="text-lg font-semibold text-white">
+          Level {levelId}: Harvest of Hope
         </div>
         <div className="w-20"></div> {/* Spacer for alignment */}
       </div>
 
-      <div className="flex flex-col items-center justify-center min-h-[400px]">
-        {gameState.stage === "emotion-recognition" && renderEmotionRecognition()}
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-white">
+        {gameState.stage === "preparation" && renderPreparationScreen()}
         {gameState.stage === "video-quiz" && renderVideoQuiz()}
         {gameState.stage === "complete" && renderCompletionScreen()}
       </div>

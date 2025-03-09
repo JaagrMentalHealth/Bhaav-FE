@@ -40,6 +40,8 @@
   display: none;
 }
 
+
+
 /* Hide scrollbar for Firefox */
 .scrollbar-hide {
   scrollbar-width: none;

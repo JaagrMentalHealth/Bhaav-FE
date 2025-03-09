@@ -1,67 +1,80 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image"
-import { databases } from "@/lib/appwriteConfig"
-import { Carousel } from "react-responsive-carousel"
-import "react-responsive-carousel/lib/styles/carousel.min.css"
-import { X, ChevronLeft, ChevronRight, Info, ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { databases } from "@/lib/appwriteConfig";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Info,
+  ArrowLeft,
+  Gamepad2,
+} from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface Emotion {
-  id: string
-  name: string
-  image: string[]
-  description: string
+  id: string;
+  name: string;
+  image: string[];
+  description: string;
 }
 
 export default function FaceMuseum() {
-  const [emotions, setEmotions] = useState<Emotion[]>([])
-  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [emotions, setEmotions] = useState<Emotion[]>([]);
+  const [selectedEmotion, setSelectedEmotion] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
-  let isMounted=true;
+    let isMounted = true;
     const fetchEmotions = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
-        const response = await databases.listDocuments("67c98cc3002b3e3dc1a5", "67c98ce00023c7585f67")
+        const response = await databases.listDocuments(
+          "67c98cc3002b3e3dc1a5",
+          "67c98ce00023c7585f67"
+        );
 
         const emotionsData = response.documents.map((doc) => ({
           id: doc.$id,
           name: doc.name,
           image: doc.image.split(",") || "/placeholder.svg", // Using database image URL
           description: doc.description,
-        }))
+        }));
 
-        console.log("Fetched emotions:", emotionsData) // Debug log
-        setEmotions(emotionsData)
+        console.log("Fetched emotions:", emotionsData); // Debug log
+        setEmotions(emotionsData);
       } catch (error) {
-        console.error("Error fetching emotions:", error)
+        console.error("Error fetching emotions:", error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchEmotions()
+    fetchEmotions();
 
-    return ()=>{
-      isMounted=false;
-    }
-  }, [])
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleEmotionClick = (id: string) => {
-    setSelectedEmotion(id)
-    setIsModalOpen(true)
-  }
+    setSelectedEmotion(id);
+    setIsModalOpen(true);
+  };
 
   const closeModal = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
 
-  const selectedEmotionData = emotions.find((e) => e.id === selectedEmotion)
+  const selectedEmotionData = emotions.find((e) => e.id === selectedEmotion);
 
   // Custom carousel arrows
   const arrowStyles = {
@@ -78,19 +91,27 @@ export default function FaceMuseum() {
     borderRadius: "50%",
     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
     transition: "all 0.3s ease",
-  } as const
+  } as const;
 
   const renderArrowPrev = (clickHandler: () => void) => (
-    <div onClick={clickHandler} style={{ ...arrowStyles, left: 20 }} className="hover:bg-white">
+    <div
+      onClick={clickHandler}
+      style={{ ...arrowStyles, left: 20 }}
+      className="hover:bg-white"
+    >
       <ChevronLeft className="h-6 w-6 text-primary" />
     </div>
-  )
+  );
 
   const renderArrowNext = (clickHandler: () => void) => (
-    <div onClick={clickHandler} style={{ ...arrowStyles, right: 20 }} className="hover:bg-white">
+    <div
+      onClick={clickHandler}
+      style={{ ...arrowStyles, right: 20 }}
+      className="hover:bg-white"
+    >
       <ChevronRight className="h-6 w-6 text-primary" />
     </div>
-  )
+  );
 
   return (
     <div className="min-h-screen bg-indigo-950 text-white overflow-hidden">
@@ -100,15 +121,17 @@ export default function FaceMuseum() {
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 left-1/4 w-72 h-72 bg-fuchsia-600/10 rounded-full blur-3xl"></div>
           <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"></div>
-          
-    </div>    
-       <div className="container relative z-10 mx-auto px-4">
-        <div className="flex items-center justify-between mb-6">
-            <Link href="/" className="flex items-center text-indigo-200 hover:text-white transition-colors">
+        </div>
+        <div className="container relative z-10 mx-auto px-4">
+          <div className="flex items-center justify-between mb-6">
+            <Link
+              href="/"
+              className="flex items-center text-indigo-200 hover:text-white transition-colors"
+            >
               <ArrowLeft className="mr-2 h-4 w-4" />
               <span>Back to Home</span>
             </Link>
-        </div>
+          </div>
         </div>
         <div className="container relative z-10 mx-auto px-4">
           <motion.div
@@ -120,7 +143,6 @@ export default function FaceMuseum() {
             <div className="inline-block mb-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-fuchsia-500/20 blur-md rounded-full"></div>
-                
               </div>
             </div>
 
@@ -131,7 +153,8 @@ export default function FaceMuseum() {
             </h1>
 
             <p className="text-lg md:text-xl max-w-2xl mx-auto text-indigo-200 leading-relaxed">
-              Explore different emotions and learn what they mean! Click on a face to learn more about that emotion.
+              Explore different emotions and learn what they mean! Click on a
+              face to learn more about that emotion.
             </p>
           </motion.div>
         </div>
@@ -196,7 +219,6 @@ export default function FaceMuseum() {
         ) : null} */}
 
         <div className="mb-16">
-
           <motion.div
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6 max-w-6xl mx-auto"
             initial="hidden"
@@ -234,21 +256,38 @@ export default function FaceMuseum() {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-center font-medium text-white">{emotion.name}</h3>
+                  <h3 className="text-center font-medium text-white">
+                    {emotion.name}
+                  </h3>
                 </div>
               </motion.div>
             ))}
           </motion.div>
+          <div className="flex w-full justify-center mt-20">
+            <Button
+              onClick={() => {
+                router.push("/levels");
+              }}
+              size="lg"
+              className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-indigo-400/30"
+            >
+              <Gamepad2 className="mr-2 h-6 w-6" />
+              Start Playing
+            </Button>
+          </div>
         </div>
       </div>
 
       {/* Museum-like footer */}
       <div className="bg-indigo-900/80 py-12 border-t-2 border-indigo-700/50">
         <div className="container mx-auto px-4 text-center">
-          <h3 className="text-xl font-semibold mb-4 text-white">About Hall of faces</h3>
+          <h3 className="text-xl font-semibold mb-4 text-white">
+            About Hall of faces
+          </h3>
           <p className="text-indigo-200 max-w-2xl mx-auto">
-            Our interactive museum helps children understand and identify different emotions. By exploring these
-            exhibits, kids develop emotional intelligence and empathy.
+            Our interactive museum helps children understand and identify
+            different emotions. By exploring these exhibits, kids develop
+            emotional intelligence and empathy.
           </p>
         </div>
       </div>
@@ -272,7 +311,9 @@ export default function FaceMuseum() {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-6">
-                <h2 className="text-2xl font-bold text-white">{selectedEmotionData.name}</h2>
+                <h2 className="text-2xl font-bold text-white">
+                  {selectedEmotionData.name}
+                </h2>
                 <button
                   onClick={closeModal}
                   className="text-indigo-200 hover:text-white transition-colors rounded-full p-1 hover:bg-indigo-700"
@@ -291,22 +332,26 @@ export default function FaceMuseum() {
                   />
                 </div>
                 <div>
-                  <p className="text-indigo-200 mb-6">{selectedEmotionData.description}</p>
+                  <p className="text-indigo-200 mb-6">
+                    {selectedEmotionData.description}
+                  </p>
 
                   <div className="bg-indigo-900/80 p-4 rounded-xl mb-6 border-2 border-indigo-700/50">
-                    <h4 className="font-medium mb-2">When you might feel this way:</h4>
+                    <h4 className="font-medium mb-2">
+                      When you might feel this way:
+                    </h4>
                     <p className="text-sm text-muted-foreground">
                       {selectedEmotionData.name === "Happy"
                         ? "When you're playing with friends, celebrating, or received a gift you love!"
                         : selectedEmotionData.name === "Sad"
-                          ? "When you lose something special, miss someone, or things don't go as planned."
-                          : selectedEmotionData.name === "Angry"
-                            ? "When something feels unfair, you're frustrated, or someone hurt your feelings."
-                            : selectedEmotionData.name === "Surprised"
-                              ? "When something unexpected happens, you get a surprise gift, or see something amazing!"
-                              : selectedEmotionData.name === "Scared"
-                                ? "When you face something new, are in the dark, or hear a loud noise."
-                                : "When you experience something new or unexpected in your day."}
+                        ? "When you lose something special, miss someone, or things don't go as planned."
+                        : selectedEmotionData.name === "Angry"
+                        ? "When something feels unfair, you're frustrated, or someone hurt your feelings."
+                        : selectedEmotionData.name === "Surprised"
+                        ? "When something unexpected happens, you get a surprise gift, or see something amazing!"
+                        : selectedEmotionData.name === "Scared"
+                        ? "When you face something new, are in the dark, or hear a loud noise."
+                        : "When you experience something new or unexpected in your day."}
                     </p>
                   </div>
 
@@ -325,6 +370,5 @@ export default function FaceMuseum() {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
-

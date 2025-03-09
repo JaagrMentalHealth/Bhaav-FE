@@ -2,7 +2,7 @@
 
 import type React from "react";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { databases } from "@/lib/appwriteConfig";
 import type { Emotion } from "@/types/game-types";
 import EmotionGame from "@/components/emotion-game";
@@ -96,9 +96,10 @@ const powerUps: PowerUp[] = [
 const levels: Level[] = [
   {
     id: 1,
-    name: "Sweet Start",
+    name: "Harvest of Happiness",
     description: "Match 3 emotions to begin your journey",
-    image: "/placeholder.svg?height=150&width=150",
+    image:
+      "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cd6d2b0014022526ef/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
     completed: true,
     stars: 3,
@@ -314,6 +315,307 @@ const levels: Level[] = [
     difficulty: 5,
     position: { x: 95, y: 35 },
   },
+  {
+    id: 6,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    stars: 0,
+    color: "from-red-400 to-red-600",
+    shadowColor: "shadow-glow-red",
+    gridSize: { rows: 9, cols: 9 },
+    moves: 40,
+    objectives: [
+      {
+        type: "score",
+        target: 6000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 25,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 20,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+      {
+        type: "time",
+        target: 90,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 95, y: 35 },
+  },
+  {
+    id: 6,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    stars: 0,
+    color: "from-red-400 to-red-600",
+    shadowColor: "shadow-glow-red",
+    gridSize: { rows: 9, cols: 9 },
+    moves: 40,
+    objectives: [
+      {
+        type: "score",
+        target: 6000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 25,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 20,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+      {
+        type: "time",
+        target: 90,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 95, y: 35 },
+  },
+  {
+    id: 6,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    stars: 0,
+    color: "from-red-400 to-red-600",
+    shadowColor: "shadow-glow-red",
+    gridSize: { rows: 9, cols: 9 },
+    moves: 40,
+    objectives: [
+      {
+        type: "score",
+        target: 6000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 25,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 20,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+      {
+        type: "time",
+        target: 90,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 95, y: 35 },
+  },
+  {
+    id: 6,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    stars: 0,
+    color: "from-red-400 to-red-600",
+    shadowColor: "shadow-glow-red",
+    gridSize: { rows: 9, cols: 9 },
+    moves: 40,
+    objectives: [
+      {
+        type: "score",
+        target: 6000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 25,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 20,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+      {
+        type: "time",
+        target: 90,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 95, y: 35 },
+  },
+  {
+    id: 6,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    stars: 0,
+    color: "from-red-400 to-red-600",
+    shadowColor: "shadow-glow-red",
+    gridSize: { rows: 9, cols: 9 },
+    moves: 40,
+    objectives: [
+      {
+        type: "score",
+        target: 6000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 25,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 20,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+      {
+        type: "time",
+        target: 90,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 95, y: 35 },
+  },
+  {
+    id: 6,
+    name: "Emotion Master",
+    description: "Final challenge with all emotions",
+    image: "/placeholder.svg?height=150&width=150",
+    unlocked: false,
+    completed: false,
+    stars: 0,
+    color: "from-red-400 to-red-600",
+    shadowColor: "shadow-glow-red",
+    gridSize: { rows: 9, cols: 9 },
+    moves: 40,
+    objectives: [
+      {
+        type: "score",
+        target: 6000,
+        current: 0,
+        icon: <Star size={16} className="text-yellow-400" />,
+        label: "Score",
+        color: "bg-yellow-400",
+      },
+      {
+        type: "collect",
+        target: 25,
+        current: 0,
+        icon: <Heart size={16} className="text-red-500" />,
+        label: "Hearts",
+        color: "bg-red-400",
+      },
+      {
+        type: "clear",
+        target: 20,
+        current: 0,
+        icon: <Target size={16} className="text-blue-500" />,
+        label: "Blocks",
+        color: "bg-blue-400",
+      },
+      {
+        type: "time",
+        target: 90,
+        current: 0,
+        icon: <Clock size={16} className="text-green-500" />,
+        label: "Seconds",
+        color: "bg-green-400",
+      },
+    ],
+    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
+    difficulty: 5,
+    position: { x: 95, y: 35 },
+  },
+  
 ];
 
 // Path points for the winding path
@@ -339,6 +641,7 @@ export default function Levels() {
   const [isLoading, setIsLoading] = useState(true);
   const [showLevelModal, setShowLevelModal] = useState(false);
   const [showEmotionGame, setShowEmotionGame] = useState(false);
+  const scrollRef=useRef(null);
 
   // Fetch emotions from Appwrite
   useEffect(() => {
@@ -354,7 +657,8 @@ export default function Levels() {
         const emotionsData = response.documents.map((doc) => ({
           id: doc.$id,
           name: doc.name,
-          image: doc.image.split(",") || "/placeholder.svg?height=300&width=300", // Using database image URL
+          image:
+            doc.image.split(",") || "/placeholder.svg?height=300&width=300", // Using database image URL
           description: doc.description,
           video: doc.video,
         }));
@@ -734,151 +1038,134 @@ export default function Levels() {
       <div className="container mx-auto px-4 -mt-16 relative z-20 mb-24">
         {/* Candy Crush style map with bubbles */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="max-w-4xl mx-auto mb-12 relative"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.2 }}
+      className="max-w-4xl mx-auto mb-12 relative"
+    >
+      {/* Fixed Background Container */}
+      <div className="relative w-full h-[450px] bg-indigo-900/60 rounded-3xl overflow-hidden border-2 border-indigo-700/50 shadow-glow-indigo">
+        {/* Fixed Background Decorations */}
+        <div className="absolute inset-0 bg-gradient-to-b from-indigo-800/20 to-fuchsia-800/20"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400/20 rounded-full blur-md"></div>
+        <div className="absolute bottom-20 right-20 w-16 h-16 bg-pink-400/20 rounded-full blur-md"></div>
+        <div className="absolute top-1/2 left-1/3 w-12 h-12 bg-blue-400/20 rounded-full blur-md"></div>
+
+        {/* Clouds (Fixed) */}
+        <div className="absolute top-5 left-1/4 flex space-x-1">
+          <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
+          <div className="w-14 h-8 bg-indigo-200/20 rounded-full"></div>
+          <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
+        </div>
+
+        <div className="absolute bottom-10 right-1/4 flex space-x-1">
+          <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
+          <div className="w-12 h-7 bg-indigo-200/20 rounded-full"></div>
+          <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
+        </div>
+
+        {/* Trees (Fixed) */}
+        <div className="absolute top-1/4 left-10">
+          <div className="w-12 h-12 bg-fuchsia-500/30 rounded-full"></div>
+          <div className="w-3 h-6 bg-fuchsia-700/30 mx-auto -mt-1"></div>
+        </div>
+
+        <div className="absolute bottom-1/4 right-10">
+          <div className="w-10 h-10 bg-fuchsia-500/30 rounded-full"></div>
+          <div className="w-2 h-5 bg-fuchsia-700/30 mx-auto -mt-1"></div>
+        </div>
+
+        {/* Scrollable Level Bubbles */}
+        <div
+          ref={scrollRef}
+          className="absolute inset-0 flex items-center space-x-10 px-10 overflow-x-scroll"
+          style={{ scrollSnapType: "x mandatory", whiteSpace: "nowrap" }}
         >
-          <div className="relative w-full h-[450px] bg-indigo-900/60 rounded-3xl overflow-hidden border-2 border-indigo-700/50 shadow-glow-indigo">
-            {/* Decorative elements */}
-            <div className="absolute inset-0 bg-gradient-to-b from-indigo-800/20 to-fuchsia-800/20"></div>
-            <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400/20 rounded-full blur-md"></div>
-            <div className="absolute bottom-20 right-20 w-16 h-16 bg-pink-400/20 rounded-full blur-md"></div>
-            <div className="absolute top-1/2 left-1/3 w-12 h-12 bg-blue-400/20 rounded-full blur-md"></div>
+          {userLevels.map((level, index) => {
+            const isCompleted = level.completed;
+            const isLocked = !level.unlocked;
 
-            {/* Clouds */}
-            <div className="absolute top-5 left-1/4 flex space-x-1">
-              <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
-              <div className="w-14 h-8 bg-indigo-200/20 rounded-full"></div>
-              <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
-            </div>
-
-            <div className="absolute bottom-10 right-1/4 flex space-x-1">
-              <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
-              <div className="w-12 h-7 bg-indigo-200/20 rounded-full"></div>
-              <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
-            </div>
-
-            {/* Trees and decorations */}
-            <div className="absolute top-1/4 left-10">
-              <div className="w-12 h-12 bg-fuchsia-500/30 rounded-full"></div>
-              <div className="w-3 h-6 bg-fuchsia-700/30 mx-auto -mt-1"></div>
-            </div>
-
-            <div className="absolute bottom-1/4 right-10">
-              <div className="w-10 h-10 bg-fuchsia-500/30 rounded-full"></div>
-              <div className="w-2 h-5 bg-fuchsia-700/30 mx-auto -mt-1"></div>
-            </div>
-
-            {/* Path */}
-            <svg
-              className="absolute inset-0 w-full h-full"
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-            >
-              {/* Dotted path background */}
-              <path
-                d={generatePath()}
-                stroke="rgba(var(--primary), 0.2)"
-                strokeWidth="8"
-                strokeLinecap="round"
-                fill="none"
-              />
-
-              {/* Solid path foreground */}
-              <motion.path
-                d={generatePath()}
-                stroke="rgba(var(--primary), 0.4)"
-                strokeWidth="6"
-                strokeLinecap="round"
-                strokeDasharray="1,1"
-                fill="none"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 2 }}
-              />
-            </svg>
-
-            {/* Level bubbles */}
-            {userLevels.map((level, index) => {
-              const isCompleted = level.completed;
-              const isLocked = !level.unlocked;
-
-              return (
+            return (
+              <motion.div
+                key={level.id}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: index * 0.1, type: "spring" }}
+                className="relative"
+              >
                 <motion.div
-                  key={level.id}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: index * 0.1, type: "spring" }}
-                  style={{
-                    left: `${level.position.x}%`,
-                    top: `${level.position.y}%`,
-                    transform: "translate(-50%, -50%)",
-                  }}
-                  className="absolute"
+                  whileHover={level.unlocked ? { scale: 1.1 } : {}}
+                  whileTap={level.unlocked ? { scale: 0.95 } : {}}
+                  onClick={() => handleLevelClick(level.id)}
+                  className={`relative flex items-center justify-center cursor-pointer ${
+                    isLocked ? "opacity-80" : ""
+                  }`}
                 >
-                  <motion.div
-                    whileHover={level.unlocked ? { scale: 1.1 } : {}}
-                    whileTap={level.unlocked ? { scale: 0.95 } : {}}
-                    onClick={() => handleLevelClick(level.id)}
-                    className={`relative flex items-center justify-center cursor-pointer ${
-                      isLocked ? "opacity-80" : ""
+                  {/* Outer glow for active level */}
+                  {level.unlocked && !level.completed && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full bg-fuchsia-500/30 shadow-glow-purple"
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{
+                        duration: 2,
+                        repeat: Number.POSITIVE_INFINITY,
+                      }}
+                      style={{ zIndex: -1 }}
+                    />
+                  )}
+
+                  {/* Level Bubble */}
+                  <div
+                    className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
+                      isLocked
+                        ? "bg-indigo-900/80 border-indigo-700/50"
+                        : isCompleted
+                        ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
+                        : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
                     }`}
                   >
-                    {/* Outer glow for active level */}
-                    {level.unlocked && !level.completed && (
-                      <motion.div
-                        className="absolute inset-0 rounded-full bg-fuchsia-500/30 shadow-glow-purple"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{
-                          duration: 2,
-                          repeat: Number.POSITIVE_INFINITY,
-                        }}
-                        style={{ zIndex: -1 }}
-                      />
+                    {isLocked ? (
+                      <Lock size={24} className="text-muted-foreground" />
+                    ) : (
+                      <span className="text-xl font-bold text-white">
+                        {level.id}
+                      </span>
                     )}
+                  </div>
 
-                    {/* Level bubble */}
-                    <div
-                      className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
-                        isLocked
-                          ? "bg-indigo-900/80 border-indigo-700/50"
-                          : isCompleted
-                          ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
-                          : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
-                      }`}
-                    >
-                      {isLocked ? (
-                        <Lock size={24} className="text-muted-foreground" />
-                      ) : (
-                        <span className="text-xl font-bold text-white">
-                          {level.id}
-                        </span>
-                      )}
+                  {/* Stars Indicator */}
+                  {level.completed && (
+                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex">
+                      {[...Array(3)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={12}
+                          className={
+                            i < level.stars
+                              ? "text-yellow-400 fill-yellow-400 -mx-0.5"
+                              : "text-muted -mx-0.5"
+                          }
+                        />
+                      ))}
                     </div>
-
-                    {/* Stars indicator */}
-                    {level.completed && (
-                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex">
-                        {[...Array(3)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={12}
-                            className={
-                              i < level.stars
-                                ? "text-yellow-400 fill-yellow-400 -mx-0.5"
-                                : "text-muted -mx-0.5"
-                            }
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </motion.div>
+                  )}
                 </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+              </motion.div>
+            );
+          })}
+
+          {/* Completion Island */}
+          <motion.div
+            className="relative flex items-center justify-center w-32 h-32 bg-gradient-to-br from-green-400 to-blue-500 rounded-full shadow-lg"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.8, type: "spring" }}
+          >
+            <span className="text-xl font-bold text-white">🏝️</span>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
 
         {/* Level guide */}
         <div className="max-w-4xl mx-auto">
@@ -1008,11 +1295,11 @@ export default function Levels() {
 
                     {/* Level details */}
                     <div className="bg-indigo-800/50 rounded-xl p-4 mb-6 border-2 border-indigo-700/30">
-                      <h3 className="font-bold text-white mb-2">
+                      {/* <h3 className="font-bold text-white mb-2">
                         Level Details
-                      </h3>
+                      </h3> */}
 
-                      <div className="grid grid-cols-2 gap-3 text-sm">
+                      {/* <div className="grid grid-cols-2 gap-3 text-sm">
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 bg-fuchsia-500/20 rounded-lg flex items-center justify-center border border-fuchsia-400/30">
                             <div className="w-6 h-6 bg-fuchsia-500/40 rounded-lg"></div>
@@ -1036,7 +1323,7 @@ export default function Levels() {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
 
                       {/* Objectives */}
                       <h3 className="font-bold text-white mt-4 mb-2">

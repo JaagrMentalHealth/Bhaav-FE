@@ -1,10 +1,11 @@
 export interface Emotion {
-    id: string
-    name: string
-    image: string[]
-    description: string
-    video?: string
-  }
+  id: number | String
+  name: string
+  image: string[]
+  video: string
+  description?: string
+}
+
   
   export interface QuizQuestion {
     id: string
@@ -12,16 +13,14 @@ export interface Emotion {
     question: string
     options: string[]
     correctAnswer: string
+    image?: string | null
   }
   
   export interface GameState {
-    stage: "emotion-recognition" | "video-quiz" | "complete" | "selection"
+    stage: "preparation" | "video-quiz" | "complete"
     currentQuestion: number
     selectedAnswer: string | null
     correctAnswers: number
-    currentLevel?: number | null
-    levels?: Level[]
-    gameStage?: string
   }
   
   export interface Level {
