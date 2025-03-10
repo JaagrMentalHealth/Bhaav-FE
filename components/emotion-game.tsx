@@ -300,7 +300,7 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
                     src={currentQuizQuestion.image || "/placeholder.svg"}
                     alt="Question image"
                     fill
-                    className="object-fill"
+                    className="object-contain"
                   />
                 </div>
               )}
