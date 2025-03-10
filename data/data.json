@@ -20,7 +20,7 @@
       "emotion": "Happiness",
       "time": 139,
       "question": "What do you think Anjali is feeling for Dev in this moment?",
-      "wrongMessage": "No, your answer is incorrect the correct answer is Anjali is showing affection for DEV",
+      "wrongMessage": "No, your answer is incorrect the correct answer is Anjali is showing affection for Dev",
       "options": [
         "Affection",
         "Sorrow",

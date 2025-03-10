@@ -295,7 +295,7 @@ export default function EmotionGame({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="absolute bottom-4 left-4 w-1/2 transform -translate-x-1/2 z-20 px-6 py-3 bg-black bg-opacity-70 rounded-lg shadow-lg "
+                className="absolute bottom-4 left-4 w-[45%] transform -translate-x-1/2 z-20 px-6 py-3 bg-black bg-opacity-70 rounded-lg shadow-lg "
               >
                 {/* Close Button in the Top-Left Corner */}
                 <button
