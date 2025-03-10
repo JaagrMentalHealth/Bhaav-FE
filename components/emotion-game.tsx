@@ -253,49 +253,23 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
 
     return (
       <div className="flex flex-col items-center">
-        <div className="relative w-full max-w-2xl aspect-video mb-4 rounded-lg overflow-hidden">
-          <video
-            ref={videoRef}
-            src={videoUrl}
-            className="w-full h-full object-cover"
-            onEnded={handleVideoEnd}
-            
-            autoPlay
-          />
-          {/* {!videoPlaying && !showQuiz && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/50">
-              <Button
-                size="lg"
-                className="rounded-full w-16 h-16 flex items-center justify-center"
-                onClick={() => {
-                  if (videoRef.current) {
-                    videoRef.current.play()
-                    setVideoPlaying(true)
-                  }
-                }}
-              >
-                <Play className="h-8 w-8" />
-              </Button>
-            </div>
-          )} */}
-        </div>
-
-        <div className="w-full max-w-2xl mb-6">
-          <Progress value={(videoTime / (videoRef.current?.duration || 1)) * 100} className="h-2" />
-        </div>
-
+      {/* Video and Quiz Container */}
+      <div className="relative w-full max-w-2xl aspect-video mb-4 rounded-lg overflow-hidden flex flex-col-reverse">
+        
+        {/* Quiz (Overlayed on Video) */}
         <AnimatePresence>
           {showQuiz && currentQuizQuestion && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute inset-0 bg-black/80 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center"            >
-              <h3 className="text-xl font-bold mb-4">{currentQuizQuestion.question}</h3>
-
-              {/* Conditionally render question image if it exists */}
+              className="w-full h-full flex flex-col md:flex-row items-center justify-center bg-black bg-opacity-70 z-10 p-6 rounded-lg shadow-lg"
+            >
+              <h3 className="text-xl md:hidden font-bold mb-4 text-white">{currentQuizQuestion.question}</h3>
+    
+              {/* Conditionally Render Image */}
               {currentQuizQuestion.image && (
-                <div className="mb-4 relative w-full aspect-video rounded-lg overflow-hidden">
+                <div className="mb-4 relative w-[80%] h-full mr-8 aspect-video rounded-lg overflow-hidden">
                   <Image
                     src={currentQuizQuestion.image || "/placeholder.svg"}
                     alt="Question image"
@@ -306,11 +280,13 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
               )}
 
               <div className="grid grid-cols-1 gap-3">
+              <h3 className="text-xl hidden md:block font-bold mb-4 text-white">{currentQuizQuestion.question}</h3>
+
                 {options.map((option, index) => (
                   <Button
                     key={index}
                     variant={gameState.selectedAnswer === option ? "default" : "outline"}
-                    className={`p-4 h-auto text-left bg-indigo-600 text-white hover:bg-indigo-700 justify-start ${
+                    className={`p-4 h-auto text-left bg-indigo-600 text-white hover:bg-indigo-700 justify-start w-full ${
                       quizResult === "correct" && option === currentQuizQuestion.correctAnswer
                         ? "bg-green-500 hover:bg-green-600"
                         : quizResult === "incorrect" && gameState.selectedAnswer === option
@@ -333,7 +309,23 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
             </motion.div>
           )}
         </AnimatePresence>
+    
+        {/* Video Background (Will Stay Below the Quiz) */}
+        <video
+          ref={videoRef}
+          src={videoUrl}
+          className="w-full h-full object-cover flex-grow"
+          onEnded={handleVideoEnd}
+          autoPlay
+        />
       </div>
+    
+      {/* Video Progress */}
+      <div className="w-full max-w-2xl mb-6">
+        <Progress value={(videoTime / (videoRef.current?.duration || 1)) * 100} className="h-2" />
+      </div>
+    </div>
+    
     )
   }
 

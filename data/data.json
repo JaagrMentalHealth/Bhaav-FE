@@ -3,7 +3,7 @@
       {
         "id": "q1",
         "emotion": "Happiness",
-        "time": 73,
+        "time": 5,
         "question": "What do you think Dev is feeling at this moment?",
         "options": ["Happy", "Sad", "Angry", "Disgusted"],
         "correctOption": "Sad",
