@@ -290,13 +290,12 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute inset-0 bg-black/80 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center"
-                          >
+              className="absolute inset-0 bg-black/80 p-6 rounded-lg shadow-lg flex flex-col items-center justify-center"            >
               <h3 className="text-xl font-bold mb-4">{currentQuizQuestion.question}</h3>
 
               {/* Conditionally render question image if it exists */}
               {currentQuizQuestion.image && (
-                <div className="mb-4 relative w-50 aspect-video rounded-lg overflow-hidden">
+                <div className="mb-4 relative w-full aspect-video rounded-lg overflow-hidden">
                   <Image
                     src={currentQuizQuestion.image || "/placeholder.svg"}
                     alt="Question image"
