@@ -296,7 +296,7 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
 
               {/* Conditionally render question image if it exists */}
               {currentQuizQuestion.image && (
-                <div className="mb-4 relative w-full aspect-video rounded-lg overflow-hidden">
+                <div className="mb-4 relative w-50 aspect-video rounded-lg overflow-hidden">
                   <Image
                     src={currentQuizQuestion.image || "/placeholder.svg"}
                     alt="Question image"
