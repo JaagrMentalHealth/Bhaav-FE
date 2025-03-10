@@ -10,6 +10,7 @@ export interface Emotion {
   export interface QuizQuestion {
     id: string
     timestamp: number
+    wrongMessage: string
     question: string
     options: string[]
     correctAnswer: string
