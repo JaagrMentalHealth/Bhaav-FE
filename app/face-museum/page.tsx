@@ -160,14 +160,14 @@ export default function FaceMuseum() {
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
               <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
-                Hall of Faces
+                Welcome to Hall of Faces
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl max-w-2xl mx-auto text-indigo-200 leading-relaxed">
-              Explore different emotions and learn what they mean! Click on a
-              face to learn more about that emotion.
+            <p className="text-lg md:text-3xl max-w-4xl mx-auto text-indigo-300 leading-relaxed">
+              Helping Children Understand Emotions, One Face at a Time
             </p>
+            
           </motion.div>
         </div>
       </div>
@@ -296,11 +296,13 @@ export default function FaceMuseum() {
           <h3 className="text-xl font-semibold mb-4 text-white">
             About Hall of faces
           </h3>
-          <p className="text-indigo-200 max-w-2xl mx-auto">
-            Our interactive museum helps children understand and identify
-            different emotions. By exploring these exhibits, kids develop
-            emotional intelligence and empathy.
-          </p>
+          <p className="text-lg md:text-xl max-w-5xl mx-auto text-indigo-200 leading-relaxed">
+            The Hall of Faces is a special space created to help children, especially those on the autism spectrum, recognize and understand different human emotions. We believe that understanding feelings-both their own and those of others-is a crucial part of building healthy relationships and communication skills.
+            </p>
+            <p className="text-lg md:text-xl max-w-5xl mx-auto text-indigo-200 leading-relaxed">
+            In this virtual space, you'll find a wide range of faces, each expressing a unique emotion. By observing these faces, children can learn to identify, name, and relate to emotions like happiness, sadness, anger, surprise, and more.
+            </p>
+            
         </div>
       </div>
 
