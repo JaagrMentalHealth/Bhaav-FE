@@ -15,7 +15,8 @@
         "time": 139,
         "question": "What do you think Anjali is feeling for Dev in this moment?",
         "options": ["Affection", "Sorrow", "Disgust", "Hopeless"],
-        "correctOption": "Affection"
+        "correctOption": "Affection",
+        "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67ceb170003d439ed0df/view?project=67c98b5e0035bedcf913&mode=admin"
       },
       {
         "id": "q3",
@@ -23,7 +24,8 @@
         "time": 186,
         "question": "What do you think the whole village is feeling?",
         "options": ["Happy", "Hopeless", "Fearful", "Angry"],
-        "correctOption": "Happy"
+        "correctOption": "Happy",
+        "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cead87000e1b9e08e7/view?project=67c98b5e0035bedcf913&mode=admin"
       },
       {
         "id": "q4",
