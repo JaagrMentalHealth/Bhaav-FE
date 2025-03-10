@@ -291,20 +291,77 @@ export default function FaceMuseum() {
       </div>
 
       {/* Museum-like footer */}
-      <div className="bg-indigo-900/80 py-12 border-t-2 border-indigo-700/50">
-        <div className="container mx-auto px-4 text-center">
-          <h3 className="text-xl font-semibold mb-4 text-white">
-            About Hall of faces
-          </h3>
-          <p className="text-lg md:text-xl max-w-5xl mx-auto text-indigo-200 leading-relaxed">
-            The Hall of Faces is a special space created to help children, especially those on the autism spectrum, recognize and understand different human emotions. We believe that understanding feelings-both their own and those of others-is a crucial part of building healthy relationships and communication skills.
-            </p>
-            <p className="text-lg md:text-xl max-w-5xl mx-auto text-indigo-200 leading-relaxed">
-            In this virtual space, you'll find a wide range of faces, each expressing a unique emotion. By observing these faces, children can learn to identify, name, and relate to emotions like happiness, sadness, anger, surprise, and more.
-            </p>
-            
-        </div>
-      </div>
+      <div className="bg-gradient-to-b from-indigo-900 to-indigo-800 py-16 border-t-4 border-indigo-600">
+  <div className="container mx-auto px-6 text-center">
+    <h3 className="text-3xl font-bold text-white mb-6">About Hall of Faces</h3>
+    
+    <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed">
+      The Hall of Faces is a special space created to help children, especially those on the autism spectrum, recognize and understand different human emotions. We believe that understanding feelings—both their own and those of others—is a crucial part of building healthy relationships and communication skills.
+    </p>
+    <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed mt-4">
+      In this virtual space, you'll find a wide range of faces, each expressing a unique emotion. By observing these faces, children can learn to identify, name, and relate to emotions like happiness, sadness, anger, surprise, and more.
+    </p>
+
+    <div className="mt-12">
+      <h3 className="text-2xl font-semibold text-white mb-4">Why Multiple Faces for Each Emotion?</h3>
+      <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed">
+        Every person expresses emotions differently. Happiness can look like a broad smile, a quiet contentment, or a cheerful laugh. Sadness can appear as a frown, teary eyes, or a quiet gaze. By showcasing <span className="font-semibold text-white">multiple faces for each emotion</span>, we aim to:
+      </p>
+      <ul className="mt-6 space-y-3 text-indigo-300 text-lg md:text-xl text-left max-w-4xl mx-auto">
+        <li>✅ <span className="font-semibold text-white">Broaden understanding:</span> Help children realize that emotions don’t always look the same.</li>
+        <li>✅ <span className="font-semibold text-white">Build empathy:</span> Encourage children to see and feel beyond just the obvious signs.</li>
+        <li>✅ <span className="font-semibold text-white">Increase recognition:</span> Develop a deeper ability to identify and respond to various emotional cues.</li>
+      </ul>
+      <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed mt-6">
+        Our goal is to ensure children can navigate social interactions more comfortably and confidently.
+      </p>
+    </div>
+
+    <div className="mt-12">
+      <h3 className="text-2xl font-semibold text-white mb-4">How to Use the Hall of Faces</h3>
+      <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed">
+        This space is designed to be <span className="font-semibold text-white">exploratory, engaging, and educational</span>. Here are some fun ways you can use it:
+      </p>
+      <ul className="mt-6 space-y-3 text-indigo-300 text-lg md:text-xl text-left max-w-4xl mx-auto">
+        <li>🎭 <span className="font-semibold text-white">Explore Together:</span> Sit with your child and explore different emotions. Ask them questions like, “How do you think this person feels?” or “When do you feel like this?”</li>
+        <li>🎭 <span className="font-semibold text-white">Match the Emotion:</span> Give real-life scenarios and ask your child to find a face that matches the emotion in the situation.</li>
+        <li>🎭 <span className="font-semibold text-white">Storytelling Game:</span> Create a story based on a selected face. For example, “This person looks surprised! What do you think happened?”</li>
+        <li>🎭 <span className="font-semibold text-white">Emotion Practice:</span> Have your child mimic the faces and express the same emotion to improve recognition and expression.</li>
+      </ul>
+    </div>
+
+    <div className="mt-12">
+      <h3 className="text-2xl font-semibold text-white mb-4">Why Is This Important for Children with Autism?</h3>
+      <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed">
+        For children on the autism spectrum, recognizing and responding to emotions can sometimes be challenging. The Hall of Faces serves as a <span className="font-semibold text-white">safe and interactive learning space</span> where they can:
+      </p>
+      <ul className="mt-6 space-y-3 text-indigo-300 text-lg md:text-xl text-left max-w-4xl mx-auto">
+        <li>💙 <span className="font-semibold text-white">Learn at their own pace.</span></li>
+        <li>💙 <span className="font-semibold text-white">See a diverse range of expressions.</span></li>
+        <li>💙 <span className="font-semibold text-white">Develop social and emotional understanding.</span></li>
+      </ul>
+      <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed mt-6">
+        By practicing with these faces, children can gradually build a stronger foundation for social interactions, leading to more fulfilling relationships and a better understanding of the world around them.
+      </p>
+    </div>
+
+    <div className="mt-12">
+      <h3 className="text-2xl font-semibold text-white mb-4">Our Promise</h3>
+      <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed">
+        We know how important it is for children to feel understood—and for them to understand others. The Hall of Faces is a small step toward building empathy, connection, and communication for children, especially those on the autism spectrum.
+      </p>
+      <p className="text-lg md:text-xl max-w-4xl mx-auto text-indigo-200 leading-relaxed mt-4">
+        We encourage you to explore, learn, and celebrate emotions with your child. After all, understanding feelings is the first step to connecting with the world around us.
+      </p>
+    </div>
+
+    <h3 className="text-2xl font-semibold text-white mt-12 italic">
+      Let’s make emotions easier to understand, one face at a time. 😊
+    </h3>
+  </div>
+</div>
+
+
 
       {/* Detail Modal */}
       <AnimatePresence>

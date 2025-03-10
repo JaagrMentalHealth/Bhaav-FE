@@ -91,7 +91,7 @@ const levels = [
     image:
       "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cd6d2b0014022526ef/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
-    completed: true,
+    completed: false,
     stars: 3,
     color: "from-pink-400 to-pink-600",
     shadowColor: "shadow-glow-pink",
@@ -116,7 +116,7 @@ const levels = [
     name: "Emotion Match",
     description: "Match emotions with situations",
     image: "/placeholder.svg?height=150&width=150",
-    unlocked: true,
+    unlocked: false,
     completed: false,
     stars: 0,
     color: "from-purple-400 to-purple-600",
@@ -654,11 +654,11 @@ export default function Levels() {
         <div className="container relative z-10 mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
             <Link
-              href="/"
+              href="face-museum"
               className="flex items-center text-indigo-200 hover:text-white transition-colors"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
-              <span>Back to Home</span>
+              <span>Back to Hall of faces</span>
             </Link>
           </div>
 

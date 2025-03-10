@@ -40,7 +40,7 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   // New state for preparation timer
-  const [prepTime, setPrepTime] = useState(10)
+  const [prepTime, setPrepTime] = useState(5)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Load questions from local data instead of Appwrite
@@ -210,12 +210,11 @@ export default function EmotionGame({ levelId, onComplete, onExit, emotions }: E
   // Render preparation screen with circular timer
   const renderPreparationScreen = () => {
     const circumference = 2 * Math.PI * 40 // Circle radius is 40
-    const strokeDashoffset = circumference * (1 - prepTime / 10)
+    const strokeDashoffset = circumference * (1 - prepTime / 5)
 
     return (
       <div className="flex flex-col items-center justify-center text-center">
         <h2 className="text-2xl font-bold mb-6">Get Ready!</h2>
-        <p className="text-lg mb-8">Focus on the upcoming video for your assessment</p>
 
         <div className="relative w-32 h-32 mb-6">
           {/* Circular progress bar */}
