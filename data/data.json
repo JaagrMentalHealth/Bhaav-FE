@@ -3,7 +3,7 @@
     {
       "id": "q1",
       "emotion": "Happiness",
-      "time": 73,
+      "time": 72,
       "question": "What do you think Dev is feeling at this moment?",
       "wrongMessage": "No, your answer is incorrect the correct answer is Dev is sad because his farms have been destroyed.",
       "options": [
@@ -33,7 +33,7 @@
     {
       "id": "q3",
       "emotion": "Happiness",
-      "time": 186,
+      "time": 187,
       "question": "What do you think the whole village is feeling?",
       "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy  because they are saved.",
       "options": [

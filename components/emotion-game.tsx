@@ -134,12 +134,19 @@ export default function EmotionGame({
 
         if (questionAtTimestamp) {
           videoRef.current.pause();
-          setVideoPlaying(false);
-          setCurrentQuizQuestion(questionAtTimestamp);
-          setShowQuiz(true);
+          console.log(videoRef.current.currentTime)
+          
+          
+
+          
 
           // Use the options from the data
-          setOptions([...questionAtTimestamp.options]);
+          setTimeout(() => {
+            setVideoPlaying(false);
+          setCurrentQuizQuestion(questionAtTimestamp);
+          setShowQuiz(true);
+            setOptions([...questionAtTimestamp.options]); // Show options after delay
+          }, 2000);
         }
       };
 

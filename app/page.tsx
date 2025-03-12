@@ -145,7 +145,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="container mx-auto px-6 z-10">
+      <div className="container mx-auto h-[100vh]  px-6 z-10">
         {/* Game UI header */}
         <div className="pt-4 flex justify-between items-center">
           <div className="flex items-center gap-1">
@@ -158,7 +158,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 py-12 md:py-16">
+        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 py-12 md:py-16 lg:pt-32">
           <motion.div
             className="md:w-1/2 z-10"
             initial={{ opacity: 0, y: 30 }}

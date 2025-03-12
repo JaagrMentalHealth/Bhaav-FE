@@ -811,7 +811,7 @@ export default function Levels() {
     </motion.div>
 
         {/* Level guide */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto pt-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-indigo-900/60 rounded-2xl p-6 border-2 border-indigo-700/50 shadow-glow-small">
               <div className="flex items-center gap-3 mb-4">
