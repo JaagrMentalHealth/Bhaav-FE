@@ -388,6 +388,7 @@ export default function EmotionGame({
           <video
             ref={videoRef}
             src={videoUrl}
+            
             className="w-full h-full object-cover flex-grow"
             onEnded={handleVideoEnd}
             autoPlay
