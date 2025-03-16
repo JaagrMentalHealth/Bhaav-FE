@@ -158,7 +158,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 py-12 md:py-16 lg:pt-32">
+        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 py-12 md:py-16 lg:pt-20">
           <motion.div
             className="md:w-1/2 z-10"
             initial={{ opacity: 0, y: 30 }}

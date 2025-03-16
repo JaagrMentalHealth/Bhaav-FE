@@ -47,16 +47,17 @@
     },
     {
       "id": "q4",
-      "emotion": "Anger",
-      "time": 25,
-      "question": "What is a healthy way to manage anger?",
+      "emotion": "Sadness",
+      "time": 43.5,
+      "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy  because they are saved.",
+      "question": "How is dev feeling?",
       "options": [
-        "Yelling",
-        "Deep breathing",
-        "Breaking things",
-        "Ignoring it"
+        "Happy",
+        "Excited",
+        "Fearful",
+        "Confident"
       ],
-      "correctOption": "Deep breathing"
+      "correctOption": "Fearful"
     }
   ]
 }
