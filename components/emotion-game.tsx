@@ -19,6 +19,8 @@ interface EmotionGameProps {
   emotions: Emotion[];
 }
 
+const storyName=["The Harvest of Hope","The Healing Rain","","","","","","","","","","","",""]
+
 export default function EmotionGame({
   levelId,
   onComplete,
@@ -463,7 +465,7 @@ export default function EmotionGame({
           Exit Game
         </Button>
         <div className="text-lg font-semibold text-white">
-          Level {levelId}: Harvest of Hope
+          Level {levelId}: {storyName[levelId-1]}
         </div>
         <div className="w-20"></div> {/* Spacer for alignment */}
       </div>
