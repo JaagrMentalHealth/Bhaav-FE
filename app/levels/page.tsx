@@ -146,7 +146,7 @@ const levels = [
   },
   {
     id: 3,
-    image: "/placeholder.svg?height=150&width=150",
+    image: "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d88ad00033542acf72/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
     completed: false,
     stars: 0,
