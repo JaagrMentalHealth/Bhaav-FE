@@ -112,8 +112,7 @@ const levels = [
   },
   {
     id: 2,
-    name: "Emotion Match",
-    description: "Match emotions with situations",
+
     image:
       "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8636a00311b1aa8f4/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: false,

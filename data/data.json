@@ -48,47 +48,47 @@
     {
       "id": "q4",
       "emotion": "Sadness",
-      "time": 43.5,
+      "time": 42,
       "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy  because they are saved.",
-      "question": "How is dev feeling?",
+      "question": "What was Meera feeling whenn she heard of the book store being closed ?",
       "options": [
         "Happy",
         "Excited",
-        "Fearful",
+        "Sad",
         "Confident"
       ],
-      "correctOption": "Fearful",
-      "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d69bb100057b2d8797/view?project=67c98b5e0035bedcf913&mode=admin"
+      "correctOption": "Sad",
+      "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86ae0001e78f2f7af/view?project=67c98b5e0035bedcf913&mode=admin"
     },
     {
       "id": "q5",
       "emotion": "Sadness",
-      "time": 77,
+      "time": 94,
       "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy  because they are saved.",
-      "question": "What is riya feeling?",
+      "question": "What was Meera feeling when she started the bookstore?",
       "options": [
         "Happy",
-        "Excited",
+        "Hope",
         "Relaxed",
         "Confused"
       ],
-      "correctOption": "Confused",
-      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d69bd900279933d66b/view?project=67c98b5e0035bedcf913&mode=admin"
+      "correctOption": "Hope",
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b100000f37f3ef3/view?project=67c98b5e0035bedcf913&mode=admin"
     },
     {
       "id": "q6",
       "emotion": "Sadness",
-      "time": 192.5,
+      "time": 149,
       "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy  because they are saved.",
-      "question": "How is everyone feeling?",
+      "question": "What did Dadaji feel seeing Meera's struggle?",
       "options": [
         "Happy",
         "Excited",
         "Fearful",
-        "Confident"
+        "Proud"
       ],
-      "correctOption": "Happy",
-      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d69bfe000bc01fa44b/view?project=67c98b5e0035bedcf913&mode=admin"
+      "correctOption": "Proud",
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b35001441aa584f/view?project=67c98b5e0035bedcf913&mode=admin"
     }
   ]
 }
