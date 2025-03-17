@@ -58,7 +58,8 @@
         "Confident"
       ],
       "correctOption": "Sad",
-      "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86ae0001e78f2f7af/view?project=67c98b5e0035bedcf913&mode=admin"
+      
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b35001441aa584f/view?project=67c98b5e0035bedcf913&mode=admin"
     },
     {
       "id": "q5",
@@ -73,7 +74,7 @@
         "Confused"
       ],
       "correctOption": "Hope",
-      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b100000f37f3ef3/view?project=67c98b5e0035bedcf913&mode=admin"
+      "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86ae0001e78f2f7af/view?project=67c98b5e0035bedcf913&mode=admin"
     },
     {
       "id": "q6",
@@ -88,7 +89,7 @@
         "Proud"
       ],
       "correctOption": "Proud",
-      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b35001441aa584f/view?project=67c98b5e0035bedcf913&mode=admin"
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b100000f37f3ef3/view?project=67c98b5e0035bedcf913&mode=admin"
     }
   ]
 }
