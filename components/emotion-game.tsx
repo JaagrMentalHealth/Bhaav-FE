@@ -19,7 +19,7 @@ interface EmotionGameProps {
   emotions: Emotion[];
 }
 
-const storyName=["The Harvest of Hope","The Last Page","","","","","","","","","","","",""]
+const storyName=["The Harvest of Hope","The Last Page","The Candle Maker's Light","","","","","","","","","","",""]
 
 export default function EmotionGame({
   levelId,

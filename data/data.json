@@ -90,6 +90,37 @@
       ],
       "correctOption": "Proud",
       "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b100000f37f3ef3/view?project=67c98b5e0035bedcf913&mode=admin"
+    },
+    {
+      "id": "q7",
+      "emotion": "Angry",
+      "time": 40,
+      "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy  because they are saved.",
+      "question": "How was Aryan feeling?",
+      "options": [
+        "Happy",
+        "Devastated",
+        "Fearful",
+        "Angry"
+      ],
+      "correctOption": "Devastated",
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8888d0027f7a3fb17/view?project=67c98b5e0035bedcf913&mode=admin"
+    },
+    {
+      "id": "q8",
+      "emotion": "Angry",
+      "time": 103,
+      "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy  because they are saved.",
+      "question": "How were Neighbours feeling?",
+      "options": [
+        "Happy",
+        "Devastated",
+        "Fearful",
+        "Angry"
+      ],
+      "correctOption": "Happy",
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8896c00023ebdfb03/view?project=67c98b5e0035bedcf913&mode=admin"
     }
+    
   ]
 }
