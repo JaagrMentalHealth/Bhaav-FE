@@ -84,7 +84,6 @@ const powerUps: PowerUp[] = [
   },
 ];
 
-
 const levels = [
   {
     id: 1, // Added missing ID
@@ -115,7 +114,8 @@ const levels = [
     id: 2,
     name: "Emotion Match",
     description: "Match emotions with situations",
-    image: "/placeholder.svg?height=150&width=150",
+    image:
+      "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8636a00311b1aa8f4/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: false,
     completed: false,
     stars: 0,
@@ -324,7 +324,7 @@ export default function Levels() {
   const [isLoading, setIsLoading] = useState(true);
   const [showLevelModal, setShowLevelModal] = useState(false);
   const [showEmotionGame, setShowEmotionGame] = useState(false);
-  const scrollRef=useRef(null);
+  const scrollRef = useRef(null);
 
   // Fetch emotions from Appwrite
   useEffect(() => {
@@ -535,7 +535,6 @@ export default function Levels() {
               </span>
             </div>
           </div>
-
         </div>
 
         {/* Objectives */}
@@ -685,130 +684,126 @@ export default function Levels() {
       <div className="container mx-auto px-4 -mt-16 relative z-20 mb-24">
         {/* Candy Crush style map with bubbles */}
         <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 0.2 }}
-      className="max-w-4xl mx-auto mb-12 relative"
-    >
-      {/* Fixed Background Container */}
-      <div className="relative w-full h-[450px] bg-indigo-900/60 rounded-3xl overflow-hidden border-2 border-indigo-700/50 shadow-glow-indigo">
-        {/* Fixed Background Decorations */}
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-800/20 to-fuchsia-800/20"></div>
-        <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400/20 rounded-full blur-md"></div>
-        <div className="absolute bottom-20 right-20 w-16 h-16 bg-pink-400/20 rounded-full blur-md"></div>
-        <div className="absolute top-1/2 left-1/3 w-12 h-12 bg-blue-400/20 rounded-full blur-md"></div>
-
-        {/* Clouds (Fixed) */}
-        <div className="absolute top-5 left-1/4 flex space-x-1">
-          <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
-          <div className="w-14 h-8 bg-indigo-200/20 rounded-full"></div>
-          <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
-        </div>
-
-        <div className="absolute bottom-10 right-1/4 flex space-x-1">
-          <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
-          <div className="w-12 h-7 bg-indigo-200/20 rounded-full"></div>
-          <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
-        </div>
-
-        {/* Trees (Fixed) */}
-        <div className="absolute top-1/4 left-10">
-          <div className="w-12 h-12 bg-fuchsia-500/30 rounded-full"></div>
-          <div className="w-3 h-6 bg-fuchsia-700/30 mx-auto -mt-1"></div>
-        </div>
-
-        <div className="absolute bottom-1/4 right-10">
-          <div className="w-10 h-10 bg-fuchsia-500/30 rounded-full"></div>
-          <div className="w-2 h-5 bg-fuchsia-700/30 mx-auto -mt-1"></div>
-        </div>
-
-        {/* Scrollable Level Bubbles */}
-        <div
-          ref={scrollRef}
-          className="absolute inset-0 flex items-center space-x-10 px-10 overflow-x-scroll"
-          style={{ scrollSnapType: "x mandatory", whiteSpace: "nowrap" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="max-w-4xl mx-auto mb-12 relative"
         >
-          {userLevels.map((level, index) => {
-            const isCompleted = level.completed;
-            const isLocked = !level.unlocked;
+          {/* Fixed Background Container */}
+          <div className="relative w-full h-[450px] bg-indigo-900/60 rounded-3xl overflow-hidden border-2 border-indigo-700/50 shadow-glow-indigo">
+            {/* Fixed Background Decorations */}
+            <div className="absolute inset-0 bg-gradient-to-b from-indigo-800/20 to-fuchsia-800/20"></div>
+            <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-400/20 rounded-full blur-md"></div>
+            <div className="absolute bottom-20 right-20 w-16 h-16 bg-pink-400/20 rounded-full blur-md"></div>
+            <div className="absolute top-1/2 left-1/3 w-12 h-12 bg-blue-400/20 rounded-full blur-md"></div>
 
-            return (
+            {/* Clouds (Fixed) */}
+            <div className="absolute top-5 left-1/4 flex space-x-1">
+              <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-14 h-8 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-10 h-6 bg-indigo-200/20 rounded-full"></div>
+            </div>
+
+            <div className="absolute bottom-10 right-1/4 flex space-x-1">
+              <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-12 h-7 bg-indigo-200/20 rounded-full"></div>
+              <div className="w-8 h-5 bg-indigo-200/20 rounded-full"></div>
+            </div>
+
+            {/* Trees (Fixed) */}
+            <div className="absolute top-1/4 left-10">
+              <div className="w-12 h-12 bg-fuchsia-500/30 rounded-full"></div>
+              <div className="w-3 h-6 bg-fuchsia-700/30 mx-auto -mt-1"></div>
+            </div>
+
+            <div className="absolute bottom-1/4 right-10">
+              <div className="w-10 h-10 bg-fuchsia-500/30 rounded-full"></div>
+              <div className="w-2 h-5 bg-fuchsia-700/30 mx-auto -mt-1"></div>
+            </div>
+
+            {/* Scrollable Level Bubbles */}
+            <div
+              ref={scrollRef}
+              className="absolute inset-0 flex items-center space-x-10 px-10 overflow-x-scroll"
+              style={{ scrollSnapType: "x mandatory", whiteSpace: "nowrap" }}
+            >
+              {userLevels.map((level, index) => {
+                const isCompleted = level.completed;
+                const isLocked = !level.unlocked;
+
+                return (
+                  <motion.div
+                    key={level.id}
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: index * 0.1, type: "spring" }}
+                    className="relative"
+                  >
+                    <motion.div
+                      whileHover={level.unlocked ? { scale: 1.1 } : {}}
+                      whileTap={level.unlocked ? { scale: 0.95 } : {}}
+                      onClick={() => handleLevelClick(level.id)}
+                      className={`relative flex items-center justify-center cursor-pointer ${
+                        isLocked ? "opacity-80" : ""
+                      }`}
+                    >
+                      {/* Outer glow for active level */}
+                      {level.unlocked && !level.completed && (
+                        <motion.div
+                          className="absolute inset-0 rounded-full bg-fuchsia-500/30 shadow-glow-purple"
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{
+                            duration: 2,
+                            repeat: Number.POSITIVE_INFINITY,
+                          }}
+                          style={{ zIndex: -1 }}
+                        />
+                      )}
+
+                      {/* Level Bubble */}
+                      <div
+                        className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
+                          isLocked
+                            ? "bg-indigo-900/80 border-indigo-700/50"
+                            : isCompleted
+                            ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
+                            : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
+                        }`}
+                      >
+                        {isLocked ? (
+                          <Lock size={24} className="text-muted-foreground" />
+                        ) : (
+                          <span className="text-xl font-bold text-white">
+                            {level.id}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Stars Indicator */}
+                      {level.completed && (
+                        <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex">
+                          {[...Array(3)].map((_, i) => (
+                            <Star key={i} size={12} />
+                          ))}
+                        </div>
+                      )}
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+
+              {/* Completion Island */}
               <motion.div
-                key={level.id}
+                className="relative flex items-center justify-center w-32 h-32 bg-gradient-to-br from-green-400 to-blue-500 rounded-full shadow-lg"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: index * 0.1, type: "spring" }}
-                className="relative"
+                transition={{ duration: 0.8, type: "spring" }}
               >
-                <motion.div
-                  whileHover={level.unlocked ? { scale: 1.1 } : {}}
-                  whileTap={level.unlocked ? { scale: 0.95 } : {}}
-                  onClick={() => handleLevelClick(level.id)}
-                  className={`relative flex items-center justify-center cursor-pointer ${
-                    isLocked ? "opacity-80" : ""
-                  }`}
-                >
-                  {/* Outer glow for active level */}
-                  {level.unlocked && !level.completed && (
-                    <motion.div
-                      className="absolute inset-0 rounded-full bg-fuchsia-500/30 shadow-glow-purple"
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Number.POSITIVE_INFINITY,
-                      }}
-                      style={{ zIndex: -1 }}
-                    />
-                  )}
-
-                  {/* Level Bubble */}
-                  <div
-                    className={`w-16 h-16 rounded-full flex items-center justify-center shadow-lg ${
-                      isLocked
-                        ? "bg-indigo-900/80 border-indigo-700/50"
-                        : isCompleted
-                        ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
-                        : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
-                    }`}
-                  >
-                    {isLocked ? (
-                      <Lock size={24} className="text-muted-foreground" />
-                    ) : (
-                      <span className="text-xl font-bold text-white">
-                        {level.id}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Stars Indicator */}
-                  {level.completed && (
-                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex">
-                      {[...Array(3)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={12}
-                          
-                        />
-                      ))}
-                    </div>
-                  )}
-                </motion.div>
+                <span className="text-xl font-bold text-white">🏝️</span>
               </motion.div>
-            );
-          })}
-
-          {/* Completion Island */}
-          <motion.div
-            className="relative flex items-center justify-center w-32 h-32 bg-gradient-to-br from-green-400 to-blue-500 rounded-full shadow-lg"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.8, type: "spring" }}
-          >
-            <span className="text-xl font-bold text-white">🏝️</span>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Level guide */}
         <div className="max-w-4xl mx-auto pt-12">
