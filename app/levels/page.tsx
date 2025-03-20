@@ -1,467 +1,13 @@
-"use client";
+"use client"
 
-import type React from "react";
-
-import { useState, useEffect, useRef } from "react";
-import { databases } from "@/lib/appwriteConfig";
-import type { Emotion } from "@/types/game-types";
-import EmotionGame from "@/components/emotion-game";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Star,
-  Lock,
-  Trophy,
-  Gift,
-  Heart,
-  Clock,
-  Target,
-  Zap,
-  Award,
-  ChevronLeft,
-  X,
-  ArrowLeft,
-  Sparkles,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import confetti from "canvas-confetti";
-
-// Import your existing types and data from the attachment
-// Level objectives types
-type ObjectiveType = "score" | "collect" | "clear" | "time";
-
-interface Objective {
-  type: ObjectiveType;
-  target: number;
-  current: number;
-  icon: React.ReactNode;
-  label: string;
-  color: string;
-}
-
-interface PowerUp {
-  id: number;
-  name: string;
-  description: string;
-  icon: React.ReactNode;
-  color: string;
-  borderColor: string;
-}
-
-interface Level {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-  unlocked: boolean;
-  completed: boolean;
-}
-
-const powerUps: PowerUp[] = [
-  {
-    id: 1,
-    name: "Color Bomb",
-    description: "Clears all candies of one color",
-    icon: <Zap size={20} className="text-white" />,
-    color: "bg-gradient-to-br from-purple-500 to-fuchsia-600",
-    borderColor: "border-fuchsia-400/50",
-  },
-  {
-    id: 2,
-    name: "Striped Candy",
-    description: "Clears an entire row or column",
-    icon: <Target size={20} className="text-white" />,
-    color: "bg-gradient-to-br from-pink-500 to-rose-600",
-    borderColor: "border-rose-400/50",
-  },
-  {
-    id: 3,
-    name: "Extra Moves",
-    description: "+5 extra moves",
-    icon: <Award size={20} className="text-white" />,
-    color: "bg-gradient-to-br from-blue-500 to-indigo-600",
-    borderColor: "border-blue-400/50",
-  },
-];
-
-const levels = [
-  {
-    id: 1, // Added missing ID
-    image:
-      "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cd6d2b0014022526ef/view?project=67c98b5e0035bedcf913&mode=admin",
-    unlocked: true,
-    completed: false,
-    stars: 3,
-    color: "from-pink-400 to-pink-600",
-    shadowColor: "shadow-glow-pink",
-    gridSize: { rows: 6, cols: 6 },
-    moves: 15,
-    objectives: [
-      {
-        type: "score",
-        target: 1000,
-        current: 1000,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-    ],
-    powerUps: [powerUps[0]], // Ensure `powerUps` is defined elsewhere
-    difficulty: 1,
-    position: { x: 20, y: 20 },
-  },
-  {
-    id: 2,
-
-    image:
-      "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8636a00311b1aa8f4/view?project=67c98b5e0035bedcf913&mode=admin",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-purple-400 to-purple-600",
-    shadowColor: "shadow-glow-purple",
-    gridSize: { rows: 7, cols: 7 },
-    moves: 20,
-    objectives: [
-      {
-        type: "score",
-        target: 2000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 10,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1]],
-    difficulty: 2,
-    position: { x: 35, y: 35 },
-  },
-  {
-    id: 3,
-    image:
-      "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d88ad00033542acf72/view?project=67c98b5e0035bedcf913&mode=admin",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-blue-400 to-blue-600",
-    shadowColor: "shadow-glow-blue",
-    gridSize: { rows: 7, cols: 8 },
-    moves: 25,
-    objectives: [
-      {
-        type: "score",
-        target: 3000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "clear",
-        target: 15,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 3,
-    position: { x: 50, y: 20 },
-  },
-  {
-    id: 4,
-    image:
-      "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbe3e3002657887683/view?project=67c98b5e0035bedcf913&mode=admin",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-green-400 to-green-600",
-    shadowColor: "shadow-glow-green",
-    gridSize: { rows: 8, cols: 8 },
-    moves: 30,
-    objectives: [
-      {
-        type: "score",
-        target: 4000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "time",
-        target: 60,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1]],
-    difficulty: 4,
-    position: { x: 65, y: 35 },
-  },
-  {
-    id: 5,
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-yellow-400 to-yellow-600",
-    shadowColor: "shadow-glow-yellow",
-    gridSize: { rows: 8, cols: 9 },
-    moves: 35,
-    objectives: [
-      {
-        type: "score",
-        target: 5000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 20,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 10,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 80, y: 20 },
-  },
-  {
-    id: 6,
-    name: "Emotion Master",
-    description: "Final challenge with all emotions",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-red-400 to-red-600",
-    shadowColor: "shadow-glow-red",
-    gridSize: { rows: 9, cols: 9 },
-    moves: 40,
-    objectives: [
-      {
-        type: "score",
-        target: 6000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 25,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 20,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 90,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 5,
-    position: { x: 95, y: 35 },
-  },
-
-  {
-    id: 7,
-    name: "Mind Bender",
-    description: "Test your strategic thinking with limited moves.",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-teal-400 to-teal-600",
-    shadowColor: "shadow-glow-teal",
-    gridSize: { rows: 9, cols: 10 },
-    moves: 45,
-    objectives: [
-      {
-        type: "score",
-        target: 7000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "clear",
-        target: 15,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[2]],
-    difficulty: 6,
-    position: { x: 110, y: 20 },
-  },
-  {
-    id: 8,
-    name: "Speedster",
-    description: "Race against time with quick thinking.",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-orange-400 to-orange-600",
-    shadowColor: "shadow-glow-orange",
-    gridSize: { rows: 10, cols: 10 },
-    moves: 50,
-    objectives: [
-      {
-        type: "score",
-        target: 8000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "time",
-        target: 120,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[1], powerUps[2]],
-    difficulty: 7,
-    position: { x: 125, y: 35 },
-  },
-  {
-    id: 9,
-    name: "The Ultimate Grid",
-    description: "A complex grid with multi-layered challenges.",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-cyan-400 to-cyan-600",
-    shadowColor: "shadow-glow-cyan",
-    gridSize: { rows: 10, cols: 11 },
-    moves: 55,
-    objectives: [
-      {
-        type: "score",
-        target: 9000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 30,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 25,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 8,
-    position: { x: 140, y: 20 },
-  },
-  {
-    id: 10,
-    name: "Master of the Game",
-    description: "The final and toughest challenge of all levels.",
-    image: "/placeholder.svg?height=150&width=150",
-    unlocked: false,
-    completed: false,
-    stars: 0,
-    color: "from-black to-gray-800",
-    shadowColor: "shadow-glow-gray",
-    gridSize: { rows: 11, cols: 11 },
-    moves: 60,
-    objectives: [
-      {
-        type: "score",
-        target: 10000,
-        current: 0,
-        icon: <Star size={16} className="text-yellow-400" />,
-        label: "Score",
-        color: "bg-yellow-400",
-      },
-      {
-        type: "collect",
-        target: 40,
-        current: 0,
-        icon: <Heart size={16} className="text-red-500" />,
-        label: "Hearts",
-        color: "bg-red-400",
-      },
-      {
-        type: "clear",
-        target: 30,
-        current: 0,
-        icon: <Target size={16} className="text-blue-500" />,
-        label: "Blocks",
-        color: "bg-blue-400",
-      },
-      {
-        type: "time",
-        target: 150,
-        current: 0,
-        icon: <Clock size={16} className="text-green-500" />,
-        label: "Seconds",
-        color: "bg-green-400",
-      },
-    ],
-    powerUps: [powerUps[0], powerUps[1], powerUps[2]],
-    difficulty: 9,
-    position: { x: 155, y: 35 },
-  },
-];
+import { useState, useEffect, useRef } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Star, Lock, Trophy, Gift, Clock, ChevronLeft, X, ArrowLeft, Sparkles } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import confetti from "canvas-confetti"
+import EmotionGame from "@/components/emotion-game"
+import { levels } from "@/data/levels"
 
 // Path points for the winding path
 const pathPoints = [
@@ -471,123 +17,74 @@ const pathPoints = [
   { x: 65, y: 35 },
   { x: 80, y: 20 },
   { x: 95, y: 35 },
-];
+]
 
 export default function Levels() {
-  const [selectedLevel, setSelectedLevel] = useState<number | null>(null);
-  const [userLevels, setUserLevels] = useState(levels);
-  const [showSplash, setShowSplash] = useState(false);
-  const [gameProgress, setGameProgress] = useState(0);
-  const [showGameBoard, setShowGameBoard] = useState(false);
-  const [currentMoves, setCurrentMoves] = useState(0);
-  const [objectives, setObjectives] = useState<Objective[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [emotions, setEmotions] = useState<Emotion[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showLevelModal, setShowLevelModal] = useState(false);
-  const [showEmotionGame, setShowEmotionGame] = useState(false);
-  const scrollRef = useRef(null);
-
-  // Fetch emotions from Appwrite
-  useEffect(() => {
-    let isMounted = true;
-    const fetchEmotions = async () => {
-      setIsLoading(true);
-      try {
-        const response = await databases.listDocuments(
-          "67c98cc3002b3e3dc1a5",
-          "67c98ce00023c7585f67"
-        );
-
-        const emotionsData = response.documents.map((doc) => ({
-          id: doc.$id,
-          name: doc.name,
-          image:
-            doc.image.split(",") || "/placeholder.svg?height=300&width=300", // Using database image URL
-          description: doc.description,
-          video: doc.video,
-        }));
-
-        console.log("Fetched emotions:", emotionsData); // Debug log
-        if (isMounted) {
-          setEmotions(emotionsData);
-        }
-      } catch (error) {
-        console.error("Error fetching emotions:", error);
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    fetchEmotions();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+  const [selectedLevel, setSelectedLevel] = useState<number | null>(null)
+  const [userLevels, setUserLevels] = useState(levels)
+  const [showSplash, setShowSplash] = useState(false)
+  const [gameProgress, setGameProgress] = useState(0)
+  const [showGameBoard, setShowGameBoard] = useState(false)
+  const [currentMoves, setCurrentMoves] = useState(0)
+  const [objectives, setObjectives] = useState<any[]>([])
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [showLevelModal, setShowLevelModal] = useState(false)
+  const [showEmotionGame, setShowEmotionGame] = useState(false)
+  const scrollRef = useRef(null)
 
   useEffect(() => {
-    setIsLoaded(true);
+    setIsLoaded(true)
+    setIsLoading(false)
     // Calculate overall game progress
-    const completedLevels = userLevels.filter(
-      (level) => level.completed
-    ).length;
-    const totalLevels = userLevels.length;
-    setGameProgress(Math.round((completedLevels / totalLevels) * 100));
-  }, [userLevels]);
+    const completedLevels = userLevels.filter((level) => level.completed).length
+    const totalLevels = userLevels.length
+    setGameProgress(Math.round((completedLevels / totalLevels) * 100))
+  }, [userLevels])
 
   const handleLevelClick = (id: number) => {
-    const level = userLevels.find((l) => l.id === id);
+    const level = userLevels.find((l) => l.id === id)
     if (level && level.unlocked) {
-      setSelectedLevel(id);
-      setShowLevelModal(true);
+      setSelectedLevel(id)
+      setShowLevelModal(true)
     }
-  };
+  }
 
   const handleStartLevel = () => {
     if (selectedLevel) {
-      setShowLevelModal(false);
-      setShowEmotionGame(true);
+      setShowLevelModal(false)
+      setShowEmotionGame(true)
     }
-  };
+  }
 
   const handleCompleteLevel = (stars: number) => {
     if (selectedLevel) {
       // Hide game board
-      setShowEmotionGame(false);
+      setShowEmotionGame(false)
 
       // Show splash screen
-      setShowSplash(true);
+      setShowSplash(true)
 
       // Trigger confetti effect
       confetti({
         particleCount: 150,
         spread: 100,
         origin: { y: 0.6 },
-        colors: [
-          "#8b5cf6",
-          "#ec4899",
-          "#3b82f6",
-          "#eab308",
-          "#ef4444",
-          "#06b6d4",
-        ],
-      });
+        colors: ["#8b5cf6", "#ec4899", "#3b82f6", "#eab308", "#ef4444", "#06b6d4"],
+      })
 
       // Update level status
       setUserLevels((prev) =>
         prev.map((level) => {
           if (level.id === selectedLevel) {
-            return { ...level, completed: true, stars };
+            return { ...level, completed: true, stars }
           }
           if (level.id === selectedLevel + 1) {
-            return { ...level, unlocked: true };
+            return { ...level, unlocked: true }
           }
-          return level;
-        })
-      );
+          return level
+        }),
+      )
 
       // Save progress to localStorage
       localStorage.setItem(
@@ -595,47 +92,44 @@ export default function Levels() {
         JSON.stringify(
           userLevels.map((level) => {
             if (level.id === selectedLevel) {
-              return { ...level, completed: true, stars };
+              return { ...level, completed: true, stars }
             }
             if (level.id === selectedLevel + 1) {
-              return { ...level, unlocked: true };
+              return { ...level, unlocked: true }
             }
-            return level;
-          })
-        )
-      );
+            return level
+          }),
+        ),
+      )
 
       // Close level modal and splash after a delay
       setTimeout(() => {
-        setShowSplash(false);
-        setSelectedLevel(null);
-      }, 3000);
+        setShowSplash(false)
+        setSelectedLevel(null)
+      }, 3000)
     }
-  };
+  }
 
   const handleMakeMove = () => {
     if (currentMoves > 0) {
       // Decrease moves
-      setCurrentMoves((prev) => prev - 1);
+      setCurrentMoves((prev) => prev - 1)
 
       // Update objectives (simulating progress)
       setObjectives((prev) =>
         prev.map((obj) => ({
           ...obj,
-          current: Math.min(
-            obj.current + Math.floor(Math.random() * 3) + 1,
-            obj.target
-          ),
-        }))
-      );
+          current: Math.min(obj.current + Math.floor(Math.random() * 3) + 1, obj.target),
+        })),
+      )
     }
 
     // Check if all objectives are complete
-    const allComplete = objectives.every((obj) => obj.current >= obj.target);
+    const allComplete = objectives.every((obj) => obj.current >= obj.target)
     if (allComplete || currentMoves === 1) {
-      handleCompleteLevel(3);
+      handleCompleteLevel(3)
     }
-  };
+  }
 
   const renderGamePiece = (type: string, size = 40) => {
     const colors = [
@@ -645,9 +139,9 @@ export default function Levels() {
       "bg-gradient-to-br from-yellow-400 to-yellow-600 border-2 border-yellow-300/50",
       "bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-pink-300/50",
       "bg-gradient-to-br from-green-400 to-green-600 border-2 border-green-300/50",
-    ];
+    ]
 
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)]
     const shadowColors = [
       "shadow-glow-small",
       "shadow-glow-red",
@@ -656,30 +150,27 @@ export default function Levels() {
       "shadow-glow-yellow",
       "shadow-glow-pink",
       "shadow-glow-green",
-    ];
-    const randomShadow =
-      shadowColors[Math.floor(Math.random() * shadowColors.length)];
+    ]
+    const randomShadow = shadowColors[Math.floor(Math.random() * shadowColors.length)]
 
     return (
       <div
         className={`${randomColor} rounded-full flex items-center justify-center ${randomShadow}`}
         style={{ width: `${size}px`, height: `${size}px` }}
       >
-        {type === "special" && (
-          <div className="absolute inset-0 bg-white/30 rounded-full animate-pulse"></div>
-        )}
+        {type === "special" && <div className="absolute inset-0 bg-white/30 rounded-full animate-pulse"></div>}
         {type === "special" && <Sparkles size={16} className="text-white" />}
       </div>
-    );
-  };
+    )
+  }
 
   const renderGameBoard = () => {
-    if (!selectedLevel) return null;
+    if (!selectedLevel) return null
 
-    const level = userLevels.find((l) => l.id === selectedLevel);
-    if (!level) return null;
+    const level = userLevels.find((l) => l.id === selectedLevel)
+    if (!level) return null
 
-    const { rows, cols } = level.gridSize;
+    const { rows, cols } = level.gridSize
 
     return (
       <div className="bg-gradient-to-b from-indigo-800/30 to-fuchsia-800/30 p-4 rounded-xl border-2 border-indigo-700/30">
@@ -687,14 +178,12 @@ export default function Levels() {
         <div className="flex justify-between items-center mb-4 px-2">
           <div className="flex items-center gap-4">
             <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
-              <Star className="h-4 w-4 text-yellow-400" fill="yellow" />
+              <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
             </div>
 
             <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
               <Clock className="h-4 w-4 text-indigo-300" />
-              <span className="text-sm font-bold text-white">
-                Moves: {currentMoves}
-              </span>
+              <span className="text-sm font-bold text-white">Moves: {currentMoves}</span>
             </div>
           </div>
         </div>
@@ -702,21 +191,17 @@ export default function Levels() {
         {/* Objectives */}
         <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
           {objectives.map((objective, idx) => {
-            const progress = Math.min(objective.current / objective.target, 1);
+            const progress = Math.min(objective.current / objective.target, 1)
             return (
               <div
                 key={idx}
                 className="bg-indigo-900/80 rounded-lg p-2 flex-shrink-0 shadow-glow-small border-2 border-indigo-700/30"
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <div
-                    className={`${objective.color} w-6 h-6 rounded-full flex items-center justify-center`}
-                  >
+                  <div className={`${objective.color} w-6 h-6 rounded-full flex items-center justify-center`}>
                     {objective.icon}
                   </div>
-                  <div className="text-xs font-medium text-white">
-                    {objective.label}
-                  </div>
+                  <div className="text-xs font-medium text-white">{objective.label}</div>
                 </div>
                 <div className="flex items-center gap-1">
                   <div className="text-xs font-bold text-indigo-200">
@@ -732,7 +217,7 @@ export default function Levels() {
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
 
@@ -745,7 +230,7 @@ export default function Levels() {
           }}
         >
           {Array.from({ length: rows * cols }).map((_, idx) => {
-            const isSpecial = Math.random() > 0.85;
+            const isSpecial = Math.random() > 0.85
             return (
               <motion.div
                 key={idx}
@@ -756,7 +241,7 @@ export default function Levels() {
               >
                 {renderGamePiece(isSpecial ? "special" : "regular", 36)}
               </motion.div>
-            );
+            )
           })}
         </div>
 
@@ -772,35 +257,31 @@ export default function Levels() {
           </motion.button>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   // Generate SVG path for the winding road
   const generatePath = () => {
-    if (pathPoints.length < 2) return "";
+    if (pathPoints.length < 2) return ""
 
-    let path = `M ${pathPoints[0].x} ${pathPoints[0].y}`;
+    let path = `M ${pathPoints[0].x} ${pathPoints[0].y}`
 
     for (let i = 1; i < pathPoints.length; i++) {
-      const prev = pathPoints[i - 1];
-      const current = pathPoints[i];
+      const prev = pathPoints[i - 1]
+      const current = pathPoints[i]
 
       // For a curved path
       if (i % 2 === 1) {
         // Path curves down
-        path += ` Q ${(prev.x + current.x) / 2} ${prev.y + 15} ${current.x} ${
-          current.y
-        }`;
+        path += ` Q ${(prev.x + current.x) / 2} ${prev.y + 15} ${current.x} ${current.y}`
       } else {
         // Path curves up
-        path += ` Q ${(prev.x + current.x) / 2} ${prev.y - 15} ${current.x} ${
-          current.y
-        }`;
+        path += ` Q ${(prev.x + current.x) / 2} ${prev.y - 15} ${current.x} ${current.y}`
       }
     }
 
-    return path;
-  };
+    return path
+  }
 
   return (
     <div className="min-h-screen bg-indigo-950 text-white overflow-hidden">
@@ -814,10 +295,7 @@ export default function Levels() {
 
         <div className="container relative z-10 mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
-            <Link
-              href="face-museum"
-              className="flex items-center text-indigo-200 hover:text-white transition-colors"
-            >
+            <Link href="face-museum" className="flex items-center text-indigo-200 hover:text-white transition-colors">
               <ArrowLeft className="mr-2 h-4 w-4" />
               <span>Back to Hall of faces</span>
             </Link>
@@ -833,9 +311,7 @@ export default function Levels() {
               <div className="relative">
                 <div className="absolute inset-0 bg-fuchsia-500/20 blur-md rounded-full"></div>
                 <div className="relative bg-indigo-800/50 px-6 py-2 rounded-xl border-2 border-fuchsia-400/50 shadow-glow-purple">
-                  <span className="text-fuchsia-300 font-bold">
-                    Fun Challenges
-                  </span>
+                  <span className="text-fuchsia-300 font-bold">Fun Challenges</span>
                 </div>
               </div>
             </div>
@@ -890,8 +366,8 @@ export default function Levels() {
               style={{ scrollSnapType: "x mandatory", whiteSpace: "nowrap" }}
             >
               {userLevels.map((level, index) => {
-                const isCompleted = level.completed;
-                const isLocked = !level.unlocked;
+                const isCompleted = level.completed
+                const isLocked = !level.unlocked
 
                 return (
                   <motion.div
@@ -928,16 +404,14 @@ export default function Levels() {
                           isLocked
                             ? "bg-indigo-900/80 border-indigo-700/50"
                             : isCompleted
-                            ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
-                            : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
+                              ? "bg-gradient-to-br from-green-400 to-green-600 border-green-300/50 shadow-glow-green"
+                              : "bg-gradient-to-br from-fuchsia-500 to-purple-600 border-fuchsia-400/50 shadow-glow-purple"
                         }`}
                       >
                         {isLocked ? (
                           <Lock size={24} className="text-muted-foreground" />
                         ) : (
-                          <span className="text-xl font-bold text-white">
-                            {level.id}
-                          </span>
+                          <span className="text-xl font-bold text-white">{level.id}</span>
                         )}
                       </div>
 
@@ -945,13 +419,13 @@ export default function Levels() {
                       {level.completed && (
                         <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex">
                           {[...Array(3)].map((_, i) => (
-                            <Star key={i} size={12} />
+                            <Star key={i} size={12} className="text-yellow-400 fill-yellow-400" />
                           ))}
                         </div>
                       )}
                     </motion.div>
                   </motion.div>
-                );
+                )
               })}
 
               {/* Completion Island */}
@@ -975,13 +449,10 @@ export default function Levels() {
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   1
                 </div>
-                <h3 className="font-semibold text-lg text-white">
-                  Select a Level
-                </h3>
+                <h3 className="font-semibold text-lg text-white">Select a Level</h3>
               </div>
               <p className="text-indigo-200">
-                Choose an unlocked level from the adventure map to begin your
-                emotional journey.
+                Choose an unlocked level from the adventure map to begin your emotional journey.
               </p>
             </div>
 
@@ -990,14 +461,9 @@ export default function Levels() {
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   2
                 </div>
-                <h3 className="font-semibold text-lg text-white">
-                  Complete Objectives
-                </h3>
+                <h3 className="font-semibold text-lg text-white">Complete Objectives</h3>
               </div>
-              <p className="text-indigo-200">
-                Match emotions and complete the level objectives before you run
-                out of moves.
-              </p>
+              <p className="text-indigo-200">Watch the video and answer questions correctly to complete the level.</p>
             </div>
 
             <div className="bg-indigo-900/60 rounded-2xl p-6 border-2 border-indigo-700/50 shadow-glow-small">
@@ -1005,13 +471,10 @@ export default function Levels() {
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 flex items-center justify-center text-white font-bold border-2 border-fuchsia-400/30">
                   3
                 </div>
-                <h3 className="font-semibold text-lg text-white">
-                  Earn Rewards
-                </h3>
+                <h3 className="font-semibold text-lg text-white">Earn Rewards</h3>
               </div>
               <p className="text-indigo-200">
-                Earn stars, XP, and unlock new levels as you progress through
-                your emotional learning adventure.
+                Earn stars, XP, and unlock new levels as you progress through your emotional learning adventure.
               </p>
             </div>
           </div>
@@ -1033,12 +496,12 @@ export default function Levels() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-indigo-900/90 sm:max-h-[70vh] md:max-h-[95vh]  overflow-y-auto scrollbar-hide rounded-3xl p-6 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
+              className="bg-indigo-900/90 sm:max-h-[70vh] md:max-h-[95vh] overflow-y-auto scrollbar-hide rounded-3xl p-6 max-w-md w-full shadow-2xl border-2 border-indigo-700/50"
               onClick={(e) => e.stopPropagation()}
             >
               {(() => {
-                const level = userLevels.find((l) => l.id === selectedLevel);
-                if (!level) return null;
+                const level = userLevels.find((l) => l.id === selectedLevel)
+                if (!level) return null
 
                 return (
                   <>
@@ -1061,12 +524,8 @@ export default function Levels() {
                     </div>
 
                     <div className="text-center mb-4">
-                      <h3 className="text-xl font-bold text-foreground">
-                        {level.name}
-                      </h3>
-                      <p className="text-muted-foreground">
-                        {level.description}
-                      </p>
+                      <h3 className="text-xl font-bold text-foreground">{level.name}</h3>
+                      <p className="text-muted-foreground">{level.description}</p>
                     </div>
 
                     <div className="relative h-40 bg-gradient-to-b from-primary/10 to-secondary/10 rounded-xl mb-6 flex items-center justify-center">
@@ -1081,10 +540,7 @@ export default function Levels() {
                         }}
                       >
                         <Image
-                          src={
-                            level.image ||
-                            "/placeholder.svg?height=150&width=150"
-                          }
+                          src={level.image || "/placeholder.svg?height=150&width=150"}
                           alt={level.name || "Image Not Available"}
                           width={120}
                           height={120}
@@ -1093,10 +549,7 @@ export default function Levels() {
                       </motion.div>
                     </div>
                     <div className="flex justify-center">
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
+                      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                         <button
                           onClick={handleStartLevel}
                           className="relative bg-gradient-to-br from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 px-8 py-6 text-lg font-bold text-white rounded-xl border-2 border-fuchsia-400/30"
@@ -1106,7 +559,7 @@ export default function Levels() {
                       </motion.div>
                     </div>
                   </>
-                );
+                )
               })()}
             </motion.div>
           </motion.div>
@@ -1120,21 +573,20 @@ export default function Levels() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0  bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-card rounded-3xl max-h-[80vh]  overflow-y-auto scrollbar-hide p-4 max-w-4xl w-full shadow-2xl border border-border"
+              className="bg-card rounded-3xl max-h-[80vh] overflow-y-auto scrollbar-hide p-4 max-w-4xl w-full shadow-2xl border border-border"
               onClick={(e) => e.stopPropagation()}
             >
               <EmotionGame
                 levelId={selectedLevel}
                 onComplete={handleCompleteLevel}
                 onExit={() => setShowEmotionGame(false)}
-                emotions={emotions}
               />
             </motion.div>
           </motion.div>
@@ -1185,9 +637,7 @@ export default function Levels() {
               className="bg-gradient-to-br from-fuchsia-600 to-purple-600 p-8 rounded-3xl shadow-2xl flex flex-col items-center border-2 border-fuchsia-400/30 shadow-glow-purple overflow-y-auto scrollbar-hide"
             >
               <Trophy size={80} className="text-primary-foreground mb-4" />
-              <h2 className="text-4xl font-extrabold text-white mb-2">
-                Level Complete!
-              </h2>
+              <h2 className="text-4xl font-extrabold text-white mb-2">Level Complete!</h2>
               <div className="flex gap-2 my-3">
                 {[...Array(3)].map((_, i) => (
                   <motion.div
@@ -1196,10 +646,7 @@ export default function Levels() {
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.3 + i * 0.2, type: "spring" }}
                   >
-                    <Star
-                      size={40}
-                      className="text-yellow-300 fill-yellow-300"
-                    />
+                    <Star size={40} className="text-yellow-400 fill-yellow-400" />
                   </motion.div>
                 ))}
               </div>
@@ -1219,5 +666,6 @@ export default function Levels() {
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }
+

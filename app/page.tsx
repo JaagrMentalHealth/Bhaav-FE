@@ -1,36 +1,22 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import {
-  Smile,
-  Trophy,
-  Star,
-  Sparkles,
-  Gamepad2,
-  Heart,
-  Zap,
-} from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react"
+import Image from "next/image"
+import { motion } from "framer-motion"
+import { Smile, Trophy, Star, Sparkles, Gamepad2, Heart, Zap } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hoverButton, setHoverButton] = useState<string | null>(null);
-  const [showDialog, setShowDialog] = useState(false);
-  const router = useRouter();
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [hoverButton, setHoverButton] = useState<string | null>(null)
+  const [showDialog, setShowDialog] = useState(false)
+  const router = useRouter()
   useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+    setIsLoaded(true)
+  }, [])
 
   return (
     <div className="flex flex-col min-h-screen bg-indigo-950 text-white overflow-hidden">
@@ -145,7 +131,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="container mx-auto h-[100vh]  px-6 z-10">
+      <div className="container mx-auto min-h-[100vh] px-6 z-10">
         {/* Game UI header */}
         <div className="pt-4 flex justify-between items-center">
           <div className="flex items-center gap-1">
@@ -158,9 +144,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16 py-12 md:py-16 lg:pt-24 lg:px-[8vw]">
+        <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 md:gap-16 py-12 md:py-16 lg:pt-24 lg:px-[8vw]">
           <motion.div
-            className="md:w-1/2 z-10"
+            className="lg:w-1/2 z-10"
             initial={{ opacity: 0, y: 30 }}
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut" }}
@@ -181,9 +167,8 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-lg text-indigo-100 mb-8 max-w-lg">
-              Join our magical adventure to understand feelings, make new
-              friends, and develop emotional intelligence through interactive
-              games and stories!
+              Join our magical adventure to understand feelings, make new friends, and develop emotional intelligence
+              through interactive games and stories!
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -199,7 +184,7 @@ export default function Home() {
                   size="lg"
                   className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white  border-2 border-indigo-400/30"
                   onClick={() => {
-                    router.push("/face-museum");
+                    router.push("/face-museum")
                   }}
                 >
                   <Gamepad2 className="mr-2 h-6 w-6" />
@@ -233,12 +218,12 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            className="md:w-1/2 z-10"
+            className=" w-[95%] md:w-1/2 z-10 flex justify-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={isLoaded ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
           >
-            <div className="relative hidden md:block w-full aspect-square max-w-[500px] mx-auto">
+            <div className="relative w-full max-w-[400px] aspect-square">
               {/* Animated spinning ring with particle effects */}
               <motion.div
                 className="absolute inset-0 rounded-full"
@@ -275,8 +260,9 @@ export default function Home() {
                 <Image
                   src="/hero.jpg?height=500&width=500"
                   alt="Happy children playing together"
-                  fill
-                  className="object-cover"
+                  width={500}
+                  height={500}
+                  className="object-cover w-full h-full"
                   priority
                 />
               </div>
@@ -378,8 +364,8 @@ export default function Home() {
                 Discover the Magic
               </h2>
               <p className="text-indigo-200 max-w-2xl mx-auto">
-                Our app is filled with exciting features designed to make
-                emotional learning fun and engaging for children of all ages.
+                Our app is filled with exciting features designed to make emotional learning fun and engaging for
+                children of all ages.
               </p>
             </motion.div>
           </div>
@@ -400,8 +386,7 @@ export default function Home() {
             {[
               {
                 title: "Hall of faces",
-                description:
-                  "Explore different emotions and learn what they mean through interactive exhibits!",
+                description: "Explore different emotions and learn what they mean through interactive exhibits!",
                 icon: <Smile className="text-yellow-400" size={28} />,
                 href: "/face-museum",
                 color: "bg-yellow-400/20",
@@ -411,8 +396,7 @@ export default function Home() {
               },
               {
                 title: "Fun Levels",
-                description:
-                  "Complete exciting challenges and earn rewards as you master emotional intelligence!",
+                description: "Complete exciting challenges and earn rewards as you master emotional intelligence!",
                 icon: <Trophy className="text-pink-400" size={28} />,
                 href: "/levels",
                 color: "bg-pink-400/20",
@@ -422,8 +406,7 @@ export default function Home() {
               },
               {
                 title: "Cool Badges",
-                description:
-                  "Collect awesome badges as you learn and grow your emotional vocabulary!",
+                description: "Collect awesome badges as you learn and grow your emotional vocabulary!",
                 icon: <Star className="text-purple-400" size={28} />,
                 href: "/badges",
                 color: "bg-purple-400/20",
@@ -452,9 +435,7 @@ export default function Home() {
                         {feature.icon}
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold mb-2 text-white">
-                      {feature.title}
-                    </h3>
+                    <h3 className="text-xl font-bold mb-2 text-white">{feature.title}</h3>
                     <p className="text-indigo-200">{feature.description}</p>
 
                     <div className="mt-4 flex justify-end">
@@ -518,13 +499,10 @@ export default function Home() {
                     ))}
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold mb-2 text-white">
-                      Meet Your Emotion Friends!
-                    </h3>
+                    <h3 className="text-xl font-bold mb-2 text-white">Meet Your Emotion Friends!</h3>
                     <p className="text-indigo-200">
-                      These friendly characters will guide you through your
-                      emotional learning journey. Each one represents a
-                      different feeling to help you understand emotions better!
+                      These friendly characters will guide you through your emotional learning journey. Each one
+                      represents a different feeling to help you understand emotions better!
                     </p>
                   </div>
                 </div>
@@ -547,11 +525,7 @@ export default function Home() {
           </DialogHeader>
           <div className="grid grid-cols-1 gap-4 py-4">
             <Link href="/face-museum" onClick={() => setShowDialog(false)}>
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="w-full"
-              >
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full">
                 <Button
                   className="w-full bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-white font-bold py-6 text-lg"
                   size="lg"
@@ -563,11 +537,7 @@ export default function Home() {
             </Link>
 
             <Link href="/levels" onClick={() => setShowDialog(false)}>
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                className="w-full"
-              >
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-full">
                 <Button
                   className="w-full bg-gradient-to-br from-fuchsia-600 to-purple-600 hover:from-fuchsia-500 hover:to-purple-500 text-white font-bold py-6 text-lg"
                   size="lg"
@@ -616,5 +586,6 @@ export default function Home() {
         </DialogContent>
       </Dialog>
     </div>
-  );
+  )
 }
+

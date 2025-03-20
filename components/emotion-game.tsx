@@ -3,29 +3,26 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Star, CheckCircle, XCircle, Play } from "lucide-react";
+import { Star, CheckCircle, XCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import type { Emotion, GameState, QuizQuestion } from "@/types/game-types";
+import type { GameState, QuizQuestion } from "@/types/game-types";
 import confetti from "canvas-confetti";
 
 // Import local data
-import gameData from "@/data/data.json";
+import { levels } from "@/data/levels";
+import questionsData from "@/data/questions.json";
 
 interface EmotionGameProps {
   levelId: number;
   onComplete: (stars: number) => void;
   onExit: () => void;
-  emotions: Emotion[];
 }
-
-const storyName=["The Harvest of Hope","The Last Page","The Candle Maker's Light","","","","","","","","","","",""]
 
 export default function EmotionGame({
   levelId,
   onComplete,
   onExit,
-  emotions,
 }: EmotionGameProps) {
   const [gameState, setGameState] = useState<GameState>({
     stage: "preparation", // Changed initial stage to preparation
@@ -34,7 +31,6 @@ export default function EmotionGame({
     correctAnswers: 0,
   });
   const [options, setOptions] = useState<string[]>([]);
-  const [currentEmotion, setCurrentEmotion] = useState<Emotion | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoTime, setVideoTime] = useState(0);
   const [videoPlaying, setVideoPlaying] = useState(false);
@@ -46,53 +42,25 @@ export default function EmotionGame({
   );
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
   const [videoUrl, setVideoUrl] = useState<string>("");
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showToast, setShowToast] = useState(false);
 
   // New state for preparation timer
   const [prepTime, setPrepTime] = useState(5);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Load questions from local data instead of Appwrite
-  const loadQuestions = (emotionName: string) => {
-    try {
-      // Find questions for the current emotion from the local data
-      const questions = gameData.questions.filter(
-        (q) => q.emotion === emotionName
-      );
+  // Get current level data
+  const currentLevel = levels.find(level => level.id === levelId);
 
-      if (questions.length > 0) {
-        const formattedQuestions: any = questions.map((doc) => ({
-          id: doc.id,
-          timestamp: doc.time,
-          wrongMessage: doc.wrongMessage,
-          question: doc.question,
-          options: doc.options,
-          correctAnswer: doc.correctOption,
-          image: doc.image || null, // Support optional image
-        }));
-
-        setQuizQuestions(formattedQuestions);
-      }
-    } catch (error) {
-      console.error("Error loading questions:", error);
-    }
-  };
-
-  // Initialize the game with the current level's emotion
+  // Initialize the game with the current level's data
   useEffect(() => {
-    // Select an emotion based on the level ID
-    const emotionIndex = (levelId - 1) % emotions.length;
-    const selectedEmotion = emotions[emotionIndex];
+    if (currentLevel) {
+      setVideoUrl(currentLevel.videoUrl || "");
 
-    if (selectedEmotion) {
-      setCurrentEmotion(selectedEmotion);
-      setVideoUrl(selectedEmotion.video || "");
-
-      // Load questions for this emotion from local data
-      loadQuestions(selectedEmotion.name);
+      // Load questions for this level from local data
+      const levelQuestionsData = questionsData[levelId.toString()] || [];
+      setQuizQuestions(levelQuestionsData);
     }
-  }, [levelId, emotions]);
+  }, [levelId, currentLevel]);
 
   // Handle preparation timer
   useEffect(() => {
@@ -194,7 +162,6 @@ export default function EmotionGame({
         setQuizResult(null);
         setGameState((prev) => ({ ...prev, selectedAnswer: null }));
       }, 1500);
-      // setShowToast(false)
     }
   };
 
@@ -282,7 +249,7 @@ export default function EmotionGame({
 
   // Render video quiz stage
   const renderVideoQuiz = () => {
-    if (!currentEmotion) return null;
+    if (!currentLevel) return null;
 
     return (
       <div className="flex flex-col items-center">
@@ -384,7 +351,6 @@ export default function EmotionGame({
           <video
             ref={videoRef}
             src={videoUrl}
-            
             className="w-full h-full object-cover flex-grow"
             onEnded={handleVideoEnd}
             autoPlay
@@ -440,8 +406,8 @@ export default function EmotionGame({
           ))}
         </div>
         <p className="text-xl mb-8">
-          {currentEmotion
-            ? `You've learned about ${currentEmotion.name}!`
+          {currentLevel
+            ? `You've completed ${currentLevel.name}!`
             : "Level completed!"}
         </p>
       </motion.div>
@@ -459,7 +425,7 @@ export default function EmotionGame({
           Exit Game
         </Button>
         <div className="text-lg font-semibold text-white">
-          Level {levelId}: {storyName[levelId-1]}
+          Level {levelId}: {currentLevel?.name || ""}
         </div>
         <div className="w-20"></div> {/* Spacer for alignment */}
       </div>
