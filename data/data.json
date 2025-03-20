@@ -93,10 +93,10 @@
     },
     {
       "id": "q7",
-      "emotion": "Angry",
-      "time": 40,
+      "emotion": "Anger",
+      "time": 61,
       "wrongMessage": "No, your answer is incorrect ",
-      "question": "How was Aryan feeling?",
+      "question": "What did Aryan felt when Leela answered that lights are not just for seeing it makes us warm inside?",
       "options": [
         "Happy",
         "Devastated",
@@ -107,46 +107,77 @@
       "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8888d0027f7a3fb17/view?project=67c98b5e0035bedcf913&mode=admin"
     },
     {
-      "id": "q8",
-      "emotion": "Angry",
-      "time": 103,
+      "id": "q12",
+      "emotion": "Anger",
+      "time": 117,
       "wrongMessage": "No, your answer is incorrect ",
-      "question": "How were Neighbours feeling?",
+      "question": "What did Aryan feel when he saw everyone lighting candles in front of their house?",
       "options": [
         "Happy",
         "Devastated",
         "Fearful",
-        "Angry"
+        "Amazed"
       ],
-      "correctOption": "Happy",
+      "correctOption": "Amazed",
       "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8896c00023ebdfb03/view?project=67c98b5e0035bedcf913&mode=admin"
     },
     {
-      "id": "q9",
-      "emotion": "Surprised",
-      "time": 29,
+      "id": "q8",
+      "emotion": "Anger",
+      "time": 167,
       "wrongMessage": "No, your answer is incorrect ",
-      "question": " What was Aarav feeling when the plan fell down a little too soon? ",
+      "question": "Which emotion do you feel aryan felt for the little girl (Leela)?",
       "options": [
-        "Sad",
+        "Love",
         "Devastated",
         "Fearful",
+        "Angry"
+      ],
+      "correctOption": "Love",
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8896c00023ebdfb03/view?project=67c98b5e0035bedcf913&mode=admin"
+    },
+    
+    {
+      "id": "q9",
+      "emotion": "Surprised",
+      "time": 34,
+      "wrongMessage": "No, your answer is incorrect ",
+      "question": "What did Aarav feel when his plane fall too soon? ",
+      "options": [
+        "Happy",
+        "Joyous",
+        "Surprised",
         "Disappointed"
       ],
       "correctOption": "Disappointed",
       "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8888d0027f7a3fb17/view?project=67c98b5e0035bedcf913&mode=admin"
     },
+    {
+      "id": "q10",
+      "emotion": "Surprised",
+      "time": 67,
+      "wrongMessage": "No, your answer is incorrect ",
+      "question": "How did Aarav feel after listening to the wise word of his Grandfather?",
+      "options": [
+        "Hope",
+        "Fear",
+        "Anger",
+        "Confusion"
+      ],
+      "correctOption": "Hope",
+      "image":"https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8888d0027f7a3fb17/view?project=67c98b5e0035bedcf913&mode=admin"
+    },
     
     {
       "id": "q11",
-      "emotion": "Angry",
+      "emotion": "Surprised",
       "time": 192,
       "wrongMessage": "No, your answer is incorrect ",
-      "question": "What emotion was depicted by Kabir at the end of the story?",
+      "question": "What did Kabir feel when he was reading the letter Aarav sent him?",
       "options": [
         "Proud",
-        "Devastated",
-        "Overwhelming",
+        "Disappointed",
+        "Nervous",
         "Angry"
       ],
       "correctOption": "Proud",
