@@ -106,50 +106,50 @@ export default function FaceMuseum() {
   )
 
   return (
-    <div className="min-h-screen bg-indigo-950 text-white overflow-hidden">
-      <div className="h-[100vh] ">
-      <div className="relative overflow-hidden bg-gradient-to-b from-indigo-800 to-indigo-950 pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-24">
-        {/* Decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-72 h-72 bg-fuchsia-600/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"></div>
-        </div>
-        <div className="container relative z-10 mx-auto px-4">
-          <div className="flex items-center justify-between mb-6">
-            <Link href="/" className="flex items-center text-indigo-200 hover:text-white transition-colors">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              <span>Back to Home</span>
-            </Link>
+    <div className="min-h-screen bg-indigo-950 text-white overflow-x-hidden">
+      <div className="min-h-screen pb-12">
+        <div className="relative overflow-hidden bg-gradient-to-b from-indigo-800 to-indigo-950 pt-8 sm:pt-12 md:pt-16 pb-12 sm:pb-16 md:pb-24 px-4 sm:px-6">
+          {/* Decorative elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 left-1/4 w-72 h-72 bg-fuchsia-600/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl"></div>
+          </div>
+          <div className="container relative z-10 mx-auto px-4">
+            <div className="flex items-center justify-between mb-6">
+              <Link href="/" className="flex items-center text-indigo-200 hover:text-white transition-colors">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                <span>Back to Home</span>
+              </Link>
+            </div>
+          </div>
+          <div className="container relative z-10 mx-auto px-4 ">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-center mb-12"
+            >
+              <div className="inline-block mb-4">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-fuchsia-500/20 blur-md rounded-full"></div>
+                </div>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 tracking-tight">
+                <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
+                  Welcome to Hall of Faces
+                </span>
+              </h1>
+
+              <p className="text-base sm:text-lg md:text-2xl lg:text-3xl max-w-4xl mx-auto text-indigo-300 leading-relaxed">
+                Helping Children Understand Emotions, One Face at a Time
+              </p>
+            </motion.div>
           </div>
         </div>
-        <div className="container relative z-10 mx-auto px-4 ">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-center mb-12"
-          >
-            <div className="inline-block mb-4">
-              <div className="relative">
-                <div className="absolute inset-0 bg-fuchsia-500/20 blur-md rounded-full"></div>
-              </div>
-            </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 tracking-tight">
-              <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
-                Welcome to Hall of Faces
-              </span>
-            </h1>
-
-            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl max-w-4xl mx-auto text-indigo-300 leading-relaxed">
-              Helping Children Understand Emotions, One Face at a Time
-            </p>
-          </motion.div>
-        </div>
-      </div>
-
-      <div className="container mx-auto px-4 -mt-8 sm:-mt-12 md:-mt-16 relative z-20">
-        {/* {isLoading ? (
+        <div className="container mx-auto px-4 -mt-8 sm:-mt-12 md:-mt-16 relative z-20">
+          {/* {isLoading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 "></div>
           </div>
@@ -206,69 +206,68 @@ export default function FaceMuseum() {
           </motion.div>
         ) : null} */}
 
-        <div className="mb-16">
-          <motion.div
-            className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 max-w-6xl mx-auto px-4"
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.1 },
-              },
-            }}
-          >
-            {emotions.map((emotion, index) => (
-              <motion.div
-                key={emotion.id}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-                }}
-                whileHover={{
-                  scale: 1.05,
-                  y: -5,
-                  zIndex: 10,
-                }}
-                whileTap={{ scale: 0.98 }}
-                className={`bg-indigo-800/60 rounded-2xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 `}
-                onClick={() => handleEmotionClick(emotion.id)}
-              >
-                <div className="relative w-full aspect-square overflow-hidden bg-primary/5">
-                  <Image
-                    src={emotion.image[0] || "/placeholder.svg"}
-                    alt={emotion.name}
-                    fill
-                    className="object-contain p-4"
-                  />
-                </div>
-                <div className="p-2 sm:p-4">
-                  <h3 className="text-center text-sm sm:text-base font-medium text-white">{emotion.name}</h3>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-          <div className="flex w-full justify-center mt-16">
-            <Button
-              onClick={() => {
-                router.push("/levels")
+          <div className="mb-16">
+            <motion.div
+              className="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6 max-w-6xl mx-auto px-4 sm:px-6"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 },
+                },
               }}
-              size="lg"
-              className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-base sm:text-lg font-bold text-white rounded-xl border-2 border-indigo-400/30"
             >
-              <Gamepad2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-              Start Playing
-            </Button>
+              {emotions.map((emotion, index) => (
+                <motion.div
+                  key={emotion.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    y: -5,
+                    zIndex: 10,
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`bg-indigo-800/60 rounded-2xl shadow-md overflow-hidden cursor-pointer transition-all duration-300 `}
+                  onClick={() => handleEmotionClick(emotion.id)}
+                >
+                  <div className="relative w-full aspect-square overflow-hidden bg-primary/5">
+                    <Image
+                      src={emotion.image[0] || "/placeholder.svg"}
+                      alt={emotion.name}
+                      fill
+                      className="object-contain p-4"
+                    />
+                  </div>
+                  <div className="p-2 sm:p-4">
+                    <h3 className="text-center text-sm sm:text-base font-medium text-white">{emotion.name}</h3>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+            <div className="flex w-full justify-center mt-16">
+              <Button
+                onClick={() => {
+                  router.push("/levels")
+                }}
+                size="lg"
+                className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-4 sm:px-6 md:px-8 py-3 sm:py-4 md:py-6 text-base sm:text-lg font-bold text-white rounded-xl border-2 border-indigo-400/30"
+              >
+                <Gamepad2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
+                Start Playing
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-      </div>
       {/* Museum-like header with decorative elements */}
-      
 
       {/* Museum-like footer */}
-      <div className="bg-gradient-to-b from-indigo-900 to-indigo-800 py-8 sm:py-12 md:py-16 border-t-4 border-indigo-600">
+      <div className="bg-gradient-to-b from-indigo-900 to-indigo-800 py-8 sm:py-12 md:py-16 border-t-4 border-indigo-600 px-4 sm:px-6">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 sm:mb-6">About Hall of Faces</h3>
 
@@ -290,7 +289,7 @@ export default function FaceMuseum() {
               or a cheerful laugh. Sadness can appear as a frown, teary eyes, or a quiet gaze. By showcasing{" "}
               <span className="font-semibold text-white">multiple faces for each emotion</span>, we aim to:
             </p>
-            <ul className="mt-6 space-y-3 text-indigo-300 text-lg md:text-xl text-left max-w-4xl mx-auto">
+            <ul className="mt-6 space-y-3 text-indigo-300 text-base sm:text-lg md:text-xl text-left max-w-4xl mx-auto px-4 sm:px-0">
               <li>
                 ✅ <span className="font-semibold text-white">Broaden understanding:</span> Help children realize that
                 emotions don’t always look the same.
@@ -316,7 +315,7 @@ export default function FaceMuseum() {
               <span className="font-semibold text-white">exploratory, engaging, and educational</span>. Here are some
               fun ways you can use it:
             </p>
-            <ul className="mt-6 space-y-3 text-indigo-300 text-lg md:text-xl text-left max-w-4xl mx-auto">
+            <ul className="mt-6 space-y-3 text-indigo-300 text-base sm:text-lg md:text-xl text-left max-w-4xl mx-auto px-4 sm:px-0">
               <li>
                 🎭 <span className="font-semibold text-white">Explore Together:</span> Sit with your child and explore
                 different emotions. Ask them questions like, “How do you think this person feels?” or “When do you feel
@@ -346,7 +345,7 @@ export default function FaceMuseum() {
               The Hall of Faces serves as a{" "}
               <span className="font-semibold text-white">safe and interactive learning space</span> where they can:
             </p>
-            <ul className="mt-6 space-y-3 text-indigo-300 text-lg md:text-xl text-left max-w-4xl mx-auto">
+            <ul className="mt-6 space-y-3 text-indigo-300 text-base sm:text-lg md:text-xl text-left max-w-4xl mx-auto px-4 sm:px-0">
               <li>
                 💙 <span className="font-semibold text-white">Learn at their own pace.</span>
               </li>
@@ -398,7 +397,7 @@ export default function FaceMuseum() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25 }}
-              className="bg-indigo-800/90 max-w-4xl w-full rounded-3xl p-4 sm:p-6 shadow-2xl border-2 max-h-[90vh] overflow-y-auto"
+              className="bg-indigo-800/90 max-w-4xl w-full rounded-3xl p-4 sm:p-6 shadow-2xl border-2 max-h-[90vh] overflow-y-auto mx-4"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-4 sm:mb-6">
@@ -412,7 +411,7 @@ export default function FaceMuseum() {
               </div>
 
               <div className="flex flex-col md:flex-row items-center gap-4 sm:gap-6">
-                <div className="relative w-full h-64 sm:h-80 md:w-80 md:h-80 lg:w-96 lg:h-96 flex-shrink-0 bg-primary/10 rounded-2xl p-2">
+                <div className="relative w-full h-64 sm:h-80 md:w-80 md:h-80 lg:w-96 lg:h-96 flex-shrink-0 bg-primary/10 rounded-2xl p-2 mx-auto md:mx-0 max-w-sm">
                   <Image
                     src={selectedEmotionData.image[0] || "/placeholder.svg"}
                     alt={selectedEmotionData.name}
@@ -425,6 +424,7 @@ export default function FaceMuseum() {
                         src={
                           selectedEmotionData.image[currentImageIndex] ||
                           "/placeholder.svg?height=300&width=300" ||
+                          "/placeholder.svg" ||
                           "/placeholder.svg"
                         }
                         alt="Emotion"
