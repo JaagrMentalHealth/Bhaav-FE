@@ -90,7 +90,7 @@ const levels = [
     image:
       "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cd6d2b0014022526ef/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
-    completed: false,
+    completed: true,
     stars: 3,
     color: "from-pink-400 to-pink-600",
     shadowColor: "shadow-glow-pink",
@@ -101,7 +101,7 @@ const levels = [
         type: "score",
         target: 1000,
         current: 1000,
-        icon: <Star size={16} className="text-yellow-400" />,
+        icon: <Star  size={16} className="text-yellow-400" />,
         label: "Score",
         color: "bg-yellow-400",
       },
@@ -116,7 +116,7 @@ const levels = [
     image:
       "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d8636a00311b1aa8f4/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
-    completed: false,
+    completed: true,
     stars: 0,
     color: "from-purple-400 to-purple-600",
     shadowColor: "shadow-glow-purple",
@@ -178,7 +178,7 @@ const levels = [
   },
   {
     id: 4,
-    image: "/placeholder.svg?height=150&width=150",
+    image: "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbe3e3002657887683/view?project=67c98b5e0035bedcf913&mode=admin",
     unlocked: true,
     completed: false,
     stars: 0,
@@ -524,7 +524,7 @@ export default function Levels() {
         <div className="flex justify-between items-center mb-4 px-2">
           <div className="flex items-center gap-4">
             <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
-              <Star className="h-4 w-4 text-yellow-400" fill="currentColor" />
+              <Star className="h-4 w-4 text-yellow-400" fill="yellow" />
             </div>
 
             <div className="bg-indigo-900/80 px-3 py-1.5 rounded-lg border-2 border-indigo-700/50 shadow-glow-small flex items-center gap-2">
