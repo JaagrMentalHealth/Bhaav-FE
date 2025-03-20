@@ -276,12 +276,6 @@ export default function EmotionGame({
             <span className="text-3xl font-bold">{prepTime}</span>
           </div>
         </div>
-
-        <p className="text-lg">
-          {currentEmotion
-            ? `Learning about ${currentEmotion.name}`
-            : "Preparing your lesson"}
-        </p>
       </div>
     );
   };
