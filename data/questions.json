@@ -4,7 +4,7 @@
       "id": "q1",
       "timestamp": 72,
       "question": "What do you think Dev is feeling at this moment?",
-      "wrongMessage": "No, your answer is incorrect the correct answer is Dev is sad because his farms have been destroyed.",
+      "wrongMessage": "No. Dev is sad because his farms have been destroyed.",
       "options": ["Happy", "Sad", "Angry", "Disgusted"],
       "correctAnswer": "Sad",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cde752003485058868/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -13,7 +13,7 @@
       "id": "q2",
       "timestamp": 139,
       "question": "What do you think Anjali is feeling for Dev in this moment?",
-      "wrongMessage": "No, your answer is incorrect the correct answer is Anjali is showing affection for Dev",
+      "wrongMessage": "No. Anjali is showing affection for Dev as he was facing is problems with a brave and positive attitude",
       "options": ["Affection", "Sorrow", "Disgust", "Hopeless"],
       "correctAnswer": "Affection",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67ceb170003d439ed0df/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -22,7 +22,7 @@
       "id": "q3",
       "timestamp": 187,
       "question": "What do you think the whole village is feeling?",
-      "wrongMessage": "No, your answer is incorrect the correct answer is Villagers are happy because they are saved.",
+      "wrongMessage": "No. Villagers are happy because there harvest got saved.",
       "options": ["Happy", "Hopeless", "Fearful", "Angry"],
       "correctAnswer": "Happy",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67cead87000e1b9e08e7/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -33,7 +33,7 @@
       "id": "q4",
       "timestamp": 42,
       "question": "What was Meera feeling whenn she heard of the book store being closed?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Meera is sad because her Dadaji told her that he is going to shut down the bookstore.",
       "options": ["Happy", "Excited", "Sad", "Confident"],
       "correctAnswer": "Sad",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b35001441aa584f/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -42,7 +42,7 @@
       "id": "q5",
       "timestamp": 94,
       "question": "What was Meera feeling when she started the bookstore?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Meera felt hope as she started setting up the crate outside the book store ",
       "options": ["Happy", "Hope", "Relaxed", "Confused"],
       "correctAnswer": "Hope",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86ae0001e78f2f7af/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -51,7 +51,7 @@
       "id": "q6",
       "timestamp": 149,
       "question": "What did Dadaji feel seeing Meera's struggle?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No.Dadaji felt proud of Meera as she brought back the customers to the bookstore.",
       "options": ["Happy", "Excited", "Fearful", "Proud"],
       "correctAnswer": "Proud",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67c98ba30035b99f8621/files/67d86b100000f37f3ef3/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -62,7 +62,7 @@
       "id": "q7",
       "timestamp": 61,
       "question": "What did Aryan felt when Leela answered that lights are not just for seeing it makes us warm inside?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Aryan felt happy because Leela's answer made him feel that there are still people who care about the candle.",
       "options": ["Happy", "Devastated", "Fearful", "Angry"],
       "correctAnswer": "Happy",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbdfb100085251f724/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -71,7 +71,7 @@
       "id": "q12",
       "timestamp": 117,
       "question": "What did Aryan feel when he saw everyone lighting candles in front of their house?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Aryan was amazed to see that everyone placed candles in front of their houses as if it were a festival.",
       "options": ["Happy", "Devastated", "Fearful", "Amazed"],
       "correctAnswer": "Amazed",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbdfd600075d4c04e9/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -80,7 +80,7 @@
       "id": "q8",
       "timestamp": 167,
       "question": "Which emotion do you feel aryan felt for the little girl (Leela)?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Aryan felt love because, thanks to Leela, there was still hope for his candle shop.",
       "options": ["Love", "Devastated", "Fearful", "Angry"],
       "correctAnswer": "Love",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbdfec000e0195485b/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -91,7 +91,7 @@
       "id": "q9",
       "timestamp": 34,
       "question": "What did Aarav feel when his plane fall too soon?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Aarav felt disappointed when his plane fall to soon",
       "options": ["Happy", "Joyous", "Surprised", "Disappointed"],
       "correctAnswer": "Disappointed",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbe1820018e09f213f/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -100,7 +100,7 @@
       "id": "q10",
       "timestamp": 67,
       "question": "How did Aarav feel after listening to the wise word of his Grandfather?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Aarav felt hope listening to the inspiring and hopeful words from his grandfather ",
       "options": ["Hope", "Fear", "Anger", "Confusion"],
       "correctAnswer": "Hope",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbe18a002f4464a553/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -109,7 +109,7 @@
       "id": "q11",
       "timestamp": 91,
       "question": "What did Kabir feel when he was reading the letter Aarav sent him?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Kabir was proud because of Aarav's achievements",
       "options": ["Proud", "Disappointed", "Nervous", "Angry"],
       "correctAnswer": "Proud",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbe19300189b0a8abc/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -121,7 +121,7 @@
       "id": "q12",
       "timestamp": "44",
       "question": "What did Arun feel while he was remembering his dead partner?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Arun felt sad because he was reminiscing about his late partner.",
       "options": ["Happy", "Sad", "Excited", "Angry"],
       "correctAnswer": "Sad",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbf4cb0006331f3725/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -130,7 +130,7 @@
       "id": "q13",
       "timestamp": "63",
       "question": "How did Arun feel when Ravi returned?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Arun felt happy as Ravi came back and he was't alone there sitting on the bench",
       "options": ["Fear", "Happy", "Confused", "Nervous"],
       "correctAnswer": "Happy",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbf4c0001b8ba511d2/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -139,7 +139,7 @@
       "id": "q14",
       "timestamp": "90",
       "question": "What did Arun feel for Meera?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Arun felt loved as Meera was the long-lost companion who used to sit with him on the bench.",
       "options": ["Anger", "Pride", "Love", "Sadness"],
       "correctAnswer": "Love",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbf4b0001304090d03/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -150,7 +150,7 @@
       "id": "q15",
       "timestamp": "55",
       "question": "What did Meera feel when the librarian started reciting a story to her?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Meera was happy because the librarian was reciting the story to her.",
       "options": ["Sad", "Happy", "Bored", "Nervous"],
       "correctAnswer": "Happy",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbf6c2000e0ea96a5f/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -159,7 +159,7 @@
       "id": "q16",
       "timestamp": "88",
       "question": "What did Meera feel after listening to the story?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Meera was inspired as she felt not only to scribble but write a story of her onw",
       "options": ["Inspired", "Afraid", "Confused", "Bored"],
       "correctAnswer": "Inspired",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbf6dd003b786fd7bc/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -168,7 +168,7 @@
       "id": "q17",
       "timestamp": "130",
       "question": "What did the librarian feel about Meera when he was placing Meera's book in the library?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Librarian was proud of Meera as she wrote a book of her own.",
       "options": ["Proud", "Jealous", "Indifferent", "Happy"],
       "correctAnswer": "Proud",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbf6e4002674f54fa9/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -179,7 +179,7 @@
       "id": "q18",
       "timestamp": "34",
       "question": "What did Zoya feel when she saw the empty swing?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Zoya was sad because she knew the friend who use to swing with her is not going to come back",
       "options": ["Excited", "Happy", "Sad", "Fearful"],
       "correctAnswer": "Sad",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbfa450019d4bd231f/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -188,7 +188,7 @@
       "id": "q19",
       "timestamp": "131",
       "question": "What did Kabir's words make Zoya feel?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Zoya was inspired by Kabir's words as they encouraged her to ride on the swing once again.",
       "options": ["Inspired", "Angry", "Hopeless", "Scared"],
       "correctAnswer": "Inspired",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbfa4d0014df368521/view?project=67c98b5e0035bedcf913&mode=admin"
@@ -197,10 +197,39 @@
       "id": "q20",
       "timestamp": "196",
       "question": "How did Zoya feel when she was on the swing after so long?",
-      "wrongMessage": "No, your answer is incorrect",
+      "wrongMessage": "No. Zoya felt happy because she was on the swing after a long time",
       "options": ["Fearful", "Happy", "Confused", "Tired"],
       "correctAnswer": "Happy",
       "image": "https://cloud.appwrite.io/v1/storage/buckets/67dbdf9e0022a4fd61a1/files/67dbfa55000ebad1a30a/view?project=67c98b5e0035bedcf913&mode=admin"
+    }
+  ],
+  "8": [
+    {
+      "id": "q21",
+      "timestamp": "59",
+      "question": "What was meera feeling when her wishes were going unanswered?",
+      "wrongMessage": "No. Meera was sad as whatever she wished was going unanswered",
+      "options": ["Excited", "Happy", "Sad", "Fearful"],
+      "correctAnswer": "Sad",
+      "image": ""
+    },
+    {
+      "id": "q22",
+      "timestamp": "107",
+      "question": "What was Meera feeling while making the wish?",
+      "wrongMessage": "No. Zoya was inspired by Kabir's words as they encouraged her to ride on the swing once again.",
+      "options": ["Inspired", "Afraid", "Hopeless", "Scared"],
+      "correctAnswer": "Afraid",
+      "image": ""
+    },
+    {
+      "id": "q23",
+      "timestamp": "180",
+      "question": "What Meera felt when she saw her lantern fly in the sky?",
+      "wrongMessage": "No. Zoya felt happy because she was on the swing after a long time",
+      "options": ["Fearful", "Hope", "Confused", "Tired"],
+      "correctAnswer": "Hope",
+      "image": ""
     }
   ]
 
