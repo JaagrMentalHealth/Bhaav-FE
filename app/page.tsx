@@ -14,6 +14,7 @@ export default function Home() {
   const [hoverButton, setHoverButton] = useState<string | null>(null)
   const [showDialog, setShowDialog] = useState(false)
   const router = useRouter()
+
   useEffect(() => {
     setIsLoaded(true)
   }, [])
@@ -131,7 +132,7 @@ export default function Home() {
         />
       </div>
 
-      <div className="container mx-auto min-h-[100vh] px-6 z-10">
+      <div className="container mx-auto px-6 z-10">
         {/* Game UI header */}
         <div className="pt-4 flex justify-between items-center">
           <div className="flex items-center gap-1">
@@ -151,13 +152,7 @@ export default function Home() {
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            {/* <div className="inline-block mb-3 px-4 py-2 bg-indigo-800/50 rounded-xl border-2 border-indigo-600/50 shadow-glow-purple">
-              <span className="text-fuchsia-300 font-bold flex items-center">
-                <Gamepad2 className="mr-2 h-5 w-5" />
-                Fun for kids ages 4-10
-              </span>
-            </div> */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 drop-shadow-md">
+            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 drop-shadow-md">
               <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
                 Learn Emotions
               </span>
@@ -166,7 +161,7 @@ export default function Home() {
                 Through Play!
               </span>
             </h1>
-            <p className="text-lg text-indigo-100 mb-8 max-w-lg">
+            <p className="text-3xl text-indigo-100 mb-8 max-w-lg">
               Join our magical adventure to understand feelings, make new friends, and develop emotional intelligence
               through interactive games and stories!
             </p>
@@ -182,7 +177,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
                 <Button
                   size="lg"
-                  className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-8 py-6 text-lg font-bold text-white  border-2 border-indigo-400/30"
+                  className="relative bg-gradient-to-br from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 px-10 py-8 text-lg font-bold text-white  border-2 border-indigo-400/30"
                   onClick={() => {
                     router.push("/face-museum")
                   }}
@@ -191,29 +186,6 @@ export default function Home() {
                   Start your Journey
                 </Button>
               </motion.div>
-
-              {/* <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-900 to-violet-900 rounded-xl blur opacity-50 group-hover:opacity-100 transition duration-200"></div>
-                <Link href = "Hall of faces">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="relative bg-indigo-900/50 hover:bg-indigo-800/50 px-6 py-6 text-lg font-bold border-2 border-indigo-500/50 text-white rounded-xl"
-                >
-                  <motion.span
-                    animate={{ rotate: [0, 10, 0, -10, 0] }}
-                    transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-                  >
-                    <Sparkles className="mr-2 h-6 w-6 text-fuchsia-300" />
-                  </motion.span>
-                  Hall of faces
-                </Button>
-                </Link>
-              </motion.div> */}
             </div>
           </motion.div>
 
@@ -329,7 +301,7 @@ export default function Home() {
       </div>
 
       {/* Features Section */}
-      <section className="py-20 md:py-32 relative overflow-hidden">
+      <section className="py-12 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 -z-10 bg-gradient-to-b from-indigo-950 to-indigo-900"></div>
 
         {/* Wavy divider */}
@@ -408,7 +380,7 @@ export default function Home() {
                 title: "Cool Badges",
                 description: "Collect awesome badges as you learn and grow your emotional vocabulary!",
                 icon: <Star className="text-purple-400" size={28} />,
-                href: "/badges",
+                href: "/",
                 color: "bg-purple-400/20",
                 border: "border-purple-400/50",
                 glow: "shadow-glow-purple",
