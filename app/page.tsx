@@ -152,7 +152,7 @@ export default function Home() {
             animate={isLoaded ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold mb-6 drop-shadow-md">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-md">
               <span className="bg-gradient-to-r from-fuchsia-400 to-purple-400 text-transparent bg-clip-text">
                 Learn Emotions
               </span>
