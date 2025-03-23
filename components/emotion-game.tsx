@@ -349,13 +349,38 @@ export default function EmotionGame({
 
           {/* Video Background (Will Stay Below the Quiz) */}
           <video
-            ref={videoRef}
-            src={videoUrl}
-            className="w-full h-full object-cover flex-grow"
-            onEnded={handleVideoEnd}
-            autoPlay
-            preload="auto"
-          />
+  ref={videoRef}
+  src={videoUrl}
+  className="w-full h-full object-cover flex-grow"
+  onEnded={handleVideoEnd}
+  playsInline // Ensures video plays in Safari iOS
+  muted // Required for autoplay to work on iOS
+  autoPlay
+  preload="auto"
+  onClick={() => {
+    if (videoRef.current) {
+      videoRef.current.muted = false; // Unmute on user interaction
+      videoRef.current.play();
+    }
+  }}
+/>
+
+{/* Fallback Play Button for iOS */}
+{!videoPlaying && (
+  <button
+    className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white text-lg font-bold rounded-lg"
+    onClick={() => {
+      if (videoRef.current) {
+        videoRef.current.muted = false;
+        videoRef.current.play();
+        setVideoPlaying(true);
+      }
+    }}
+  >
+    ▶ Play Video
+  </button>
+)}
+
         </div>
 
         {/* Video Progress */}

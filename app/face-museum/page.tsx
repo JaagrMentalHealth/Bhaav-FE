@@ -149,62 +149,6 @@ export default function FaceMuseum() {
         </div>
 
         <div className="container mx-auto px-4 -mt-8 sm:-mt-12 md:-mt-16 relative z-20">
-          {/* {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 "></div>
-          </div>
-        ) : emotions.length > 0 ? (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="max-w-4xl mx-auto mb-24 rounded-3xl overflow-hidden shadow-glow-purple"
-          >
-            <div className="relative">
-            <div className="emotion-carousel bg-indigo-800/60 ">
-              <Carousel
-                showArrows={true}
-                infiniteLoop={true}
-                showThumbs={false}
-                showStatus={false}
-                autoPlay
-                interval={4000}
-                className="emotion-carousel"
-                renderArrowPrev={renderArrowPrev}
-                renderArrowNext={renderArrowNext}
-              >
-                {emotions.map((emotion) => (
-                  <div key={emotion.id} className="p-8 md:p-12 text-center">
-                    <div className="relative w-48 h-48 md:w-64 md:h-64 mx-auto mb-6">
-                      <div className="absolute inset-0 bg-fuchsia-500/10 rounded-full"></div>
-                      <div className="absolute inset-4 rounded-full border-2 border-dashed border-primary/30 animate-spin-slow"></div>
-                      <div className="absolute inset-8 bg-indigo-900 rounded-full shadow-inner flex items-center justify-center border-2 border-indigo-700/50">
-                      <Image
-                      src={emotion.image[0] || "/placeholder.svg"}
-                      alt={emotion.name}
-                      fill
-                            className="object-cover rounded-full p-2"
-                      />
-                      </div>
-                    </div>
-                      <h2 className="text-2xl md:text-3xl font-bold mt-4 text-white">{emotion.name}</h2>
-                      <p className="text-base md:text-lg text-indigo-200 mt-3 max-w-lg mx-auto">
-                      {emotion.description}
-                    </p>
-                    <button
-                      onClick={() => handleEmotionClick(emotion.id)}
-                      className="mt-6 inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
-                    >
-                      <Info className="mr-2 h-4 w-4" />
-                      Learn More
-                    </button>
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-            </div>
-          </motion.div>
-        ) : null} */}
 
           <div className="mb-16">
             <motion.div
